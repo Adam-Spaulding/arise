@@ -1,0 +1,50 @@
+<nav ng-show="signedIn()" class="navbar navbar-info" ng-controller="NavController">
+  <div class="container-fluid" style="margin:0px auto;">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#/">
+        <!-- <div class="logo-custom">
+          <img style="height:40px; margin-top:5px;" src="images/logo.svg"></img>
+        </div> -->
+        <!-- <i class="fa fa-picture-o"></i> -->
+        arise</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <!-- <span class="icon-bar">test</span>
+        <span class="icon-bar">test2</span>
+        <span class="icon-bar">test3</span> -->
+      </button>
+    </div>
+    <div class="tab_container">
+    			<input id="tab1" type="radio" name="tabs" checked onclick="location.href='#/browse'">
+    			<label for="tab1"><i class="fa fa-plus"></i><span>Open Calls</span></label>
+
+    			<input id="tab2" type="radio" name="tabs" onclick="location.href='#/mycalls'">
+    			<label for="tab2"><i class="fa fa-user-plus"></i><span>My Calls</span></label>
+
+    			<input id="tab3" type="radio" name="tabs" onclick="location.href='#/pickedupcalls'">
+    			<label for="tab3"><i class="fa fa-comments"></i><span>Chat</span></label>
+
+    			<input id="tab4" data-toggle="modal" data-target="#posModal" type="radio" name="tabs">
+    			<label style="background-color:#2ecc71;" id="ghn-label" for="tab4"><i class="fa fa-plus-circle" style="color:#fff;"></i><span id="ghn">Get Help Now!</span></label>
+
+    			<!--- <input id="tab5" type="radio" name="tabs">
+    			<label for="tab5"><i class="fa fa-envelope-o"></i><span>Stories</span></label> -->
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="pull-right hidden-sm hidden-xs" id="nav-tools" style="color:#fff;">
+      <a href="" class="btn btn-info" style="">
+        Hello, {{currentUser.profile.name}}&nbsp;<img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
+      </a>
+      <!-- <a href="" data-toggle="modal" data-target="#pasModal">
+          <i class="fa fa-unlock-alt" aria-hidden="true" style="color:#fff;"></i> Change Password</a> -->
+      <a href="" ng-click="logout()" class="btn btn-info hidden-md">
+          <i class="fa fa-sign-out" aria-hidden="true" style="color:#fff;"></i> Logout</a>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+
+  <div ng-show="signedIn()" ng-include="'views/partials/changepass.html'"></div>
+  <div ng-show="signedIn()" ng-include="'views/partials/post.html'"></div>
+
+</nav>

@@ -1,0 +1,32 @@
+<div class="background-login">
+<div class="loginlogo">
+    <h2 id="logo">A R I S E</h2>
+</div>
+
+<div class="auth-forms title">
+  <h2>LOGIN</h2>
+
+
+  <!-- Facebook Login Button -->
+ <!-- <a href="#" class="btn btn-primary bt-social" style="background-color:#3B5998 !important;">Login with Facebook</a> -->
+  <form ng-submit="login(user)">
+
+    <div class="input-group">
+      <div class="input-group-addon">
+      	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+      </div>
+      <input type="email" ng-model="user.email" placeholder="Email" class="form-control" required>
+    </div><br>
+
+    <div class="input-group">
+      <div class="input-group-addon">
+      	<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+      </div>
+      <input type="password" ng-model="user.password" placeholder="Password" class="form-control" required>
+    </div><br>
+
+    <input type="submit" value="Login" class="btn btn-primary">
+  </form>
+  <input type="button" class="btn btn-info" value="Register" onclick="location.href='#/register'" />
+</div>
+</div>
