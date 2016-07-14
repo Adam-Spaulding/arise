@@ -135,7 +135,7 @@ a.ng-scope:hover {
 }
 
 .card, #card{
-  border-radius: 0px;
+  border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   padding: 15px;
   background-color: #fff;
@@ -544,16 +544,29 @@ input.form-group {
 }
 
 .dropdown-menu li {
-  height:30px;
+  height:50px;
   display: block;
-  padding:25px 10px;
+  padding:5px 10px;
 }
 
-.dropdown-menu i:hover {
+.dropdown-menu a {
+  color: #363636 !important;
+}
+
+.dropdown-menu li:hover {
   background-color: #f9f9f9;
 }
 .dropdown-menu a:hover {
   text-decoration: none;
+}
+
+.open {
+  border: 1px solid transparent;
+}
+
+ .dropdown-toggle {
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 
 .btn-info i {
@@ -674,24 +687,3 @@ top: 50%;
   width: 100%;
   display: block;
 }
-
-/*#new-call {
-  position: fixed;
-  right: 0;
-  z-index: 200;
-  margin:10px 10px 0px 0px;
-}
-
-@media only screen and (max-width: 767px) {
-  #new-call {
-    bottom: 0;
-    margin-bottom: 60px;
-  }
-
-  #new-call btn {
-    background-color: #fff !important;
-    color: green;
-    font-size: 45px;
-  }
-
-}*/

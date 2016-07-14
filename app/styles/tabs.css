@@ -163,10 +163,17 @@ label .fa {
 }
 
 /*Media query*/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
   label span {
     font-size: 12px;
   }
+
+	#nav-tools {
+		top: 10px;
+		position: absolute;
+		right: 10px;
+	}
+
   label .fa {
     font-size: 14px;
   }

@@ -43,7 +43,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
 
     logout: function() {
       auth.$unauth();
-			window.location.href = "/login";
+			window.location.href = "/";
     },
 
 		changePassword: function(user) {

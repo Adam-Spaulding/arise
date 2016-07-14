@@ -8,12 +8,6 @@
         </div> -->
         <!-- <i class="fa fa-picture-o"></i> -->
         arise</a>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <!-- <span class="icon-bar">test</span>
-        <span class="icon-bar">test2</span>
-        <span class="icon-bar">test3</span> -->
-      </button>
     </div>
     <div class="tab_container">
     			<input id="tab1" type="radio" name="tabs" checked onclick="location.href='#/browse'">
@@ -32,14 +26,26 @@
     			<label for="tab5"><i class="fa fa-envelope-o"></i><span>Stories</span></label> -->
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="pull-right hidden-sm hidden-xs" id="nav-tools" style="color:#fff;">
-      <a href="" class="btn btn-info" style="">
+    <div class="pull-right" id="nav-tools">
+      <div class="dropdown" style="color:#fff;">
+        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+          <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" style="position:absolute; right:10px;">
+          <li><a href="#">My Profile</a></li>
+          <li><a href="#">Settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#" ng-click="logout()">Logout</a></li>
+        </ul>
+      </div>
+
+      <!-- <a href="" class="btn btn-info" style="">
         Hello, {{currentUser.profile.name}}&nbsp;<img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
       </a>
-      <!-- <a href="" data-toggle="modal" data-target="#pasModal">
-          <i class="fa fa-unlock-alt" aria-hidden="true" style="color:#fff;"></i> Change Password</a> -->
+      <a href="" data-toggle="modal" data-target="#pasModal">
+          <i class="fa fa-unlock-alt" aria-hidden="true" style="color:#fff;"></i> Change Password</a>
       <a href="" ng-click="logout()" class="btn btn-info hidden-md">
-          <i class="fa fa-sign-out" aria-hidden="true" style="color:#fff;"></i> Logout</a>
+          <i class="fa fa-sign-out" aria-hidden="true" style="color:#fff;"></i> Logout</a> -->
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
