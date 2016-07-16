@@ -10,7 +10,7 @@ var app = angular
     'angularMoment',
     'ngMap'
   ])
-  .constant('FURL', 'https://arise.firebaseio.com')
+  .constant('FURL', 'https://arisedev.firebaseio.com')
   .constant('TaskStatus', {
     OPEN: 'open',
     COMPLETED: 'completed',

@@ -17,6 +17,7 @@ app.controller('AuthController', function($scope, $location, toaster, Auth) {
 	$scope.login = function(user) {
      Auth.login(user)
       .then(function() {
+             console.log(data)
         toaster.pop('success', "Logged in successfully");
         $location.path('/');
       }, function(err) {
@@ -39,6 +40,15 @@ app.controller('AuthController', function($scope, $location, toaster, Auth) {
       });
   };
 
+    $scope.fbSignup = function(){
+        Auth.fbAuth(function() {
+            toaster.pop('success', 'Logged in successfully');
+            $location.path('/');
+        }, function(err) {
+            errMessage(err);
+        })
+        console.log('kaka')
+    }
 	function errMessage(err) {
 
     var msg = "Unknown Error...";

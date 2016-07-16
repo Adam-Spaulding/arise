@@ -56,7 +56,21 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
 
     requireAuth: function() {
       return auth.$requireAuth();
+    },
+    fbAuth: function(success) {
+      var fbUser = {}
+      return ref.authWithOAuthPopup("facebook", function(error, authData) {
+        console.log(error,authData)
+        if(authData){
+          fbUser.name = authData.facebook.cachedUserProfile;
+          //Auth.createProfile(authData.auth.uid, fbUser);
+          success(authData)
+        }else{
+          console.log(error)
+        }
+      })
     }
+
 	};
 
 	auth.$onAuth(function(authData) {
@@ -162,20 +176,20 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
         }
 
         function B(x) {
-          var k = "",
-            F = "",
+          var k = '',
+            F = '',
             G, d;
           for (d = 0; d <= 3; d++) {
             G = (x >>> (d * 8)) & 255;
-            F = "0" + G.toString(16);
+            F = '0' + G.toString(16);
             k = k + F.substr(F.length - 2, 2)
           }
           return k
         }
 
         function J(k) {
-          k = k.replace(/rn/g, "n");
-          var d = "";
+          k = k.replace(/rn/g, 'n');
+          var d = '';
           for (var F = 0; F < k.length; F++) {
             var x = k.charCodeAt(F);
             if (x < 128) {
