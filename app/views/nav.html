@@ -29,10 +29,11 @@
     <div class="pull-right" id="nav-tools">
       <div class="dropdown" style="color:#fff;">
         <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+          <p style="color: #FFFFFF;display: inline">Hello, {{currentUser.name || currentUser.facebook.cachedUserProfile.name.split(' ')[0]}}</p>
           <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
         </button>
         <ul class="dropdown-menu dropdown-menu-right" style="position:absolute; right:10px;">
-          <li><a href="#">My Profile</a></li>
+          <li><a ng-click="routeToProfilepage()">My Profile</a></li>
           <li><a href="#">Settings</a></li>
           <li class="divider"></li>
           <li><a href="#" ng-click="logout()">Logout</a></li>

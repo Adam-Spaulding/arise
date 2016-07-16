@@ -12,7 +12,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
       var profile = {
         name: user.name,
         email: user.email,
-        gravatar: get_gravatar(user.email, 40)
+        gravatar: user.img?user.img:get_gravatar(user.email, 40)
       };
 
       var profileRef = $firebase(ref.child('profile'));
@@ -62,12 +62,17 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
       return ref.authWithOAuthPopup("facebook", function(error, authData) {
         console.log(error,authData)
         if(authData){
-          fbUser.name = authData.facebook.cachedUserProfile;
-          //Auth.createProfile(authData.auth.uid, fbUser);
+          fbUser.name = authData.facebook.cachedUserProfile.name;
+          fbUser.email = authData.facebook.email;
+          fbUser.img = authData.facebook.profileImageURL;
+          Auth.createProfile(authData.auth.uid, fbUser);
           success(authData)
         }else{
           console.log(error)
         }
+      }, {
+        remember: "sessionOnly",
+        scope: "email"
       })
     }
 

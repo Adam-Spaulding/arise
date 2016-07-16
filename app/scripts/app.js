@@ -37,6 +37,15 @@ var app = angular
           }
         }
       })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'BrowseController',
+        resolve: {
+          currentAuth: function(Auth) {
+            return Auth.requireAuth();
+          }
+        }
+      })
       .when('/browsedetails/:taskId?', {
         templateUrl: 'views/browsedetails.html',
         controller: 'BrowseController',

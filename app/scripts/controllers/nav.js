@@ -10,7 +10,9 @@ app.controller('NavController', function($scope, $location, toaster, Auth) {
     toaster.pop('success', "Logged out successfully");
     $location.path('/login');
   };
-
+$scope.routeToProfilepage = function () {
+	$location.path('/profile');
+}
 	$scope.status = {
 		isopen: false
 	};
