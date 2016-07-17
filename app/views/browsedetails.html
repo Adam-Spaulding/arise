@@ -30,7 +30,8 @@
 
 					<span>
             <img ng-src="{{ selectedTask.gravatar }}?size=2048" class="hidden-md hidden-lg img-circle gravatar">
-						{{selectedTask.name}}
+						<a ng-href="#/profile/{{selectedTask.poster}}">{{selectedTask.name}}</a>
+
             <!-- <span><b>{{selectedTask.title}}</b></span><br>
             <span>{{selectedTask.description}}</span><br> -->
 					</span>

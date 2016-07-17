@@ -4,6 +4,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	$scope.searchTask = '';
 	$scope.tasks = Task.all;
+	$scope.userProfile = {};
+	$scope.userId = $routeParams.userId;
 
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
@@ -14,6 +16,13 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		var task = Task.getTask($routeParams.taskId).$asObject();
 		$scope.listMode = false;
 		setSelectedTask(task);
+	}
+	if($routeParams.userId) {
+		console.log($routeParams.userId);
+		 Auth.getProfile($routeParams.userId).$loaded().then(function(x){
+			 $scope.userProfile = (x)
+		})
+
 	}
 
 	function setSelectedTask(task) {
