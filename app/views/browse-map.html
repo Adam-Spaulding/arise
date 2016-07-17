@@ -3,14 +3,32 @@
 	<div>
 	<!-- ad's -->
 	<div class="col-sm-8" id="browse-map">
-		<ng-map zoom="12" center='current-position'>
+		<ng-map zoom="12" center="current-position" default-style="true">
+
+		    <marker ng-repeat="task in tasks"
+		      id="custom-marker-{{$index}}"
+		      on-click="vm.map.showInfoWindow('foo', 'custom-marker-'+$index)"
+		      position="{{task.pos}}">
+		      <!-- <div>
+		        position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
+		      </div> -->
+		    </marker>
+
+		    <info-window id="foo" on-mouseover="vm.mouseover()">
+		      <div ng-non-bindable="">
+		        hey {{tasks.help_type}}
+		      </div>
+		    </info-window>
+
+		  </ng-map>
+
+
+
+		<!-- <ng-map zoom="12" center='current-position'>
 			<marker ng-repeat="task in tasks | filter: {title: searchTask , status: 'open'}"
-				position="{{tasks.pos}}"
-        data="{{data[$index]}}"
-        on-click="showData()";
-        title="pos: {{p.pos}}">
+				position="{{tasks.pos}}">
 			</marker>
-		</ng-map>
+		</ng-map> -->
 	</div>
 
 	<!-- Right Col -->
