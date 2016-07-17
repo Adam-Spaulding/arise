@@ -37,7 +37,7 @@ var app = angular
           }
         }
       })
-      .when('/profile', {
+      .when('/profile/:userId?', {
         templateUrl: 'views/profile.html',
         controller: 'BrowseController',
         resolve: {

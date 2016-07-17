@@ -4,12 +4,12 @@
         <tr>
             <td style="width: 200px;"><h2>Profile Picture</h2></td>
             <td style="width: 300px;"><h2>Display Name</h2></td>
-            <td style="width: 300px;"><h2>Facebook Profile</h2></td>
+            <td ng-hide="userId" style="width: 300px;"><h2>Facebook Profile</h2></td>
         </tr>
         <tr>
-            <td><img ng-src="{{user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/></td>
-            <td><h4 style="display: inline;" ng-bind="user.facebook.cachedUserProfile.name"></h4></td>
-            <td><a ng-href="{{user.facebook.cachedUserProfile.link}}" target="_blank">Facebook Profile</a></td>
+            <td><img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/></td>
+            <td><h4 style="display: inline;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name"></h4></td>
+            <td><a ng-hide="userId" ng-href="{{user.facebook.cachedUserProfile.link}}" target="_blank">Facebook Profile</a></td>
         </tr>
     </table>
 </div>
