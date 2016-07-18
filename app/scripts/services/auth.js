@@ -15,7 +15,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
         gravatar: user.img?user.img:get_gravatar(user.email, 40)
       };
       if(fbAuth){
-        profile.uid = uid;
+        profile.fbuid = user.uid;
       }
 
       var profileRef = $firebase(ref.child('profile'));
@@ -68,6 +68,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
           fbUser.name = authData.facebook.cachedUserProfile.name;
           fbUser.email = authData.facebook.email;
           fbUser.img = authData.facebook.profileImageURL;
+          fbUser.uid = authData.facebook.cachedUserProfile.id;
           Auth.createProfile(authData.auth.uid, fbUser,'facebookAuth');
           success(authData)
         }else{
