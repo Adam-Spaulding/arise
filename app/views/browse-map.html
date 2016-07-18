@@ -7,7 +7,7 @@
 
 		    <marker ng-repeat="task in tasks"
 		      id="custom-marker-{{$index}}"
-		      on-click="vm.map.showInfoWindow('foo', 'custom-marker-'+$index)"
+		      on-click="vm.map.showInfoWindow('foo')"
 		      position="{{task.pos}}">
 		      <!-- <div>
 		        position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}

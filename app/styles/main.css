@@ -51,7 +51,7 @@ a, a:hover, a:focus {
 }
 
 .list-group .list-group-item .row-picture img, .row-picture i {
-  /*border-radius: 45px;*/
+  border-radius: 45px;
   margin: 0px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
@@ -63,7 +63,7 @@ a, a:hover, a:focus {
 
 #submitter-info img {
   width: 175px;
-  border-radius: 0px;
+  border-radius: 7px;
   height: 175px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
@@ -174,7 +174,7 @@ hr#task-details {
     background-color: rgba(255,255,255, 0.8);
 }
 
-#call-card img {
+.call-card img {
   border-radius: 45px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   border:2px solid #fff;
@@ -343,7 +343,7 @@ input.form-group {
 }
 
 .loginlogo h2 {
-  max-width: 400px;
+  max-width: 300px;
   margin: 5% auto 1% auto;
   color: #363636;
   font-family: 'Roboto Condensed', sans-serif;
@@ -352,6 +352,7 @@ input.form-group {
   font-size: 64px !important;
   /*letter-spacing: 30px;*/
   text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+  border: 3px solid #363636;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
@@ -412,7 +413,8 @@ input.form-group {
 
 .img-circle.gravatar {
   width: 40px;
-  border-radius: 0px;
+  border-radius: 7px;
+  border:1px solid #fff;
 }
 
 .navbar {
@@ -442,6 +444,8 @@ input.form-group {
     border: 2px solid #fff;
     font-size: 40px;
     letter-spacing: 7px;
+    text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 6px rgba(255,255,255,0.7), inset 0px 0px 6px rgba(255,255,255,0.7);
 }
 
 .navbar-toggle {
