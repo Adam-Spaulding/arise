@@ -11,12 +11,12 @@
     </div>
     <div class="tab_container">
     			<input id="tab1" type="radio" name="tabs" checked onclick="location.href='#/browse'">
-    			<label for="tab1"><i class="fa fa-plus"></i><span>Open Calls</span></label>
+    			<label for="tab1"><i class="fa fa-home"></i><span>Open Calls</span></label>
 
     			<input id="tab2" type="radio" name="tabs" onclick="location.href='#/mycalls'">
     			<label for="tab2"><i class="fa fa-user-plus"></i><span>My Calls</span></label>
 
-    			<input id="tab3" type="radio" name="tabs" onclick="location.href='#/pickedupcalls'">
+    			<input id="tab3" type="radio" name="tabs" onclick="location.href='#/chat'">
     			<label for="tab3"><i class="fa fa-comments"></i><span>Chat</span></label>
 
     			<input id="tab4" data-toggle="modal" data-target="#posModal" type="radio" name="tabs">
@@ -33,8 +33,9 @@
           <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
         </button>
         <ul class="dropdown-menu dropdown-menu-right" style="position:absolute; right:10px;">
-          <li><a ng-click="routeToProfilepage()">My Profile</a></li>
-          <li><a href="#">Settings</a></li>
+          <!-- <li><a ng-click="routeToProfilepage()">My Profile</a></li> -->
+          <li><a ng-href="#/profile/{{currentUser.uid}}">My Profile</a></li>
+          <li><a href="#">Alerts</a></li>
           <!-- <li class="divider"></li> -->
           <li><a href="#" ng-click="logout()">Logout</a></li>
         </ul>

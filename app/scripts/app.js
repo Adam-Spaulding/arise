@@ -73,8 +73,8 @@ var app = angular
           }
         }
       })
-      .when('/pickedupcalls', {
-        templateUrl: 'views/pickedupcalls.html',
+      .when('/chat', {
+        templateUrl: 'views/chat.html',
         routeKey: 'pickedupcalls',
         controller: 'BrowseController',
         resolve: {
