@@ -625,7 +625,7 @@ span #Other, #Other i {background-color: rgba(189, 195, 199,1.0)!important;}
 }
 
 #browse-map ng-map {
-height: 100vh;
+  height: 88vh;
 }
 
 .price-tag {
