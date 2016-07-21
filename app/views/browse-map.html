@@ -3,15 +3,30 @@
 	<div>
 	<!-- ad's -->
 	<div class="col-sm-8" id="browse-map">
-		<ng-map zoom="12" center="current-position">
+		<!--<div ng-repeat="task in tasks track by $index">
+			{{task.pos}}
+		</div>-->
+		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+			<ui-gmap-marker ng-repeat="task in mapPins track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
+				<ui-gmap-window ng-cloak coords="task.latlong" isIconVisibleOnClick="true" options="map.infoWindowWithCustomClass.options">
+					<div style="width: 195px;height: 150px;">
+					<p style="font-size: 20px">Tile</p>:<h3 style="display: inline">{{task.title}}</h3><br/>
+					TimeAgo:<h6 style="display: inline">{{task.datetime}}</h6><br/>
+						<p style="font-size: 20px">Description</p>:<p>{{task.description}}</p>
+					</div>
+				</ui-gmap-window>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
+		<!--ngMap-->
+		<!--		<ng-map zoom="12" center="current-position" default-style="true">
 
 		    <marker ng-repeat="task in tasks"
 		      id="custom-marker-{{$index}}"
 		      on-click="vm.map.showInfoWindow('foo')"
 		      position="{{task.pos}}">
-		      <!-- <div>
+		      &lt;!&ndash; <div>
 		        position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
-		      </div> -->
+		      </div> &ndash;&gt;
 		    </marker>
 
 		    <info-window id="foo" on-mouseover="vm.mouseover()">
@@ -20,17 +35,14 @@
 		      </div>
 		    </info-window>
 
-		  </ng-map>
-
-
-
+		  </ng-map>-->
 		<!-- <ng-map zoom="12" center='current-position'>
 			<marker ng-repeat="task in tasks | filter: {title: searchTask , status: 'open'}"
 				position="{{tasks.pos}}">
 			</marker>
 		</ng-map> -->
 	</div>
-
+</div>
 	<!-- Right Col -->
 	<div class="col-sm-4">
 		<h3>Open Calls for Help</h3>

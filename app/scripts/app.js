@@ -8,7 +8,8 @@ var app = angular
     'firebase',
     'toaster',
     'angularMoment',
-    'ngMap'
+    'ngMap',
+    'uiGmapgoogle-maps'
   ])
   .constant('FURL', 'https://arisedev.firebaseio.com')
   .constant('TaskStatus', {
@@ -26,6 +27,12 @@ var app = angular
       }
     });
   })
+    .config(
+     function(uiGmapGoogleMapApiProvider) {
+       uiGmapGoogleMapApiProvider.configure({
+        china: true
+      })
+    })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

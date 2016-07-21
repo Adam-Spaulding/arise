@@ -3,9 +3,25 @@
 app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer) {
 
 	$scope.searchTask = '';
-	$scope.tasks = Task.all;
+	$scope.mapPins = [];
+	Task.all.$loaded(function (tasks) {
+		$scope.tasks = tasks;
+		var taskData = angular.copy(tasks);
+		taskData.map(function(d){
+			d.latlong = {};
+			if(d.lat){
+				d.latlong['latitude'] = d.lat;
+				d.latlong['longitude'] = d.long;
+			}
+			if(d.datetime){
+				d.datetime = (new Date(d.datetime)+'').split('G')[0]
+			}
+		});
+		$scope.mapPins = taskData;
+	});
 	$scope.userProfile = {};
 	$scope.userId = $routeParams.userId;
+	$scope.show = false;
 
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
@@ -24,6 +40,43 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		})
 
 	}
+/*for mapping*/
+	$scope.map = {
+		center: { latitude: 43.0766486, longitude: -70.7572347 },
+		zoom: 8,
+		markers: [],
+		events: {
+			click: function (map, eventName, originalEventArgs) {
+				var e = originalEventArgs[0];
+				var lat = e.latLng.lat(),lon = e.latLng.lng();
+				var marker = {
+					id: Date.now(),
+					coords: {
+						latitude: lat,
+						longitude: lon
+					},
+					option:{ clickable:true }
+				};
+				$scope.map.markers.push(marker);
+				console.log($scope.map.markers);
+				$scope.$apply();
+			},
+			infoWindowWithCustomClass: {
+				options: {
+					boxClass: 'custom-info-window',
+					closeBoxDiv: '<div" class="pull-right" style="position: relative; cursor: pointer; margin: -20px -15px;">X</div>',
+					disableAutoPan: true
+				},
+				show: true
+			}
+		}
+	};
+	$scope.handleMapPins = function () {
+		console.log('kaka')
+		$scope.show = true;
+	}
+
+	/**/
 
 	function setSelectedTask(task) {
 		$scope.selectedTask = task;
