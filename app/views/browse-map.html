@@ -44,19 +44,20 @@
 				</div>
 			</div>
 	<!-- TASK LIST -->
+	<div>
 	<a ng-repeat="task in tasks | filter: {title: searchTask , status: 'open'} | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}">
-		<div id="card"  class="{{task.help_type}} row" style="margin-bottom:15px !important;">
-			<div class="col-xs-4" style="border-right:1px solid #eee; padding:0px !important; max-width:100px !important;">
-				<img class="" ng-src="{{task.gravatar}}">
+		<div id="card" class="list-item row" style="margin-bottom:0px !important;  cursor: pointer;">
+			<div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
+				<img class="" style="max-width:70px;" ng-src="{{task.gravatar}}">
 			</div>
-			<div class="col-xs-8" style="color:#747474;">
-				<h3 class="list-description" style="color:#222222;">{{task.title}}</h3>
-				<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-				<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-				<!-- <p>{{task.description | limitTo:100}}{{ task.title.length > 100? "..." : ""}}</p> -->
+			<div class="col-xs-8">
+				<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span>  {{task.help_type}}</p>
+				<p id="subheader"><!--- Posted by {{task.name}} ----><span am-time-ago="task.datetime"></span></p>
+				<p style="color:#2c3e50;">{{task.title}} - {{task.description | limitTo:100}}{{ task.title.length > 100? "..." : ""}}</p>
 			</div>
 		</div>
 		</a>
+	</div>
 	</div>
 	<div ng-include="'views/partials/edit.html'"></div>
 	<div ng-include="'views/partials/offer.html'"></div>
