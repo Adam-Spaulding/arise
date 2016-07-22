@@ -7,11 +7,12 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	Task.all.$loaded(function (tasks) {
 		$scope.tasks = tasks;
 		var taskData = angular.copy(tasks);
-		taskData.map(function(d){
+		taskData.map(function(d,i){
 			d.latlong = {};
 			if(d.lat){
 				d.latlong['latitude'] = d.lat;
 				d.latlong['longitude'] = d.long;
+				d.idKey = i;
 			}
 			if(d.datetime){
 				d.datetime = (new Date(d.datetime)+'').split('G')[0]
@@ -74,7 +75,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.handleMapPins = function () {
 		console.log('kaka')
 		$scope.show = true;
-	}
+	};
 
 	/**/
 
