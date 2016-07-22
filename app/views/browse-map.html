@@ -25,10 +25,24 @@
 					</div>
 				</ui-gmap-windows>
 			</ui-gmap-markers>
+			<ui-gmap-marker
+					idKey='currentUserLocation.idKey'
+					coords='currentUserLocation.latlong'
+					>
+			</ui-gmap-marker>
+
+			<ui-gmap-polyline ng-repeat="p in polylines" path="p.path"
+							  stroke="p.stroke"
+							  visible='p.visible'
+							  geodesic='p.geodesic'
+							  fit="false"
+							  draggable="p.draggable">
+			</ui-gmap-polyline>
+
 		</ui-gmap-google-map>
 
 		<!--ngMap-->
-		<!--		<ng-map zoom="12" center="current-position" default-style="true">
+		<!--<ng-map zoom="12" center="current-position" default-style="true">
 
 		    <marker ng-repeat="task in tasks"
 		      id="custom-marker-{{$index}}"

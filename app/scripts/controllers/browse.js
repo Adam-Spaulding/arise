@@ -4,26 +4,88 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	$scope.searchTask = '';
 	$scope.mapPins = [];
-	Task.all.$loaded(function (tasks) {
-		$scope.tasks = tasks;
-		var taskData = angular.copy(tasks);
-		taskData.map(function(d,i){
-			d.latlong = {};
-			if(d.lat){
-				d.latlong['latitude'] = d.lat;
-				d.latlong['longitude'] = d.long;
-				d.idKey = i;
-			}
-			if(d.datetime){
-				d.datetime = (new Date(d.datetime)+'').split('G')[0]
-			}
-		});
-		$scope.mapPins = taskData;
-	});
+	$scope.paths = [];
+	$scope.polylines = [];
+	$scope.mapProperties = {
+		visible:true,
+		stroke:{
+			color: '#FF0066',
+			weight: 3
+		},
+		geodesic:false,
+		static:true,
+		fit:false,
+		editable:true,
+		draggable:false
+	};
+	$scope.polylines.push($scope.mapProperties);
+
 	$scope.userProfile = {};
+	$scope.currentUserLocation = {};
 	$scope.userId = $routeParams.userId;
 	$scope.show = false;
+	var latitudeLongObj = {
+		lat:'',
+		long:''
+	}
 
+
+	 async.waterfall([
+     function(callback){
+		 Task.all.$loaded(function (tasks) {
+			 $scope.tasks = tasks;
+			 var taskData = angular.copy(tasks);
+			 taskData.map(function(d,i){
+				 d.latlong = {};
+				 if(d.lat){
+					 d.latlong['latitude'] = d.lat;
+					 d.latlong['longitude'] = d.long;
+					 d.idKey = i;
+					 $scope.paths.push(d.latlong);
+				 }
+				 if(d.datetime){
+					 d.datetime = (new Date(d.datetime)+'').split('G')[0];
+				 }
+			 });
+			 $scope.mapPins = taskData;
+			 $scope.polylines[0]['path'] = ($scope.paths);
+
+			 console.log($scope.polylines);
+			 callback(null,'success')
+		 }, function (err) {
+			 callback('err',null)
+		 });
+     },
+     function(result,callback){
+		 var options = {
+			 enableHighAccuracy: true,
+			 timeout: 5000,
+			 maximumAge: 0
+		 };
+
+		 function error(err) {
+			 callback('err',null)
+			 console.warn('ERROR(' + err.code + '): ' + err.message);
+		 };
+
+		 navigator.geolocation.getCurrentPosition(function (pos) {
+			 var crd = pos.coords;
+			 latitudeLongObj.lat = crd.latitude+'';
+			 latitudeLongObj.long = crd.longitude+'';
+			 console.log('Your current position is:');
+			 console.log('Latitude : ' + crd.latitude);
+			 console.log('Longitude: ' + crd.longitude);
+			 console.log('More or less ' + crd.accuracy + ' meters.');
+			 callback(null,'success')
+		 }, error, options);
+       }
+ ], function (err,result) {
+		 $scope.currentUserLocation['latlong'] = latitudeLongObj;
+		 $scope.currentUserLocation['idKey'] = $scope.mapPins.length;
+		 $scope.currentUserLocation['title'] = "i'm here";
+		 $scope.currentUserLocation['help_type'] = "Me";
+     console.log(latitudeLongObj)
+ });
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
 
@@ -35,7 +97,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		setSelectedTask(task);
 	}
 	if($routeParams.userId) {
-		console.log($routeParams.userId);
+		//console.log($routeParams.userId);
 		 Auth.getProfile($routeParams.userId).$loaded().then(function(x){
 			 $scope.userProfile = (x)
 		})
@@ -59,7 +121,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 					option:{ clickable:true }
 				};
 				$scope.map.markers.push(marker);
-				console.log($scope.map.markers);
+				//console.log($scope.map.markers);
 				$scope.$apply();
 			},
 			infoWindowWithCustomClass: {
