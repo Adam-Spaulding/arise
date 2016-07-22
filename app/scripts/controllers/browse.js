@@ -6,6 +6,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.mapPins = [];
 	$scope.paths = [];
 	$scope.polylines = [];
+	$scope.currentUserArr = [];
 	$scope.mapProperties = {
 		visible:true,
 		stroke:{
@@ -25,8 +26,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.userId = $routeParams.userId;
 	$scope.show = false;
 	var latitudeLongObj = {
-		lat:'',
-		long:''
+		latitude:'',
+		longitude:''
 	}
 
 
@@ -70,8 +71,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 		 navigator.geolocation.getCurrentPosition(function (pos) {
 			 var crd = pos.coords;
-			 latitudeLongObj.lat = crd.latitude+'';
-			 latitudeLongObj.long = crd.longitude+'';
+			 latitudeLongObj.latitude = crd.latitude+'';
+			 latitudeLongObj.longitude = crd.longitude+'';
 			 console.log('Your current position is:');
 			 console.log('Latitude : ' + crd.latitude);
 			 console.log('Longitude: ' + crd.longitude);
@@ -84,7 +85,9 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		 $scope.currentUserLocation['idKey'] = $scope.mapPins.length;
 		 $scope.currentUserLocation['title'] = "i'm here";
 		 $scope.currentUserLocation['help_type'] = "Me";
-     console.log(latitudeLongObj)
+		 $scope.currentUserArr.push($scope.currentUserLocation)
+		 //$scope.map.center[latitude] = latitudeLongObj.lat
+     console.log($scope.currentUserArr)
  });
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
