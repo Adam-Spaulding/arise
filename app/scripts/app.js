@@ -30,7 +30,8 @@ var app = angular
     .config(
      function(uiGmapGoogleMapApiProvider) {
        uiGmapGoogleMapApiProvider.configure({
-        china: true
+        china: true,
+         libraries: 'weather,geometry,visualization'
       })
     })
   .config(function ($routeProvider) {

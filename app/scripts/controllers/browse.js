@@ -1,12 +1,28 @@
 'use strict';
 
-app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer) {
-
+app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, uiGmapGoogleMapApi, uiGmapLogger) {
+	uiGmapLogger.currentLevel = uiGmapLogger.LEVELS.debug;
 	$scope.searchTask = '';
 	$scope.mapPins = [];
 	$scope.paths = [];
 	$scope.polylines = [];
+	var lats = [];
+	var lngs = [];
 	$scope.currentUserArr = [];
+	var clusterTypes = ['standard','ugly','beer'];
+	var selectedClusterTypes = {
+		standard:{
+			title: 'Hi I am a Cluster!', gridSize: 60, ignoreHidden: true, minimumClusterSize: 2
+		}
+	};
+	$scope.clusterProps = {
+		doClusterRandomMarkers: true,
+		currentClusterType: 'standard',
+		clusterTypes: clusterTypes,/*
+		selectClusterType: selectClusterType,
+		selectedClusterTypes: selectedClusterTypes,*/
+		clusterOptions: selectedClusterTypes.standard,
+	}
 	$scope.mapProperties = {
 		visible:true,
 		stroke:{
@@ -60,7 +76,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
      function(result,callback){
 		 var options = {
 			 enableHighAccuracy: true,
-			 timeout: 5000,
+			 timeout: 1000,
 			 maximumAge: 0
 		 };
 
@@ -85,10 +101,53 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		 $scope.currentUserLocation['idKey'] = $scope.mapPins.length;
 		 $scope.currentUserLocation['title'] = "i'm here";
 		 $scope.currentUserLocation['help_type'] = "Me";
-		 $scope.currentUserArr.push($scope.currentUserLocation)
+		 $scope.currentUserArr.push($scope.currentUserLocation);
+		 /*uiGmapGoogleMapApi.then(function(maps) {
+			 //var myBounds = new maps.LatLngBounds();
+			 var myBounds;
+			 for (var k = 0; k < $scope.paths.length; k++) {
+				 lats[k] = $scope.paths[k].latitude;
+				 lngs[k] = $scope.paths[k].longitude;
+			  }
+			 var min_lat = Math.min.apply(Math, lats);
+			 var max_lat = Math.max.apply(Math, lats);
+			 var min_lng = Math.min.apply(Math, lngs);
+			 var max_lng = Math.max.apply(Math, lngs);
+
+			 myBounds = new maps.LatLngBounds(
+				 new maps.LatLng(min_lat, min_lng),
+				 new maps.LatLng(max_lat, max_lng)
+			 );
+			 $scope.map.bounds = myBounds;
+			 maps.fitBounds($scope.map.bounds);
+
+			 /!*$scope.map.bounds['northeast'] = {};
+			 $scope.map.bounds['northeast'].latitude = min_lat;
+			 $scope.map.bounds['northeast'].longitude = min_lng;
+			 $scope.map.bounds['southwest'] = {};
+			 $scope.map.bounds['southwest'].latitude = max_lat;
+			 $scope.map.bounds['southwest'].longitude = max_lng;*!/
+			 $scope.googleVersion = maps.version;
+		 });*/
+		 uiGmapGoogleMapApi
+			 .then(function (map_instances) {
+				 var bounds = new google.maps.LatLngBounds();
+				 for (var i in $scope.paths) {
+					 var marker = $scope.paths[i];
+					 bounds.extend(new google.maps.LatLng(marker.latitude, marker.longitude));
+				 }
+
+				 setTimeout(function() {
+					 map_instances[0].map.fitBounds(bounds);
+				 }, 100);
+			 });
+		 $scope.$watch(function(){
+			 return $scope.map.bounds;
+		 })
 		 //$scope.map.center[latitude] = latitudeLongObj.lat
      console.log($scope.currentUserArr)
  });
+
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
 
@@ -110,6 +169,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.map = {
 		center: { latitude: 43.0766486, longitude: -70.7572347 },
 		zoom: 8,
+		bounds: {},
 		markers: [],
 		events: {
 			click: function (map, eventName, originalEventArgs) {
@@ -126,6 +186,24 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 				$scope.map.markers.push(marker);
 				//console.log($scope.map.markers);
 				$scope.$apply();
+			},
+			dragend: function () {
+				setTimeout(function () {
+					var markers = [];
+
+					var id = 0;
+					if ($scope.paths !== null && $scope.paths.length > 0) {
+						var maxMarker = _.max($scope.paths, function (marker) {
+							return marker;
+						});
+						id = maxMarker.mid;
+					}
+					for (var i = 0; i < 4; i++) {
+						id++;
+						markers.push(createRandomMarker(id, $scope.map.bounds, "mid"));
+					}
+					$scope.map.mexiMarkers = markers.concat($scope.map.mexiMarkers);
+				});
 			},
 			infoWindowWithCustomClass: {
 				options: {

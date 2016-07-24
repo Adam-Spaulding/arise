@@ -3,20 +3,20 @@
 	<div>
 	<!-- ad's -->
 	<div class="col-sm-8" id="browse-map">
-		<!--<div ng-repeat="task in currentUserArr track by $index">
+		<div ng-repeat="task in mapPins track by $index">
 			{{task.latlong | json}}
-		</div>-->
-		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+		</div>
+		<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds">
 			<ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
 				<ui-gmap-window ng-cloak coords="task.latlong" isIconVisibleOnClick="true" options="map.infoWindowWithCustomClass.options">
-					<div style="width: 195px;height: 150px;">
-					<p style="font-size: 20px">Tile</p>:<h3 style="display: inline">{{task.title}}</h3><br/>
-					TimeAgo:<h6 style="display: inline">{{task.datetime}}</h6><br/>
-						<p style="font-size: 20px">Description</p>:<p>{{task.help_type}}</p>
+					<div style="width: 225px;">
+						<p style="font-size: 20px;display: inline;">Tile</p>:<h3 style="display: inline">{{task.title}}</h3><br/>
+						<p style="font-size: 20px;display: inline;">TimeAgo</p>:<h6 style="display: inline">{{task.datetime}}</h6><br/>
+						<p style="font-size: 20px;display: inline;">Category</p>:<p style="display: inline;">{{task.help_type}}</p>
 					</div>
 				</ui-gmap-window>
 			</ui-gmap-marker>
-			<ui-gmap-markers models="mapPins" coords="'latlong'" fit='true' idKey="'idKey'">
+			<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
 				<ui-gmap-windows show="show" ng-cloak>
 					<div style="width: 225px;" ng-non-bindable>
 						<p style="font-size: 20px;display: inline;">Title</p>:<h4 style="display: inline" >{{ title }}</h4>
@@ -25,18 +25,18 @@
 					</div>
 				</ui-gmap-windows>
 			</ui-gmap-markers>
-			<!--<ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelInBackground: false}" idkey="$index">
-			</ui-gmap-marker>-->
-<!--
-			<ui-gmap-polyline ng-repeat="p in polylines" path="p.path"
-							  stroke="p.stroke"
-							  visible='p.visible'
-							  geodesic='p.geodesic'
-							  fit="false"
-							  draggable="p.draggable">
-			</ui-gmap-polyline>-->
+			<!--&lt;!&ndash;<ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelInBackground: false}" idkey="$index">-->
+			<!--</ui-gmap-marker>&ndash;&gt;-->
+<!--&lt;!&ndash;-->
+			<!--<ui-gmap-polyline ng-repeat="p in polylines" path="p.path"-->
+							  <!--stroke="p.stroke"-->
+							  <!--visible='p.visible'-->
+							  <!--geodesic='p.geodesic'-->
+							  <!--fit="false"-->
+							  <!--draggable="p.draggable">-->
+			<!--</ui-gmap-polyline>&ndash;&gt;-->
 
-		</ui-gmap-google-map>
+		<!--</ui-gmap-google-map>-->
 
 		<!--ngMap-->
 		<!--<ng-map zoom="12" center="current-position" default-style="true">
