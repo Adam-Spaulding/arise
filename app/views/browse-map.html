@@ -3,10 +3,10 @@
 	<div>
 	<!-- ad's -->
 	<div class="col-sm-8" id="browse-map">
-		<div ng-repeat="task in mapPins track by $index">
+	<!--	<div ng-repeat="task in mapPins track by $index">
 			{{task.latlong | json}}
-		</div>
-		<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds">
+		</div>-->
+		<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" control="googleMapInstance" events="map.events" options="map.controls"  >
 			<ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
 				<ui-gmap-window ng-cloak coords="task.latlong" isIconVisibleOnClick="true" options="map.infoWindowWithCustomClass.options">
 					<div style="width: 225px;">

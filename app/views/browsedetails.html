@@ -73,10 +73,12 @@
                 <div class="col-xs-8">
                   <div class="row">
                     <span><b>{{offer.name}}</b></span>
+
                     <!-- Posted <span class="cmt-time"><span am-time-ago="offer.datetime"></span></span> -->
                   </div>
                   <div class="row">
                     <span>{{offer.total}}</span>
+                          <img ng-src="{{offer.img}}" class="img-circle offer gravatar" style="">
                   </div>
                 </div>
                 <div class="col-xs-2" style="border-left:1px solid #eee; text-align:center;">
@@ -103,20 +105,24 @@
                         </div> -->
                         <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:80%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
                         <div id="chat-submit">
-                          <button type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
+                            <div class="upload">
+                                <input type="file" name="upload" id="convoImg"/>
+                            </div>
+                            <button style="background-color: #ff5555" type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
                            <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
                          </button>
                        </div>
                       </div>
                     </form>
                 </div>
-                <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments.slice().reverse()" orderBy: 'datetime':true>
+                <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments.slice().reverse() | orderBy: 'datetime':true">
                   <hr>
                     <img ng-src="{{com.gravatar}}" class="img-circle comment gravatar pull-left">
                     <div class="well-sm cmt" class="pull-right">
                       <span class="cmt-title">{{com.name}} </span>
                       <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
                       <span>{{com.content}}</span>
+                        <img ng-src="{{com.img}}" class="img-circle offer gravatar" style="width: 70px;">
                     </div>
                 </div>
 					    </div>

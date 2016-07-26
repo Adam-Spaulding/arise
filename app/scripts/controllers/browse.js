@@ -1,11 +1,13 @@
 'use strict';
 
 app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, uiGmapGoogleMapApi, uiGmapLogger) {
-	uiGmapLogger.currentLevel = uiGmapLogger.LEVELS.debug;
+	//uiGmapLogger.currentLevel = uiGmapLogger.LEVELS.debug;
 	$scope.searchTask = '';
 	$scope.mapPins = [];
 	$scope.paths = [];
 	$scope.polylines = [];
+	// Set up map defaults etc.
+	$scope.googleMapInstance = {};
 	var lats = [];
 	var lngs = [];
 	$scope.currentUserArr = [];
@@ -99,8 +101,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
  ], function (err,result) {
 		 $scope.currentUserLocation['latlong'] = latitudeLongObj;
 		 $scope.currentUserLocation['idKey'] = $scope.mapPins.length;
-		 $scope.currentUserLocation['title'] = "i'm here";
-		 $scope.currentUserLocation['help_type'] = "Me";
+		 $scope.currentUserLocation['title'] = 'i\'m here';
+		 $scope.currentUserLocation['help_type'] = 'Me';
 		 $scope.currentUserArr.push($scope.currentUserLocation);
 		 /*uiGmapGoogleMapApi.then(function(maps) {
 			 //var myBounds = new maps.LatLngBounds();
@@ -129,20 +131,27 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 			 $scope.map.bounds['southwest'].longitude = max_lng;*!/
 			 $scope.googleVersion = maps.version;
 		 });*/
-		 uiGmapGoogleMapApi
-			 .then(function (map_instances) {
+		 uiGmapGoogleMapApi.then(function(){
+			 $scope.fitBounds = function() {
 				 var bounds = new google.maps.LatLngBounds();
-				 for (var i in $scope.paths) {
-					 var marker = $scope.paths[i];
-					 bounds.extend(new google.maps.LatLng(marker.latitude, marker.longitude));
+				 for (var i = 0; i < $scope.paths.length; i++) {
+					 bounds.extend(new google.maps.LatLng({lat: $scope.paths[i].latitude, lng: $scope.paths[i].longitude}));
 				 }
 
-				 setTimeout(function() {
-					 map_instances[0].map.fitBounds(bounds);
-				 }, 100);
-			 });
-		 $scope.$watch(function(){
-			 return $scope.map.bounds;
+				 // Set bounds on model.map object.
+				 // This causes the map to fit bounds automagically (angular-google-maps functionality?)
+				 $scope.map.bounds = {
+					 southwest: {
+						 latitude: bounds.R.j,
+						 longitude: bounds.j.j
+					 },
+					 northeast: {
+						 latitude: bounds.R.R,
+						 longitude: bounds.j.R
+					 }
+				 };
+
+			 };
 		 })
 		 //$scope.map.center[latitude] = latitudeLongObj.lat
      console.log($scope.currentUserArr)
@@ -171,6 +180,10 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		zoom: 8,
 		bounds: {},
 		markers: [],
+		controls: {
+			mapTypeControl: false,
+			streetViewControl: false
+		},
 		events: {
 			click: function (map, eventName, originalEventArgs) {
 				var e = originalEventArgs[0];
@@ -187,24 +200,6 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 				//console.log($scope.map.markers);
 				$scope.$apply();
 			},
-			dragend: function () {
-				setTimeout(function () {
-					var markers = [];
-
-					var id = 0;
-					if ($scope.paths !== null && $scope.paths.length > 0) {
-						var maxMarker = _.max($scope.paths, function (marker) {
-							return marker;
-						});
-						id = maxMarker.mid;
-					}
-					for (var i = 0; i < 4; i++) {
-						id++;
-						markers.push(createRandomMarker(id, $scope.map.bounds, "mid"));
-					}
-					$scope.map.mexiMarkers = markers.concat($scope.map.mexiMarkers);
-				});
-			},
 			infoWindowWithCustomClass: {
 				options: {
 					boxClass: 'custom-info-window',
@@ -219,6 +214,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		console.log('kaka')
 		$scope.show = true;
 	};
+
 
 	/**/
 
@@ -267,11 +263,28 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		$scope.offers = Offer.offers(task.$id);
 	};
 
+	/*img to base64*/
+	var handleFileSelect = function(element, cb) {
+		var files = element.files;
+		var file = files[0];
+		if (files && file) {
+			var reader = new FileReader();
+			reader.addEventListener('load', function () {
+				var image = new Image();
+				image.height = 100;
+				image.title = file.name;
+				image.src = this.result;
+				cb(this.result);
+			}, false);
+
+			reader.readAsDataURL(file);
+		}
+	};
 	// --------------- TASK ---------------
 
 	$scope.cancelTask = function(taskId) {
 		Task.cancelTask(taskId).then(function() {
-			toaster.pop('success', "This call for help has been cancelled successfully.");
+			toaster.pop('success', 'This call for help has been cancelled successfully.');
 			$location.path('/browse');
 		});
 	};
@@ -280,7 +293,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	$scope.completeTask = function(taskId) {
 		Task.completeTask(taskId).then(function() {
-			toaster.pop('success', "Congratulation! You have completed this call for help.");
+			toaster.pop('success', 'Congratulation! You have completed this call for help.');
 		});
 	};
 
@@ -290,42 +303,84 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		var comment = {
 			content: $scope.content,
 			name: $scope.user.profile.name,
+			gravatar: $scope.user.profile.gravatar,
+		};
+		var convoImgElement = document.getElementById('convoImg');
+		if(convoImgElement.files.length>0){
+			handleFileSelect(convoImgElement, function (data) {
+				comment.img = data;
+				Comment.addComment($scope.selectedTask.$id, comment).then(function() {
+					$scope.content = '';
+				})
+			})
+		}else{
+			Comment.addComment($scope.selectedTask.$id, comment).then(function() {
+				$scope.content = '';
+			})
+		}
+
+		/*var comment = {
+			content: $scope.content,
+			name: $scope.user.profile.name,
 			gravatar: $scope.user.profile.gravatar
 		};
 
 		Comment.addComment($scope.selectedTask.$id, comment).then(function() {
 			$scope.content = '';
-		});
+		});*/
 	};
 
 	// --------------- OFFER ---------------
 
-	$scope.makeOffer = function() {
+
+	$scope.makeOffer = function(element) {
 		var offer = {
 			total: $scope.total,
 			uid: $scope.user.uid,
 			name: $scope.user.profile.name,
 			gravatar: $scope.user.profile.gravatar
 		};
+		var imgelement = document.getElementById('imgupload');
+		if(imgelement.files.length>0){
+			handleFileSelect(imgelement, function (data) {
+				offer.img = data;
+				Offer.makeOffer($scope.selectedTask.$id, offer).then(function() {
+					toaster.pop('success', 'Your offer has been placed.');
 
-		Offer.makeOffer($scope.selectedTask.$id, offer).then(function() {
-			toaster.pop('success', "Your offer has been placed.");
+					// Mark that the current user has offerred for this task.
+					$scope.alreadyOffered = true;
 
-			// Mark that the current user has offerred for this task.
-			$scope.alreadyOffered = true;
+					// Reset offer form
+					$scope.total = true;
 
-			// Reset offer form
-			$scope.total = true;
+					// Disable the "Offer Now" button on the modal
+					$scope.block = true;
+					$('#offModal').modal('hide');
+				});
+			})
+		}else{
+			Offer.makeOffer($scope.selectedTask.$id, offer).then(function() {
+				toaster.pop('success', 'Your offer has been placed.');
 
-			// Disable the "Offer Now" button on the modal
-			$scope.block = true;
-			$('#offModal').modal('hide');
-		});
+				// Mark that the current user has offerred for this task.
+				$scope.alreadyOffered = true;
+
+				// Reset offer form
+				$scope.total = true;
+
+				// Disable the "Offer Now" button on the modal
+				$scope.block = true;
+				$('#offModal').modal('hide');
+			});
+		}
+
+
+
 	};
 
 	$scope.cancelOffer = function(offerId) {
 		Offer.cancelOffer($scope.selectedTask.$id, offerId).then(function() {
-			toaster.pop('success', "Your offer has been cancelled.");
+			toaster.pop('success', 'Your offer has been cancelled.');
 
 			// Mark that the current user has cancelled offer for this task.
 			$scope.alreadyOffered = false;
@@ -339,7 +394,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	$scope.acceptOffer = function(offerId, runnerId) {
 		Offer.acceptOffer($scope.selectedTask.$id, offerId, runnerId).then(function() {
-			toaster.pop('success', "Call has been accepted!");
+			toaster.pop('success', 'Call has been accepted!');
 
 			// Mark that this Task has been assigned
 			// $scope.isAssigned = true;
@@ -349,4 +404,4 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		});
 	};
 
-});
+})

@@ -679,3 +679,19 @@ top: 50%;
 .angular-google-map-container {
   height: 400px;
 }
+div.upload {
+  width: 29px;
+  height: 23px;
+  background: url(http://downloadicons.net/sites/default/files/black-camera-logo-icon-47221.png) no-repeat;
+  background-size: 25px;
+  overflow: hidden;
+  float: left;
+}
+
+div.upload input {
+  display: block !important;
+  width: 157px !important;
+  height: 57px !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+}
