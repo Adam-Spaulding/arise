@@ -332,6 +332,44 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	// --------------- OFFER ---------------
 
+$scope.previewImage = function(that,type){
+	var imgId = '';
+	var prwImgId = '';
+	if(type =='offer'){
+		imgId = 'imgupload';
+		prwImgId = 'offerimg';
+	}else if(type =='post'){
+		imgId = 'helpImg'
+		prwImgId = 'postimg'
+	}else if(type =='post'){
+		imgId = 'helpImg'
+		prwImgId = 'postimg'
+	}
+console.log('change occured')
+	var imgechge = document.getElementById(imgId);
+	handleFileSelect(imgechge, function (data) {
+		document.getElementById(prwImgId).src = data;
+	})
+}
+$scope.previewImagePost = function(that,type){
+	var imgId = '';
+	var prwImgId = '';
+	if(type =='offer'){
+		imgId = 'imgupload';
+		prwImgId = 'offerimg';
+	}else if(type =='post'){
+		imgId = 'helpImg'
+		prwImgId = 'postimg'
+	}else if(type =='comment'){
+		imgId = 'convoImg'
+		prwImgId = 'commentPrwImg'
+	}
+console.log('change occured');
+	var imgechge = document.getElementById(imgId);
+	handleFileSelect(imgechge, function (data) {
+		document.getElementById(prwImgId).src = data;
+	})
+}
 
 	$scope.makeOffer = function(element) {
 		var offer = {
@@ -343,6 +381,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		var imgelement = document.getElementById('imgupload');
 		if(imgelement.files.length>0){
 			handleFileSelect(imgelement, function (data) {
+				document.getElementById('offerimg').src = data;
 				offer.img = data;
 				Offer.makeOffer($scope.selectedTask.$id, offer).then(function() {
 					toaster.pop('success', 'Your offer has been placed.');

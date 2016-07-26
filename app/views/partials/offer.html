@@ -12,7 +12,8 @@
         <div class="panel-body">
           <form ng-submit="makeOffer()">
             <textarea type="paragraph" ng-model="$parent.total" class="form-control" placeholder="How can you help?" required ng-disabled="$parent.block" />
-              <input type="file"  id="imgupload"/>
+              <input type="file"  id="imgupload" onchange="angular.element(this).scope().previewImage(this,'offer');"/>
+            <img id='offerimg' style="width: 80px;height: 80px;float: left;" alt=""/>
             <input type="submit" value="Offer Now" class="btn btn-info" ng-disabled="$parent.block" />
           </form>
         </div>
