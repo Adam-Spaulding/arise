@@ -7,7 +7,7 @@
 			{{task.latlong | json}}
 		</div>-->
 		<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" control="googleMapInstance" events="map.events" options="map.controls"  >
-			<!-- <ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
+			 <ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
 				<ui-gmap-window ng-cloak coords="task.latlong" isIconVisibleOnClick="true" options="map.infoWindowWithCustomClass.options">
 					<div style="width: 225px;">
 						<p style="font-size: 20px;display: inline;">Tile</p>:<h3 style="display: inline">{{task.title}}</h3><br/>
@@ -15,9 +15,8 @@
 						<p style="font-size: 20px;display: inline;">Category</p>:<p style="display: inline;">{{task.help_type}}</p>
 					</div>
 				</ui-gmap-window>
-			</ui-gmap-marker> -->
+			</ui-gmap-marker>
 			<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
-				<ui-gmap-windows show="show" ng-cloak>
 					<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
 						<ui-gmap-windows show="show" ng-cloak>
 							<div style="width: 225px;" ng-non-bindable>
@@ -29,7 +28,6 @@
 							</div>
 						</ui-gmap-windows>
 					</ui-gmap-markers>
-				</ui-gmap-windows>
 			</ui-gmap-markers>
 		</ui-gmap-google-map>
 	</div>
