@@ -7,7 +7,7 @@
 			{{task.latlong | json}}
 		</div>-->
 		<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" control="googleMapInstance" events="map.events" options="map.controls"  >
-			<ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
+			<!-- <ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
 				<ui-gmap-window ng-cloak coords="task.latlong" isIconVisibleOnClick="true" options="map.infoWindowWithCustomClass.options">
 					<div style="width: 225px;">
 						<p style="font-size: 20px;display: inline;">Tile</p>:<h3 style="display: inline">{{task.title}}</h3><br/>
@@ -15,53 +15,23 @@
 						<p style="font-size: 20px;display: inline;">Category</p>:<p style="display: inline;">{{task.help_type}}</p>
 					</div>
 				</ui-gmap-window>
-			</ui-gmap-marker>
+			</ui-gmap-marker> -->
 			<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
 				<ui-gmap-windows show="show" ng-cloak>
-					<div style="width: 225px;" ng-non-bindable>
-						<p style="font-size: 20px;display: inline;">Title</p>:<h4 style="display: inline" >{{ title }}</h4>
-						<p style="font-size: 20px;display: inline;">TimeAgo</p>:<h6 style="display: inline">{{datetime}}</h6><br/>
-						<p style="font-size: 20px;display: inline;">Category</p>:<p style="display: inline;">{{help_type}}</p>
-					</div>
+					<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
+						<ui-gmap-windows show="show" ng-cloak>
+							<div style="width: 225px;" ng-non-bindable>
+								<h4>{{ title }}</h4>
+								<h4 id="subheader">Posted by {{ name }} <span am-time-ago="datetime"></span></h4>
+								<h4>{{datetime}}</h4>
+								<h4>{{help_type}}</h4>
+								<a ng-href="#/browsedetails/{{task.$id}}">More Information</a>
+							</div>
+						</ui-gmap-windows>
+					</ui-gmap-markers>
 				</ui-gmap-windows>
 			</ui-gmap-markers>
-			<!--&lt;!&ndash;<ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelInBackground: false}" idkey="$index">-->
-			<!--</ui-gmap-marker>&ndash;&gt;-->
-<!--&lt;!&ndash;-->
-			<!--<ui-gmap-polyline ng-repeat="p in polylines" path="p.path"-->
-							  <!--stroke="p.stroke"-->
-							  <!--visible='p.visible'-->
-							  <!--geodesic='p.geodesic'-->
-							  <!--fit="false"-->
-							  <!--draggable="p.draggable">-->
-			<!--</ui-gmap-polyline>&ndash;&gt;-->
-
-		<!--</ui-gmap-google-map>-->
-
-		<!--ngMap-->
-		<!--<ng-map zoom="12" center="current-position" default-style="true">
-
-		    <marker ng-repeat="task in tasks"
-		      id="custom-marker-{{$index}}"
-		      on-click="vm.map.showInfoWindow('foo')"
-		      position="{{task.pos}}">
-		      &lt;!&ndash; <div>
-		        position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
-		      </div> &ndash;&gt;
-		    </marker>
-
-		    <info-window id="foo" on-mouseover="vm.mouseover()">
-		      <div ng-non-bindable="">
-		        hey {{tasks.help_type}}
-		      </div>
-		    </info-window>
-
-		  </ng-map>-->
-		<!-- <ng-map zoom="12" center='current-position'>
-			<marker ng-repeat="task in tasks | filter: {title: searchTask , status: 'open'}"
-				position="{{tasks.pos}}">
-			</marker>
-		</ng-map> -->
+		</ui-gmap-google-map>
 	</div>
 </div>
 	<!-- Right Col -->

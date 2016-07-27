@@ -14,7 +14,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	var clusterTypes = ['standard','ugly','beer'];
 	var selectedClusterTypes = {
 		standard:{
-			title: 'Hi I am a Cluster!', gridSize: 60, ignoreHidden: true, minimumClusterSize: 2
+			title: 'Click to Zoom', gridSize: 60, ignoreHidden: true, minimumClusterSize: 2
 		}
 	};
 	$scope.clusterProps = {
@@ -153,7 +153,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 			 };
 		 })
-		 //$scope.map.center[latitude] = latitudeLongObj.lat
+		 $scope.map.center[latitude] = latitudeLongObj.lat
      console.log($scope.currentUserArr)
  });
 
@@ -176,8 +176,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	}
 /*for mapping*/
 	$scope.map = {
-		center: { latitude: 43.0766486, longitude: -70.7572347 },
-		zoom: 8,
+		center: {  },
+		zoom: 14,
 		bounds: {},
 		markers: [],
 		controls: {
