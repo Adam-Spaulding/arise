@@ -6,6 +6,9 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.mapPins = [];
 	$scope.paths = [];
 	$scope.polylines = [];
+	if(sessionStorage.latLong){
+		var sessionedLatLong = JSON.parse(sessionStorage.getItem('latLong'));
+	}
 	// Set up map defaults etc.
 	$scope.googleMapInstance = {};
 	var lats = [];
@@ -48,7 +51,32 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		longitude:''
 	}
 
+	var options = {
+		enableHighAccuracy: true,
+		//timeout: 1000,
+		maximumAge: 0
+	};
 
+	function error(err) {
+		callback('err',null)
+		console.warn('ERROR(' + err.code + '): ' + err.message);
+	};
+
+	navigator.geolocation.getCurrentPosition(function (pos) {
+		var crd = pos.coords;
+		latitudeLongObj.latitude = crd.latitude+'';
+		latitudeLongObj.longitude = crd.longitude+'';
+		sessionStorage.latLong = JSON.stringify(latitudeLongObj)
+		console.log('Your current position is:');
+		console.log('Latitude : ' + crd.latitude);
+		console.log('Longitude: ' + crd.longitude);
+		console.log('More or less ' + crd.accuracy + ' meters.');
+	}, error, options);
+	$scope.currentUserLocation['latlong'] = latitudeLongObj;
+	$scope.currentUserLocation['idKey'] = 1;
+	$scope.currentUserLocation['title'] = 'i\'m here';
+	$scope.currentUserLocation['help_type'] = 'Me';
+	$scope.currentUserArr.push($scope.currentUserLocation);
 	 async.waterfall([
      function(callback){
 		 Task.all.$loaded(function (tasks) {
@@ -62,98 +90,21 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 					 d.idKey = i;
 					 $scope.paths.push(d.latlong);
 				 }
-				 if(d.datetime){
-					 d.datetime = (new Date(d.datetime)+'').split('G')[0];
+				 if(d.status != 'open'){
+					 taskData.splice(i,1)
 				 }
+
 			 });
 			 $scope.mapPins = taskData;
 			 $scope.polylines[0]['path'] = ($scope.paths);
 
-			 console.log($scope.polylines);
+			 //console.log($scope.polylines);
 			 callback(null,'success')
 		 }, function (err) {
 			 callback('err',null)
 		 });
-     },
-     function(result,callback){
-		 var options = {
-			 enableHighAccuracy: true,
-			 timeout: 1000,
-			 maximumAge: 0
-		 };
-
-		 function error(err) {
-			 callback('err',null)
-			 console.warn('ERROR(' + err.code + '): ' + err.message);
-		 };
-
-		 navigator.geolocation.getCurrentPosition(function (pos) {
-			 var crd = pos.coords;
-			 latitudeLongObj.latitude = crd.latitude+'';
-			 latitudeLongObj.longitude = crd.longitude+'';
-			 console.log('Your current position is:');
-			 console.log('Latitude : ' + crd.latitude);
-			 console.log('Longitude: ' + crd.longitude);
-			 console.log('More or less ' + crd.accuracy + ' meters.');
-			 callback(null,'success')
-		 }, error, options);
-       }
+     }
  ], function (err,result) {
-		 $scope.currentUserLocation['latlong'] = latitudeLongObj;
-		 $scope.currentUserLocation['idKey'] = $scope.mapPins.length;
-		 $scope.currentUserLocation['title'] = 'i\'m here';
-		 $scope.currentUserLocation['help_type'] = 'Me';
-		 $scope.currentUserArr.push($scope.currentUserLocation);
-		 /*uiGmapGoogleMapApi.then(function(maps) {
-			 //var myBounds = new maps.LatLngBounds();
-			 var myBounds;
-			 for (var k = 0; k < $scope.paths.length; k++) {
-				 lats[k] = $scope.paths[k].latitude;
-				 lngs[k] = $scope.paths[k].longitude;
-			  }
-			 var min_lat = Math.min.apply(Math, lats);
-			 var max_lat = Math.max.apply(Math, lats);
-			 var min_lng = Math.min.apply(Math, lngs);
-			 var max_lng = Math.max.apply(Math, lngs);
-
-			 myBounds = new maps.LatLngBounds(
-				 new maps.LatLng(min_lat, min_lng),
-				 new maps.LatLng(max_lat, max_lng)
-			 );
-			 $scope.map.bounds = myBounds;
-			 maps.fitBounds($scope.map.bounds);
-
-			 /!*$scope.map.bounds['northeast'] = {};
-			 $scope.map.bounds['northeast'].latitude = min_lat;
-			 $scope.map.bounds['northeast'].longitude = min_lng;
-			 $scope.map.bounds['southwest'] = {};
-			 $scope.map.bounds['southwest'].latitude = max_lat;
-			 $scope.map.bounds['southwest'].longitude = max_lng;*!/
-			 $scope.googleVersion = maps.version;
-		 });*/
-		 uiGmapGoogleMapApi.then(function(){
-			 $scope.fitBounds = function() {
-				 var bounds = new google.maps.LatLngBounds();
-				 for (var i = 0; i < $scope.paths.length; i++) {
-					 bounds.extend(new google.maps.LatLng({lat: $scope.paths[i].latitude, lng: $scope.paths[i].longitude}));
-				 }
-
-				 // Set bounds on model.map object.
-				 // This causes the map to fit bounds automagically (angular-google-maps functionality?)
-				 $scope.map.bounds = {
-					 southwest: {
-						 latitude: bounds.R.j,
-						 longitude: bounds.j.j
-					 },
-					 northeast: {
-						 latitude: bounds.R.R,
-						 longitude: bounds.j.R
-					 }
-				 };
-
-			 };
-		 })
-		 $scope.map.center[latitude] = latitudeLongObj.lat
      console.log($scope.currentUserArr)
  });
 
@@ -176,7 +127,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	}
 /*for mapping*/
 	$scope.map = {
-		center: {  },
+		center: { latitude: sessionedLatLong?sessionedLatLong.latitude:latitudeLongObj.latitude, longitude: sessionedLatLong?sessionedLatLong.longitude:latitudeLongObj.longitude },
 		zoom: 14,
 		bounds: {},
 		markers: [],

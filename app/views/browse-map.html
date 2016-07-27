@@ -17,7 +17,6 @@
 				</ui-gmap-window>
 			</ui-gmap-marker>
 			<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
-					<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
 						<ui-gmap-windows show="show" ng-cloak>
 							<div style="width: 225px;" ng-non-bindable>
 								<h4>{{ title }}</h4>
@@ -27,11 +26,14 @@
 								<a ng-href="#/browsedetails/{{task.$id}}">More Information</a>
 							</div>
 						</ui-gmap-windows>
-					</ui-gmap-markers>
 			</ui-gmap-markers>
 		</ui-gmap-google-map>
 	</div>
 </div>
+	<div ng-repeat="pin in mapPins">
+		{{pin | json}}
+
+	</div>
 	<!-- Right Col -->
 	<div class="col-sm-4">
 		<h3>Open Calls for Help</h3>
