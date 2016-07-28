@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, uiGmapGoogleMapApi, uiGmapLogger) {
+app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer) {
 	//uiGmapLogger.currentLevel = uiGmapLogger.LEVELS.debug;
 	$scope.searchTask = '';
 	$scope.mapPins = [];
@@ -14,6 +14,9 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	var lats = [];
 	var lngs = [];
 	$scope.currentUserArr = [];
+	if(sessionStorage.latLong){
+		var sessionedLatLong = JSON.parse(sessionStorage.latLong)
+	}
 	var clusterTypes = ['standard','ugly','beer'];
 	var selectedClusterTypes = {
 		standard:{
@@ -46,11 +49,16 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.currentUserLocation = {};
 	$scope.userId = $routeParams.userId;
 	$scope.show = false;
-	var latitudeLongObj = {
-		latitude:'',
-		longitude:''
-	}
+	/*to get the current user lcoation*/
+	var latitudeLongObj = []
 
+	var options = {
+		enableHighAccuracy: true,
+		timeout: 1000,
+		maximumAge: 0
+	};
+
+<<<<<<< Updated upstream
 	var options = {
 		enableHighAccuracy: true,
 		//timeout: 1000,
@@ -66,23 +74,53 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		var crd = pos.coords;
 		latitudeLongObj.latitude = crd.latitude+'';
 		latitudeLongObj.longitude = crd.longitude+'';
+=======
+	function error(err) {
+		console.warn('ERROR(' + err.code + '): ' + err.message);
+	};
+
+	navigator.geolocation.getCurrentPosition(function (pos) {
+		var crd = pos.coords;
+		latitudeLongObj.push(crd.latitude+'');
+		latitudeLongObj.push(crd.longitude+'');
+		$scope.currentUserLocation['latlong'] = latitudeLongObj;
+		$scope.currentUserLocation['idKey'] = $scope.mapPins.length;
+		$scope.currentUserLocation['title'] = 'i\'m here';
+		$scope.currentUserLocation['help_type'] = 'Me';
+		$scope.currentUserArr.push($scope.currentUserLocation);
+>>>>>>> Stashed changes
 		sessionStorage.latLong = JSON.stringify(latitudeLongObj)
 		console.log('Your current position is:');
 		console.log('Latitude : ' + crd.latitude);
 		console.log('Longitude: ' + crd.longitude);
 		console.log('More or less ' + crd.accuracy + ' meters.');
 	}, error, options);
+<<<<<<< Updated upstream
 	$scope.currentUserLocation['latlong'] = latitudeLongObj;
 	$scope.currentUserLocation['idKey'] = 1;
 	$scope.currentUserLocation['title'] = 'i\'m here';
 	$scope.currentUserLocation['help_type'] = 'Me';
 	$scope.currentUserArr.push($scope.currentUserLocation);
 	 async.waterfall([
+=======
+/**/
+	Task.all.$loaded(function (tasks) {
+		var taskOpen = [];
+		$scope.tasks = tasks;
+	})
+	/* async.waterfall([
+>>>>>>> Stashed changes
      function(callback){
 		 Task.all.$loaded(function (tasks) {
-			 $scope.tasks = tasks;
+			 var taskOpen = [];
+				 $scope.tasks = tasks;
 			 var taskData = angular.copy(tasks);
-			 taskData.map(function(d,i){
+			 taskData.map(function (d, i) {
+				 if(d.status == 'open'){
+					 taskOpen.push(d)
+				 }
+			 })
+			 taskOpen.map(function(d,i){
 				 d.latlong = {};
 				 if(d.lat){
 					 d.latlong['latitude'] = d.lat;
@@ -90,12 +128,15 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 					 d.idKey = i;
 					 $scope.paths.push(d.latlong);
 				 }
+<<<<<<< Updated upstream
 				 if(d.status != 'open'){
 					 taskData.splice(i,1)
 				 }
 
+=======
+>>>>>>> Stashed changes
 			 });
-			 $scope.mapPins = taskData;
+			 $scope.mapPins = taskOpen;
 			 $scope.polylines[0]['path'] = ($scope.paths);
 
 			 //console.log($scope.polylines);
@@ -105,8 +146,12 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		 });
      }
  ], function (err,result) {
+<<<<<<< Updated upstream
+=======
+		 //$scope.map.center[latitude] = latitudeLongObj.lat
+>>>>>>> Stashed changes
      console.log($scope.currentUserArr)
- });
+ });*/
 
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
@@ -127,7 +172,11 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	}
 /*for mapping*/
 	$scope.map = {
+<<<<<<< Updated upstream
 		center: { latitude: sessionedLatLong?sessionedLatLong.latitude:latitudeLongObj.latitude, longitude: sessionedLatLong?sessionedLatLong.longitude:latitudeLongObj.longitude },
+=======
+		center: { latitude:sessionedLatLong?sessionedLatLong.latitude:latitudeLongObj.latitude,longitude:sessionedLatLong?sessionedLatLong.longitude:latitudeLongObj.longitude },
+>>>>>>> Stashed changes
 		zoom: 14,
 		bounds: {},
 		markers: [],

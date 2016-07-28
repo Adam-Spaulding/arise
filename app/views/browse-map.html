@@ -3,10 +3,28 @@
 	<div>
 	<!-- ad's -->
 	<div class="col-sm-8" id="browse-map">
-	<!--	<div ng-repeat="task in mapPins track by $index">
+		<div ng-repeat="task in mapPins track by $index">
 			{{task.latlong | json}}
-		</div>-->
-		<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" control="googleMapInstance" events="map.events" options="map.controls"  >
+		</div>
+		<ng-map zoom="12" center="current-position" default-style="true">
+
+			<!--<marker ng-repeat="task in tasks"
+					id="custom-marker-{{$index}}"
+					on-click="vm.map.showInfoWindow('foo')"
+					position="{{task.pos}}">
+				&lt;!&ndash; <div>
+                    position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
+                  </div> &ndash;&gt;
+			</marker>
+
+			<info-window id="foo" on-mouseover="vm.mouseover()">
+				<div ng-non-bindable="">
+					hey {{tasks.help_type}}
+				</div>
+			</info-window>-->
+
+		</ng-map>
+		<!--<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" control="googleMapInstance" events="map.events" options="map.controls"  >
 			 <ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
 				<ui-gmap-window ng-cloak coords="task.latlong" isIconVisibleOnClick="true" options="map.infoWindowWithCustomClass.options">
 					<div style="width: 225px;">
@@ -23,11 +41,11 @@
 								<h4 id="subheader">Posted by {{ name }} <span am-time-ago="datetime"></span></h4>
 								<h4>{{datetime}}</h4>
 								<h4>{{help_type}}</h4>
-								<a ng-href="#/browsedetails/{{task.$id}}">More Information</a>
+								<a href="#/browsedetails/{{$id}}">More Information</a>
 							</div>
 						</ui-gmap-windows>
 			</ui-gmap-markers>
-		</ui-gmap-google-map>
+		</ui-gmap-google-map>-->
 	</div>
 </div>
 	<div ng-repeat="pin in mapPins">

@@ -8,8 +8,8 @@ var app = angular
     'firebase',
     'toaster',
     'angularMoment',
-    'ngMap',
-    'uiGmapgoogle-maps'
+    'ngMap'
+    //'uiGmapgoogle-maps'
   ])
   .constant('FURL', 'https://arisedev.firebaseio.com')
   .constant('TaskStatus', {
@@ -19,21 +19,21 @@ var app = angular
     ASSIGNED: 'assigned'
   })
   .run(function($rootScope, $location) {
-    $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+    $rootScope.$on('$routeChangeError', function(event, next, previous, error) {
       // We can catch the error thrown when the $requireAuth promise is rejected
       // and redirect the user back to the login page
-      if (error === "AUTH_REQUIRED") {
-        $location.path("/login");
+      if (error === 'AUTH_REQUIRED') {
+        $location.path('/login');
       }
     });
-  })
+  })/*
     .config(
      function(uiGmapGoogleMapApiProvider) {
        uiGmapGoogleMapApiProvider.configure({
         china: true,
          libraries: 'weather,geometry,visualization'
       })
-    })
+    })*/
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
