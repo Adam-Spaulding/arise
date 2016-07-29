@@ -1,4 +1,6 @@
-
+<style>
+	map, div[map] {display:block; width:600px; height:400px;}
+</style>
 <div id="content1" class="tab-content">
 	<div>
 	<!-- ad's -->
@@ -8,20 +10,25 @@
 		</div>
 		<ng-map zoom="12" center="current-position" default-style="true">
 
-			<!--<marker ng-repeat="task in tasks"
-					id="custom-marker-{{$index}}"
-					on-click="vm.map.showInfoWindow('foo')"
-					position="{{task.pos}}">
-				&lt;!&ndash; <div>
+			<marker ng-repeat="task in tasks track by $index" position="{{task.pos}}"
+					title="{{task.name}}"
+					doCluster=true
+					id="{{$index}}"
+					on-click="handleMapPins(event, task)">
+				<!-- <div>
                     position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
-                  </div> &ndash;&gt;
+                  </div> -->
 			</marker>
 
-			<info-window id="foo" on-mouseover="vm.mouseover()">
-				<div ng-non-bindable="">
-					hey {{tasks.help_type}}
+			<info-window id="myInfoWindow">
+				<div ng-non-bindable>
+					<h4>{{ selectedCity.title }}</h4>
+					<h4 id="subheader">Posted by {{ selectedCity.name }} <span am-time-ago="selectedCity.datetime"></span></h4>
+					<h4>{{selectedCity.datetime}}</h4>
+					<h4>{{selectedCity.help_type}}</h4>
+					<a href="#/browsedetails/{{selectedCity.$id}}">More Information</a>
 				</div>
-			</info-window>-->
+			</info-window>
 
 		</ng-map>
 		<!--<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" control="googleMapInstance" events="map.events" options="map.controls"  >

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer) {
+app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, NgMap) {
 	//uiGmapLogger.currentLevel = uiGmapLogger.LEVELS.debug;
 	$scope.searchTask = '';
 	$scope.mapPins = [];
@@ -13,6 +13,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.googleMapInstance = {};
 	var lats = [];
 	var lngs = [];
+	var mapx;
 	$scope.currentUserArr = [];
 	if(sessionStorage.latLong){
 		var sessionedLatLong = JSON.parse(sessionStorage.latLong)
@@ -29,7 +30,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		clusterTypes: clusterTypes,/*
 		selectClusterType: selectClusterType,
 		selectedClusterTypes: selectedClusterTypes,*/
-		clusterOptions: selectedClusterTypes.standard,
+		clusterOptions: selectedClusterTypes.standard
 	}
 	$scope.mapProperties = {
 		visible:true,
@@ -50,31 +51,14 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.userId = $routeParams.userId;
 	$scope.show = false;
 	/*to get the current user lcoation*/
-	var latitudeLongObj = []
+	var latitudeLongObj = [];
 
-	var options = {
-		enableHighAccuracy: true,
-		timeout: 1000,
-		maximumAge: 0
-	};
-
-<<<<<<< Updated upstream
 	var options = {
 		enableHighAccuracy: true,
 		//timeout: 1000,
 		maximumAge: 0
 	};
 
-	function error(err) {
-		callback('err',null)
-		console.warn('ERROR(' + err.code + '): ' + err.message);
-	};
-
-	navigator.geolocation.getCurrentPosition(function (pos) {
-		var crd = pos.coords;
-		latitudeLongObj.latitude = crd.latitude+'';
-		latitudeLongObj.longitude = crd.longitude+'';
-=======
 	function error(err) {
 		console.warn('ERROR(' + err.code + '): ' + err.message);
 	};
@@ -88,25 +72,24 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		$scope.currentUserLocation['title'] = 'i\'m here';
 		$scope.currentUserLocation['help_type'] = 'Me';
 		$scope.currentUserArr.push($scope.currentUserLocation);
->>>>>>> Stashed changes
 		sessionStorage.latLong = JSON.stringify(latitudeLongObj)
 		console.log('Your current position is:');
 		console.log('Latitude : ' + crd.latitude);
 		console.log('Longitude: ' + crd.longitude);
 		console.log('More or less ' + crd.accuracy + ' meters.');
 	}, error, options);
-<<<<<<< Updated upstream
-	$scope.currentUserLocation['latlong'] = latitudeLongObj;
-	$scope.currentUserLocation['idKey'] = 1;
-	$scope.currentUserLocation['title'] = 'i\'m here';
-	$scope.currentUserLocation['help_type'] = 'Me';
-	$scope.currentUserArr.push($scope.currentUserLocation);
-	 async.waterfall([
-=======
 /**/
 	Task.all.$loaded(function (tasks) {
 		var taskOpen = [];
 		$scope.tasks = tasks;
+		$scope.dynMarkers = [];
+		NgMap.getMap().then(function(map) {
+			for (var i = 0; i < $scope.tasks.length; i++) {
+				var latLng = new google.maps.LatLng($scope.tasks[i].pos);
+				$scope.dynMarkers.push(new google.maps.Marker({position: latLng}));
+			}
+			$scope.markerClusterer = new MarkerClusterer(map, $scope.dynMarkers, {});
+		})
 	})
 	/* async.waterfall([
 >>>>>>> Stashed changes
@@ -128,13 +111,9 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 					 d.idKey = i;
 					 $scope.paths.push(d.latlong);
 				 }
-<<<<<<< Updated upstream
 				 if(d.status != 'open'){
 					 taskData.splice(i,1)
 				 }
-
-=======
->>>>>>> Stashed changes
 			 });
 			 $scope.mapPins = taskOpen;
 			 $scope.polylines[0]['path'] = ($scope.paths);
@@ -146,10 +125,6 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		 });
      }
  ], function (err,result) {
-<<<<<<< Updated upstream
-=======
-		 //$scope.map.center[latitude] = latitudeLongObj.lat
->>>>>>> Stashed changes
      console.log($scope.currentUserArr)
  });*/
 
@@ -171,48 +146,13 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	}
 /*for mapping*/
-	$scope.map = {
-<<<<<<< Updated upstream
-		center: { latitude: sessionedLatLong?sessionedLatLong.latitude:latitudeLongObj.latitude, longitude: sessionedLatLong?sessionedLatLong.longitude:latitudeLongObj.longitude },
-=======
-		center: { latitude:sessionedLatLong?sessionedLatLong.latitude:latitudeLongObj.latitude,longitude:sessionedLatLong?sessionedLatLong.longitude:latitudeLongObj.longitude },
->>>>>>> Stashed changes
-		zoom: 14,
-		bounds: {},
-		markers: [],
-		controls: {
-			mapTypeControl: false,
-			streetViewControl: false
-		},
-		events: {
-			click: function (map, eventName, originalEventArgs) {
-				var e = originalEventArgs[0];
-				var lat = e.latLng.lat(),lon = e.latLng.lng();
-				var marker = {
-					id: Date.now(),
-					coords: {
-						latitude: lat,
-						longitude: lon
-					},
-					option:{ clickable:true }
-				};
-				$scope.map.markers.push(marker);
-				//console.log($scope.map.markers);
-				$scope.$apply();
-			},
-			infoWindowWithCustomClass: {
-				options: {
-					boxClass: 'custom-info-window',
-					closeBoxDiv: '<div" class="pull-right" style="position: relative; cursor: pointer; margin: -20px -15px;">X</div>',
-					disableAutoPan: true
-				},
-				show: true
-			}
-		}
-	};
-	$scope.handleMapPins = function () {
-		console.log('kaka')
-		$scope.show = true;
+	NgMap.getMap().then(function(map) {
+		$scope.map = map;
+	});
+	$scope.handleMapPins = function (event, city) {
+		console.log(city)
+		$scope.selectedCity = city;
+		$scope.map.showInfoWindow('myInfoWindow', this);
 	};
 
 
@@ -303,7 +243,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		var comment = {
 			content: $scope.content,
 			name: $scope.user.profile.name,
-			gravatar: $scope.user.profile.gravatar,
+			gravatar: $scope.user.profile.gravatar
 		};
 		var convoImgElement = document.getElementById('convoImg');
 		if(convoImgElement.files.length>0){
