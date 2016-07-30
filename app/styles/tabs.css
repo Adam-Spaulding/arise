@@ -83,7 +83,7 @@ a {
 
 /*Fun begins*/
 .tab_container {
-  left: 250px;
+  right: 150px;
 	/*width: 50%;*/
 	margin: 10px auto auto auto;
 	position: fixed;
@@ -109,14 +109,16 @@ label {
   text-align: center;
   background: transparent;
   height:47px;
+	border-right: 1px solid #F5F5F5;
+	border-left: 1px solid #F5F5F5;
 }
 
 label .fa {
-  color: #95a5a6;
+  color: #363636;
 }
 
 label .fa:hover {
-  color: #fff;
+  /*color: #F5F5F5;*/
 }
 
 #tab1:checked ~ #content1,

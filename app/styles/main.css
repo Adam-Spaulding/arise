@@ -2,6 +2,7 @@
 /*@import url(https://fonts.googleapis.com/css?family=Work+Sans:400,200,300,500);*/
 @import url(https://fonts.googleapis.com/css?family=Anton);
 @import url(https://fonts.googleapis.com/css?family=Quicksand:400,300);
+@import url(https://fonts.googleapis.com/css?family=Fjalla+One);
 
 body {
   background-color: #F5F5F5;
@@ -322,9 +323,9 @@ input.form-group {
   padding: 20px;
   font-size: 64px !important;
   /*letter-spacing: 30px;*/
-  text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+  /*text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
   border: 3px solid #363636;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
 }
 
 /*.background-login {
@@ -389,15 +390,14 @@ input.form-group {
 }
 
 .navbar {
-  background-color: #363636;
+  background-color: #fff;
   margin-bottom: 0px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 3;
   font-size: 14px;
-  color: #fff;
-  font-weight: 300;
+  color: #363636;
   height: 57px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
@@ -406,12 +406,12 @@ input.form-group {
 }
 
 .navbar-brand {
-    color: #fff !important;
-    font-weight: 100;
+    color: #363636 !important;
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
-    font-size: 40px;
-    letter-spacing: 6px;
+    font-weight: 300 !important;
+    font-size: 30px;
+    letter-spacing: 4px;
     height: 57px;
 }
 
@@ -421,16 +421,19 @@ input.form-group {
 
 .navbar-brand .fa {
   width:60px;
-  /*margin-right: 20px;*/
   padding: 5px;
   color: #2ecc71;
   display: inline;
 }
 
 #nav-tools a, #nav-tools {
-  color: #fff;
+  color: #363636;
   margin-top: 10px;
   font-size: 14px;
+}
+
+.dropdown, .open {
+  background-color: #fff;
 }
 
 .logo-custom {
@@ -549,7 +552,7 @@ input.form-group {
 }
 
 /*colors*/
-/*
+
 .Abuse {border-left: 3px solid rgba(52, 152, 219,1.0) !important;}
 .Hunger{border-left: 3px solid rgba(46, 204, 113,1.0)!important;}
 .Homelessness {border-left: 3px solid rgba(26, 188, 156,1.0)!important;}
@@ -572,7 +575,7 @@ span #Mentorship, #Mentorship i {background-color: rgba(241, 196, 15,1.0)!import
 span #Consoling, #Consoling i {background-color: rgba(230, 126, 34,1.0)!important;}
 span #Joblessness, #Joblessness i {background-color: rgba(231, 76, 60,1.0)!important;}
 span #Veterans, #Veterans i {background-color: rgba(149, 165, 166,1.0)!important;}
-span #Other, #Other i {background-color: rgba(189, 195, 199,1.0)!important;}*/
+span #Other, #Other i {background-color: rgba(189, 195, 199,1.0)!important;}
 
 #details-gravatar img {
   width: 100%;
@@ -588,6 +591,7 @@ span #Other, #Other i {background-color: rgba(189, 195, 199,1.0)!important;}*/
   pointer-events: none;
   width: 100%;
   height: 50vh;
+  position: fixed;
 }
 
 #browse-map ng-map {
