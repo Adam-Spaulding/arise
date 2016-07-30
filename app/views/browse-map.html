@@ -1,66 +1,37 @@
 <style>
-	map, div[map] {display:block; width:600px; height:400px;}
+	map, div[map] {display:block;}
 </style>
-<div id="content1" class="tab-content">
-	<div>
-	<!-- ad's -->
-	<div class="col-sm-8" id="browse-map">
-		<div ng-repeat="task in mapPins track by $index">
-			{{task.latlong | json}}
-		</div>
-		<ng-map zoom="12" center="current-position" default-style="true">
+	<div class="col-sm-8" style="margin:0px!important;padding:0px !important;" id="browse-map">
+		<ng-map zoom="12" center="current-position">
 
 			<marker ng-repeat="task in tasks track by $index" position="{{task.pos}}"
 					title="{{task.name}}"
+					icon="images/pinlogo-small.svg"
 					doCluster=true
 					id="{{$index}}"
 					on-click="handleMapPins(event, task)">
-				<!-- <div>
-                    position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
-                  </div> -->
 			</marker>
+
+			<custom-control id="home" position="TOP_RIGHT" index="1" on-click="vm.click()">
+      <div>
+				<input id="tab4" data-toggle="modal" data-target="#posModal" type="radio" name="tabs">
+				<label style="background-color:#2ecc71;" id="ghn-label" for="tab4"><i class="fa fa-plus-circle" style="color:#fff;"></i><span id="ghn">Get Help Now!</span></label>
+      </div>
+    </custom-control>
 
 			<info-window id="myInfoWindow">
 				<div ng-non-bindable>
-					<h4>{{ selectedCity.title }}</h4>
-					<h4 id="subheader">Posted by {{ selectedCity.name }} <span am-time-ago="selectedCity.datetime"></span></h4>
-					<h4>{{selectedCity.datetime}}</h4>
-					<h4>{{selectedCity.help_type}}</h4>
+					<p>{{ selectedCity.title }}</p>
+					<p id="subheader">Posted by {{ selectedCity.name }} <span am-time-ago="selectedCity.datetime"></span></p>
+					<b><p>{{selectedCity.help_type}}</p></b>
 					<a href="#/browsedetails/{{selectedCity.$id}}">More Information</a>
 				</div>
 			</info-window>
-
 		</ng-map>
-		<!--<ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" control="googleMapInstance" events="map.events" options="map.controls"  >
-			 <ui-gmap-marker ng-repeat="task in currentUserArr track by $index" click='handleMapPins' coords="task.latlong" options="{labelContent :task.status,labelInBackground: false}" idkey="$index">
-				<ui-gmap-window ng-cloak coords="task.latlong" isIconVisibleOnClick="true" options="map.infoWindowWithCustomClass.options">
-					<div style="width: 225px;">
-						<p style="font-size: 20px;display: inline;">Tile</p>:<h3 style="display: inline">{{task.title}}</h3><br/>
-						<p style="font-size: 20px;display: inline;">TimeAgo</p>:<h6 style="display: inline">{{task.datetime}}</h6><br/>
-						<p style="font-size: 20px;display: inline;">Category</p>:<p style="display: inline;">{{task.help_type}}</p>
-					</div>
-				</ui-gmap-window>
-			</ui-gmap-marker>
-			<ui-gmap-markers models="mapPins" coords="'latlong'" doCluster="true" fit='true' idKey="'idKey'" doCluster="clusterProps.doClusterRandomMarkers" clusterOptions="clusterProps.clusterOptions" modelsbyref="true">
-						<ui-gmap-windows show="show" ng-cloak>
-							<div style="width: 225px;" ng-non-bindable>
-								<h4>{{ title }}</h4>
-								<h4 id="subheader">Posted by {{ name }} <span am-time-ago="datetime"></span></h4>
-								<h4>{{datetime}}</h4>
-								<h4>{{help_type}}</h4>
-								<a href="#/browsedetails/{{$id}}">More Information</a>
-							</div>
-						</ui-gmap-windows>
-			</ui-gmap-markers>
-		</ui-gmap-google-map>-->
 	</div>
-</div>
-	<div ng-repeat="pin in mapPins">
-		{{pin | json}}
 
-	</div>
 	<!-- Right Col -->
-	<div class="col-sm-4">
+	<div class="col-sm-4 hidden-xs">
 		<h3>Open Calls for Help</h3>
 				<!-- SEARCH TOOL -->
 			<div class="form-group" id="card" style="background-color:#fff;">
@@ -89,4 +60,3 @@
 	</div>
 	<div ng-include="'views/partials/edit.html'"></div>
 	<div ng-include="'views/partials/offer.html'"></div>
-</div>

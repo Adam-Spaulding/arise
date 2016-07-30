@@ -96,23 +96,26 @@ input, section {
 }
 
 label {
-  /*font-weight: 300;*/
   margin: 0px !important;
   text-transform: uppercase;
   font-size: 14px;
   display: block;
   float: left;
-  max-width: 150px;
-  padding: 1.4em;
+  max-width: 250px;
+  padding: 4px 25px;
   color: #fff;
   cursor: pointer;
   text-decoration: none;
   text-align: center;
   background: transparent;
-  height:70px;
+  height:47px;
 }
 
 label .fa {
+  color: #95a5a6;
+}
+
+label .fa:hover {
   color: #fff;
 }
 
@@ -157,37 +160,20 @@ label .fa {
   background-color: pink;
 }
 
-label .fa {
-  font-size: 1.3em;
-  margin: 0 0.4em 0 0;
-}
-
 /*Media query*/
-@media only screen and (max-width: 900px) {
-  label span {
-    font-size: 12px;
-  }
+@media only screen and (max-width: 770px) {
 
 	#nav-tools {
-		top: 10px;
+		top: 5px;
+		margin-top: 3px;
 		position: absolute;
 		right: 10px;
 	}
 
-  label .fa {
-    font-size: 14px;
-  }
-
   .tab_container label {
-		width: 25% !important;
+		width: 50% !important;
 		color: #363636;
   }
-
-	label span#ghn {
-		color: #fff;
-		height: 100%;
-		padding-top: 3px;
-	}
 
 .tab_container 	label .fa-plus-circle {
 	display: none;
@@ -196,7 +182,7 @@ label .fa {
 .tab_container {
   left: 0;
   width: 100%;
-	height: 60px;
+	height: 47px;
 	margin:0px!important;
   bottom: 0;
 	color:#363636;
@@ -204,9 +190,9 @@ label .fa {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-  label .fa {
-    font-size: 16px;
+  label .fa, label .fa:hover {
 		color: #363636;
+		cursor: pointer;
   }
 
 }
@@ -214,20 +200,6 @@ label .fa {
 @media only screen and (max-width: 468px) {
   label span, label i .fa .fa-plus-circle {
     display: none;
-  }
-
-	#ghn-label {
-		padding-top:3px;
-	}
-
-	label span#ghn {
-		display: inline;
-		color: #fff;
-		padding: 0px !important;
-	}
-
-  label .fa {
-    font-size: 16px;
   }
 
   .tab_container {

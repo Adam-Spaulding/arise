@@ -3,27 +3,14 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <a class="navbar-brand" href="#/">
-        <!-- <div class="logo-custom">
-          <img style="height:40px; margin-top:5px;" src="images/logo.svg"></img>
-        </div> -->
-        <!-- <i class="fa fa-picture-o"></i> -->
-        a<span class="">rise</span></a>
+        <span class=""><img style="height:45px;" src="images/pinlogo.svg"></img>arise</span></a>
     </div>
     <div class="tab_container">
     			<input id="tab1" type="radio" name="tabs" checked onclick="location.href='#/browse'">
-    			<label for="tab1"><i class="fa fa-home"></i><span>Open Calls</span></label>
+    			<label for="tab1"><i class="fa fa-globe fa-2x"></i><!---<span class="hidden-sm hidden-xs">Open Calls</span>---></label>
 
     			<input id="tab2" type="radio" name="tabs" onclick="location.href='#/mycalls'">
-    			<label for="tab2"><i class="fa fa-life-ring"></i><span>My Calls</span></label>
-
-    			<input id="tab3" type="radio" name="tabs" onclick="location.href='#/chat'">
-    			<label for="tab3"><i class="fa fa-comments"></i><span>Chat</span></label>
-
-    			<input id="tab4" data-toggle="modal" data-target="#posModal" type="radio" name="tabs">
-    			<label style="background-color:#2ecc71;" id="ghn-label" for="tab4"><i class="fa fa-plus-circle" style="color:#fff;"></i><span id="ghn">Get Help Now!</span></label>
-
-    			<!--- <input id="tab5" type="radio" name="tabs">
-    			<label for="tab5"><i class="fa fa-envelope-o"></i><span>Stories</span></label> -->
+    			<label for="tab2"><i class="fa fa-th-list fa-2x"></i><!---<span>My Calls</span>---></label>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="pull-right" id="nav-tools">
@@ -33,21 +20,11 @@
           <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
         </button>
         <ul class="dropdown-menu dropdown-menu-right" style="position:absolute; right:10px;">
-          <!-- <li><a ng-click="routeToProfilepage()">My Profile</a></li> -->
           <li><a ng-href="#/profile/{{currentUser.uid}}">My Profile</a></li>
           <li><a href="#">Alerts</a></li>
-          <!-- <li class="divider"></li> -->
           <li><a href="#" ng-click="logout()">Logout</a></li>
         </ul>
       </div>
-
-      <!-- <a href="" class="btn btn-info" style="">
-        Hello, {{currentUser.profile.name}}&nbsp;<img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
-      </a>
-      <a href="" data-toggle="modal" data-target="#pasModal">
-          <i class="fa fa-unlock-alt" aria-hidden="true" style="color:#fff;"></i> Change Password</a>
-      <a href="" ng-click="logout()" class="btn btn-info hidden-md">
-          <i class="fa fa-sign-out" aria-hidden="true" style="color:#fff;"></i> Logout</a> -->
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

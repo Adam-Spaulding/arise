@@ -1,25 +1,15 @@
 
-<div class="row" id="browsedetails-map">
-  <ng-map center="{{selectedTask.pos}}" zoom="12" disable-default-u-i="true">
-    <marker ng-repeat="task in tasks track by $index" position="{{selectedTask.pos}}"
-        icon="images/pinlogo-small.svg"
-    </marker>
-  </ng-map>
-</div>
+<!-- <div class="row" id="browsedetails-map">
+  <ng-map center="{{selectedTask.pos}}" zoom="12" disable-default-u-i="true"></ng-map>
+</div> -->
 
-<div class="row" style="margin-top:300px;">
+<div class="row">
 
 <div class="col-md-1"></div>
 
-	<div class="col-md-10 {{selectedTask.help_type}}" id="card" style="background-color:rgba(255,255,255, 0.95);margin-top:300px;">
-    <div class="price-tag pull-right">
-      <div id="{{selectedTask.help_type}}" ng-show="isTaskCreator(selectedTask) && !isClosed(selectedTask)">
-        <!-- <a href="" data-toggle="modal" data-target="#ediModal" data-toggle="tooltip" data-placement="bottom" title="Update Call"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a> -->
-        <a href="" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
-      </div>
-    </div>
+	<div class="col-md-10 {{selectedTask.help_type}}" id="">
 			<!-- Left -->
-			<div class="col-md-3" id="call-details">
+			<div class="col-md-3" id="card">
         <div class="hidden-sm hidden-xs col-md-12" id="details-gravatar" style="text-align:center; width:100%;">
           <img class="" ng-src="{{ selectedTask.gravatar }}" class="">
           <!-- <div class="progress" style="margin-top:5px; text-align:center; margin:5px auto; max-width:100px;">
@@ -29,33 +19,34 @@
           </div>
           <p>96% Approal Rating</p> -->
         </div>
-        <img ng-src="{{ selectedTask.gravatar }}" class="hidden-md hidden-lg img-circle gravatar">
-        {{selectedTask.name}}
-        <br><a class="btn btn-primary" ng-href="#/profile/{{selectedTask.poster}}">View Profile</a>
+        <div class="price-tag">
+          <div ng-show="isTaskCreator(selectedTask) && !isClosed(selectedTask)">
+            <!-- <a href="" data-toggle="modal" data-target="#ediModal" data-toggle="tooltip" data-placement="bottom" title="Update Call"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a> -->
+            <a href="" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call"><i class="fa fa-trash fa-2x" aria-hidden="true">Cancel Call</i></a>
+          </div>
+        </div>
+
+        <a class="" ng-href="#/profile/{{selectedTask.poster}}"><img ng-src="{{ selectedTask.gravatar }}" class="hidden-md hidden-lg img-circle gravatar">{{selectedTask.name}}</a>
         <br>
         <!-- <div class="col-md-4">
 
         </div> -->
       </div>
       <div class="col-md-9">
-			<!-- COMMENTS -->
 			<div class="">
         <div class="" style="display:inline-block;">
-            <!-- <img ng-src="{{ selectedTask.gravatar }}" class="img-circle comment gravatar"> -->
-            <!-- <div class="well-sm cmt pull-right"> -->
-              <!-- <h3 class="cmt-title">{{selectedTask.name}} </h3> -->
-              <h3>{{selectedTask.title}}</h3>
-              <span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
-              <span class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type | limitTo:9}}{{ task.title.length > 9? "..." : ""}}</span>
-              <span class="cmt-time">Posted <span am-time-ago="selectedTask.datetime"></span></span><br>
-              <div id="card" style="margin-top:30px;width:100% !important;display:block;">
-                <h3>Details</h3><br> {{selectedTask.description}}</div>
-            <!-- </div> -->
+          <h3>{{selectedTask.title}}</h3>
+          <span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
+          <span class="label status">Category: {{ selectedTask.help_type | limitTo:9}}{{ task.title.length > 9? "..." : ""}}</span>
+          <span class="cmt-time">Posted <span am-time-ago="selectedTask.datetime"></span></span><br>
+          <div style="margin-top:30px;width:100% !important;display:block;">
+            {{selectedTask.description}}</div>
+            <img ng-src="{{selectedTask.img}}" style="width: 100%;">
+          </div>
         </div>
-				<div class="" style="margin:20px 0px 60px 0px;">
+				<div class="">
           <!-- OFFERS -->
-          <div class="" style=" width:100%;">
-            <hr>
+          <div class="" style="width:100%;" id="card">
             <span style=""><h3>Offers</h3></span>
             <div class="" style="text-align:center;">
                 <div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
@@ -98,7 +89,7 @@
             </div><br>
           </div>
           <!-- Comments -->
-					<div id="">
+					<div id="card">
 					    <div class="comments">
                 <h3>Comments</h3>
                 <div class="row" ng-hide="">
@@ -115,8 +106,7 @@
                             <button style="background-color: #ff5555" type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
                            <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
                          </button>
-                            <br/><br/>
-                            <img id="commentPrwImg" style="width: 80px;height: 80px;float: left;" alt=""/>
+                            <img id="commentPrwImg" alt=""/>
                        </div>
                       </div>
                     </form>
