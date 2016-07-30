@@ -4,7 +4,7 @@
 	<div class="col-sm-8" style="margin:0px!important;padding:0px !important;" id="browse-map">
 		<ng-map zoom="12" center="current-position">
 
-			<marker ng-repeat="task in tasks track by $index" position="{{task.pos}}"
+			<marker ng-repeat="task in tasks track by $index | filter: {status: 'open'}" position="{{task.pos}}"
 					title="{{task.name}}"
 					icon="images/pinlogo-small.svg"
 					doCluster=true
@@ -23,7 +23,7 @@
 					<p>{{ selectedCity.title }}</p>
 					<p id="subheader">Posted by {{ selectedCity.name }} <span am-time-ago="selectedCity.datetime"></span></p>
 					<b><p>{{selectedCity.help_type}}</p></b>
-					<a href="#/browsedetails/{{selectedCity.$id}}">More Information</a>
+					<a class="btn-sm btn-primary" href="#/browsedetails/{{selectedCity.$id}}">More Information</a>
 				</div>
 			</info-window>
 		</ng-map>
