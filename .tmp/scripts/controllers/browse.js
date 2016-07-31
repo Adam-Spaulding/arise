@@ -382,3 +382,5 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	};
 
 })
+
+//# sourceMappingURL=browse.js.map

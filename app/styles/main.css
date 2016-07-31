@@ -170,13 +170,6 @@ a:hover {
   text-decoration: none !important;
 }
 
-.open {
-  border:1px solid #2ecc71;
-  background-color: #2ecc71;
-  color:#fff;
-  cursor: inherit;
-}
-
 .assigned {
   border:1px solid #3498db;
   background-color: transparent;
@@ -434,6 +427,8 @@ input.form-group {
 
 .dropdown, .open {
   background-color: #fff;
+  color: #363636;
+
 }
 
 .logo-custom {
@@ -532,10 +527,6 @@ input.form-group {
 }
 .dropdown-menu a:hover {
   text-decoration: none;
-}
-
-.open {
-  border: 1px solid transparent;
 }
 
  .dropdown-toggle {

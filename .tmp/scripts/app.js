@@ -95,3 +95,5 @@ var app = angular
         redirectTo: '/login'
       });
   });
+
+//# sourceMappingURL=app.js.map
