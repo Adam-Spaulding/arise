@@ -15,10 +15,10 @@ var app = angular
     .config(function() {
       // Initialize Firebase
       var config = {
-        apiKey: "AIzaSyCKHDnn77sduHGIexjHiK9Fn2pFabgjPGM",
-        authDomain: "arise.firebaseapp.com",
-        databaseURL: "https://arise.firebaseio.com",
-        storageBucket: "project-1206758082254347282.appspot.com",
+        apiKey: 'AIzaSyCKHDnn77sduHGIexjHiK9Fn2pFabgjPGM',
+        authDomain: 'arise.firebaseapp.com',
+        databaseURL: 'https://arise.firebaseio.com',
+        storageBucket: 'project-1206758082254347282.appspot.com',
       };
       firebase.initializeApp(config);
     })
