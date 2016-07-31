@@ -10,7 +10,8 @@
         </div>
 
           <div class="post-form" id="card">
-                    <form ng-submit="createTask()" oninput="pos.value = latitude.value +', '+ longitude.value">
+            <!--oninput="pos.value = latitude.value +', '+ longitude.value"-->
+                    <form ng-submit="createTask()" >
                       <!-- <input type="text" ng-model="task.title" class="form-control" placeholder="Task title" required><br>
                       <textarea ng-model="task.description" class="form-control" placeholder="Describe what you need done" required></textarea><br>
                       <input type="number" ng-model="task.total" class="form-control" placeholder="How much will you pay?" ><br> -->
@@ -65,7 +66,7 @@
 
                         </fieldset>
                       <div class="upload">
-                        <input type="file" id="helpImg"/>
+                        <input type="file" id="helpImg" onchange="angular.element(this).scope().previewPostImage();"/>
                         <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/>
                       </div>
                       <input type="submit" value="Post Now" class="btn btn-primary">
