@@ -25,7 +25,7 @@ a, a:hover, a:focus {
   margin:0 auto;
   padding:1px 25px 25px 25px;
 }
-
+/*
 .card-heading {
   margin-left: 15px;
 }
@@ -42,7 +42,7 @@ a, a:hover, a:focus {
   background-color: #363636;
   font-size: 15px;
   margin-left: 5px;
-}
+}*/
 
 /* Task List */
 
@@ -103,7 +103,7 @@ a.ng-scope:hover {
   background-color: #f9f9f9;
 }
 
-.card, #card{
+#card{
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   padding: 10px 0px;
   background-color: #fff;
@@ -544,19 +544,7 @@ input.form-group {
 
 /*colors*/
 
-.Abuse {border-left: 3px solid rgba(52, 152, 219,1.0) !important;}
-.Hunger{border-left: 3px solid rgba(46, 204, 113,1.0)!important;}
-.Homelessness {border-left: 3px solid rgba(26, 188, 156,1.0)!important;}
-.Pregnancy_Womens_Health {border-left: 3px solid rgba(155, 89, 182,1.0)!important;}
-.Substance {border-left: 3px solid rgba(52, 73, 94,1.0)!important;}
-.Mentorship {border-left: 3px solid rgba(241, 196, 15,1.0)!important;}
-.Consoling {border-left: 3px solid rgba(230, 126, 34,1.0)!important;}
-.Joblessness {border-left: 3px solid rgba(231, 76, 60,1.0)!important;}
-.Veterans_Affairs  {border-left: 3px solid rgba(149, 165, 166,1.0)!important;}
-.Other {border-left: 3px solid rgba(189, 195, 199,1.0)!important;}
-.new-call {border-left: 3px solid rgba(46, 204, 113,1.0) !important;}
-
-span #Abuse, #Abuse i {background-color: rgba(52, 152, 219,1.0) !important;}
+/*span #Abuse, #Abuse i {background-color: rgba(52, 152, 219,1.0) !important;}
 span #call-card, #call-card i {background-color: rgba(52, 152, 219,1.0) !important; color:#fff;}
 span #Hunger, #Hunger i {background-color: rgba(46, 204, 113,1.0)!important;}
 span #Homelessness, #Homelessness i {background-color: rgba(26, 188, 156,1.0)!important;}
@@ -566,7 +554,7 @@ span #Mentorship, #Mentorship i {background-color: rgba(241, 196, 15,1.0)!import
 span #Consoling, #Consoling i {background-color: rgba(230, 126, 34,1.0)!important;}
 span #Joblessness, #Joblessness i {background-color: rgba(231, 76, 60,1.0)!important;}
 span #Veterans, #Veterans i {background-color: rgba(149, 165, 166,1.0)!important;}
-span #Other, #Other i {background-color: rgba(189, 195, 199,1.0)!important;}
+span #Other, #Other i {background-color: rgba(189, 195, 199,1.0)!important;}*/
 
 #details-gravatar img {
   width: 100%;

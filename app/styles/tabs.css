@@ -187,13 +187,13 @@ label .fa:hover {
 	height: 47px;
 	margin:0px!important;
   bottom: 0;
-	color:#363636;
+	/*color:#363636;*/
   background-color: #fff !important;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
   label .fa, label .fa:hover {
-		color: #363636;
+		/*color: #363636;*/
 		cursor: pointer;
   }
 

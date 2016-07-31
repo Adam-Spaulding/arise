@@ -2,7 +2,7 @@
 	map, div[map] {display:block;}
 </style>
 	<div class="col-sm-8" style="margin:0px!important;padding:0px !important;" id="browse-map">
-		<ng-map zoom="12" center="current-position" disable-default-u-i="true">
+		<ng-map zoom="12" center="current-position">
 
 			<marker ng-repeat="task in tasks track by $index | filter: {status: 'open'}" 			position="{{task.pos}}"
 					title="{{task.name}}"
