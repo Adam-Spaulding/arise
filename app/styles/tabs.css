@@ -114,7 +114,7 @@ label {
 }
 
 label .fa {
-  color: #363636;
+  color: #66757f;
 }
 
 label .fa:hover {
@@ -144,7 +144,7 @@ label .fa:hover {
 
 .tab_container [id^="tab"]:checked + label {
   background: transparent;
-  color: #2ecc71;
+  color: #66757f;
   box-shadow: inset 0 -3px #2ecc71;
 }
 
@@ -155,7 +155,7 @@ label .fa:hover {
 }
 
 .tab_container [id^="tab"]:checked + label .fa {
-  color: #2ecc71;
+  color: #66757f;
 }
 
 .tab_container .active {
