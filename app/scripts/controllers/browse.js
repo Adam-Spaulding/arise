@@ -6,12 +6,18 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.mapPins = [];
 	$scope.paths = [];
 	$scope.tasks = [];
+	//document.getElementById('commentPrwImg').style.display = 'none';
 	$scope.polylines = [];
 	if(sessionStorage.latLong){
 		var sessionedLatLong = JSON.parse(sessionStorage.getItem('latLong'));
 	}
 	// Set up map defaults etc.
 	$scope.googleMapInstance = {};
+	$scope.showImg = false;
+	$scope.showImgOffer = false;
+	$scope.commentImgSrc = '';
+	$scope.offerImgSrc = '';
+	//document.getElementById('commentPrwImg').style.display = 'none';
 	var lats = [];
 	var lngs = [];
 	var mapx;
@@ -306,7 +312,16 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		var imgechge = document.getElementById(imgId);
 		file = imgechge.files[0];
 		handleFileSelect(imgechge, function (data) {
-			document.getElementById(prwImgId).src = data;
+			if (type == 'offer') {
+				$scope.showImgOffer = true;
+				$scope.offerImgSrc = data;
+			} else if (type == 'comment') {
+				$scope.showImg = true;
+				$scope.commentImgSrc = data;
+			}
+
+			//document.getElementById('commentPrwImg').style.display = 'block';
+			//document.getElementById(prwImgId).src = data;
 		})
 	};
 

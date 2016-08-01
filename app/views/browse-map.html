@@ -115,13 +115,13 @@
 			                            <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
 			                            <div id="chat-submit">
 			                                <div class="upload">
-			                                    <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
+			                                    <input type="file" id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
 			                                </div>
 			                                <button style="background-color: #ff5555" type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
 			                               <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
 			                             </button>
 			                                <br/><br/>
-			                                <img id="commentPrwImg" style="width: 80px;height: 80px;" alt=""/>
+			                                <img ng-if="showImg" ng-src="{{commentImgSrc}}" id="commentPrwImg" style="width: 80px;height: 80px;" alt=""/>
 			                           </div>
 			                          </div>
 			                        </form>

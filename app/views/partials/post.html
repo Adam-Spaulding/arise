@@ -65,10 +65,10 @@
 
                         </fieldset>
                       <div class="upload">
-                        <input type="file" id="helpImg"/>
-                        <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/>
+                        <input type="file" id="helpImg" onchange="angular.element(this).scope().previewPostImage()"/>
                       </div>
                       <input type="submit" value="Post Now" class="btn btn-primary">
+                      <img ng-show="postImgPrw" ng-src="{{postImg}}" id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/>
                     </form>
                   </div>
 
