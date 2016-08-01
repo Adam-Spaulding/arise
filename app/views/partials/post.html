@@ -1,21 +1,16 @@
 <div class="modal fade" id="posModal" ng-controller="TaskController">
   <div class="modal-dialog">
     <div class="modal-content">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="panel title card">
-        <!-- <div class="panel-heading title" style="background-color:#fff; color:#363636;">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h3 class="panel-title"></h3>
-        </div> -->
 
-<<<<<<< HEAD
-          <div class="post-form" class="card" style="color:#fff;">
+      <div class="panel title">
+
+        <div class="panel-heading title" style="background-color:#fff; color:#363636;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="panel-title">Get Help Now</h3>
+        </div>
+
+          <div class="card">
                     <form ng-submit="createTask()" oninput="pos.value = latitude.value +', '+ longitude.value">
-=======
-          <div class="post-form" id="card">
-            <!--oninput="pos.value = latitude.value +', '+ longitude.value"-->
-                    <form ng-submit="createTask()" >
->>>>>>> cb76ccf3265f0513d44b157cda2df541af02b674
                       <!-- <input type="text" ng-model="task.title" class="form-control" placeholder="Task title" required><br>
                       <textarea ng-model="task.description" class="form-control" placeholder="Describe what you need done" required></textarea><br>
                       <input type="number" ng-model="task.total" class="form-control" placeholder="How much will you pay?" ><br> -->
@@ -70,19 +65,11 @@
 
                         </fieldset>
                       <div class="upload">
-<<<<<<< HEAD
-                        <input type="file"  id="postimg" onchange="angular.element(this).scope().previewImage(this,'post');"/>
-                        <!-- <input type="file" id="helpImg"/> -->
-                        <!-- <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/> -->
-=======
-                        <input type="file" id="helpImg" onchange="angular.element(this).scope().previewPostImage();"/>
+                        <input type="file" id="helpImg"/>
                         <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/>
->>>>>>> cb76ccf3265f0513d44b157cda2df541af02b674
                       </div>
-                      <br>
                       <input type="submit" value="Post Now" class="btn btn-primary">
                     </form>
-                      <img id="postPrwImg" style="width: 80px;height: 80px;float: left;" alt=""/>
                   </div>
 
                 </div>
@@ -92,12 +79,9 @@
           </div>
 
           <script>
-
           var latitude = document.getElementById('latitude'),
           		longitude = document.getElementById('longitude');
-
           		if(navigator.geolocation){
-
           			function onSuccess(position){
           				latitude.value = position.coords.latitude;
           				longitude.value = position.coords.longitude;
@@ -105,9 +89,7 @@
           			function onError(error){
           				alert("Error: " + error.code + ", Message: " + error.message);
           			}
-
           			navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
           		} else {
           			alert("Your browser does not support geolocation");
           		}

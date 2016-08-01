@@ -21,6 +21,7 @@ app.factory('Task', function(FURL, $firebase, Auth) {
 					taskId: newTask.key(),
 					type: true,
 					title: task.title,
+					img: task.img,
 					datetime: task.datetime
 				};
 
@@ -53,7 +54,7 @@ app.factory('Task', function(FURL, $firebase, Auth) {
 
 		cancelTask: function(taskId) {
 			var t = this.getTask(taskId);
-			return t.$update({status: "cancelled"});
+			return t.$update({status: 'cancelled'});
 		},
 
 		isCreator: function(task) {
@@ -61,7 +62,7 @@ app.factory('Task', function(FURL, $firebase, Auth) {
 		},
 
 		isOpen: function(task) {
-			return task.status === "open";
+			return task.status === 'open';
 		},
 
 		// --------------------------------------------------//
@@ -72,11 +73,11 @@ app.factory('Task', function(FURL, $firebase, Auth) {
 
 		completeTask: function(taskId) {
 			var t = this.getTask(taskId);
-			return t.$update({status: "completed"});
+			return t.$update({status: 'completed'});
 		},
 
 		isCompleted: function(task) {
-			return task.status === "completed";
+			return task.status === 'completed';
 		}
 	};
 
