@@ -342,9 +342,10 @@ input.form-group {
 }
 
  button.btn-danger{
-  background-color: #e74c3c !important;
-  color: #fff;
-  /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+  color: #e74c3c !important;
+  border:1px solid #e74c3c !important;
+  background-color: #fff !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 /*Bootstrap Theme buttons*/
@@ -574,7 +575,7 @@ span #Other, #Other i {background-color: rgba(189, 195, 199,1.0)!important;}*/
 }
 
 #browse-map ng-map {
-  height: 84vh;
+  height: 90vh;
 }
 
 .price-tag {
@@ -655,4 +656,8 @@ div.upload input {
   height: 57px !important;
   opacity: 0 !important;
   overflow: hidden !important;
+}
+
+#chatModal {
+bottom:0;
 }

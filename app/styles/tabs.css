@@ -165,6 +165,10 @@ label .fa:hover {
 /*Media query*/
 @media only screen and (max-width: 770px) {
 
+	#browse-map ng-map {
+	  height: 83vh;
+	}
+
 	#nav-tools {
 		top: 5px;
 		margin-top: 3px;

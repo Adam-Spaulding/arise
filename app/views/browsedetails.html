@@ -7,14 +7,15 @@
   </ng-map>
 </div>
 
-<div class="row" style="">
+<div class="row">
 
-<div class="col-md-1"></div>
-  <!-- details start-->
-	<div class="col-md-10" id="" style="margin-top:250px;">
+  <div style="margin-top:250px;">
+  <div class="col-sm-1"></div>
 
+	<div class="col-sm-4" id="">
+      <!-- details start-->
     <div class="card" style="background-color:#fff;">
-      <div class="card-header" ><H3><a ng-href="#/profile/{{selectedTask.poster}}"><img ng-src="{{ selectedTask.gravatar }}" class="hidden-md hidden-lg img-circle gravatar">
+      <div class="card-header" ><H3><a ng-href="#/profile/{{selectedTask.poster}}"><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar">
       {{selectedTask.name}}</a></H3></div>
       <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
       <div class="card-block">
@@ -30,14 +31,15 @@
     </div>
 
 <!-- details end -->
-
+  </div>
+  <div class="col-sm-6">
   <!-- OFFERS -->
   <div class="card" style="background-color:#fff;">
     <div class="card-header" ><H3>Offers</H3></div>
     <!-- <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;"> -->
     <div class="card-block">
       <div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
-        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#offModal"><i class="fa fa-heart" style="color:#fff;" aria-hidden="true"></i> Pick up Call</button>
+        <button style="width:100%;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#offModal"><i class="fa fa-heart" style="color:#fff;" aria-hidden="true"></i> Offer to Help</button>
       </div>
       <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
         <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)"><i class="fa fa-check" aria-hidden="true" style="color:#fff;"></i> Complete Call</button>
@@ -76,7 +78,6 @@
     <div class="card-footer text-muted"></div>
   </div>
   <!-- END OFFERS -->
-</div>
         <!-- Comments -->
             <div class="modal fade" id="chatModal" role="dialog">
               <div class="modal-dialog modal-lg">
@@ -92,7 +93,7 @@
                             <!-- <div class="input-group-addon">
                               <img ng-src="{{ user.profile.gravatar }}" class="img-circle comment gravatar">
                             </div> -->
-                            <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:80%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
+                            <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
                             <div id="chat-submit">
                                 <div class="upload">
                                     <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
@@ -101,12 +102,15 @@
                                <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
                              </button>
                                 <br/><br/>
-                                <img id="commentPrwImg" style="width: 80px;height: 80px;float: left;" alt=""/>
+                                <img id="commentPrwImg" style="width: 80px;height: 80px;" alt=""/>
                            </div>
                           </div>
                         </form>
                     </div>
                     <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments.slice().reverse() | orderBy: 'datetime':true">
+                      <p><div class="title" ng-hide="comments && comments.length > 0">
+                        <span>Be the first to make a comment.</span>
+                      </div></p>
                       <hr>
                         <img ng-src="{{com.gravatar}}" class="img-circle comment gravatar pull-left">
                         <div class="well-sm cmt" class="pull-right">
@@ -118,26 +122,25 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                   </div>
                 </div>
               </div>
             </div>
           <!-- END COMMENTS -->
+          <!-- BUTTONS -->
+          <button style="width:100%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#chatModal"><i class="fa fa-comments" aria-hidden="true" style="color:#fff;"></i> View Comments</button>
+          <div id="{{selectedTask.help_type}}" ng-show="isTaskCreator(selectedTask) && !isClosed(selectedTask)">
+
+            <!-- <a href="" data-toggle="modal" data-target="#ediModal" data-toggle="tooltip" data-placement="bottom" title="Update Call"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a> -->
+            <a style="width:100%;" href="" class="btn btn-danger" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash" aria-hidden="true" style="background-color:transparent ;"></i> Cancel Call</a>
+          </div>
+          <!-- END BUTTONS -->
 				</div>
+        <div class="col-sm-1"></div>
+      </div>
 
-        <!-- BUTTONS -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chatModal"><i class="fa fa-comments" aria-hidden="true" style="color:#fff;"></i> Chat</button>
-        <div id="{{selectedTask.help_type}}" ng-show="isTaskCreator(selectedTask) && !isClosed(selectedTask)">
 
-          <!-- <a href="" data-toggle="modal" data-target="#ediModal" data-toggle="tooltip" data-placement="bottom" title="Update Call"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a> -->
-          <a href="" class="btn btn-danger" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash" aria-hidden="true" style="background-color:transparent ;"></i> Delete</a>
-        </div>
-        <!-- END BUTTONS -->
-
-	</div>
-
-	<div class="col-md-1"></div>
 
 </div>
 

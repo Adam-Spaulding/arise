@@ -1,15 +1,14 @@
 <div class="modal fade" id="posModal" ng-controller="TaskController">
   <div class="modal-dialog">
     <div class="modal-content">
-
-      <div class="panel title">
-
-        <div class="panel-heading title" style="background-color:#fff; color:#363636;">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="panel title card">
+        <!-- <div class="panel-heading title" style="background-color:#fff; color:#363636;">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h3 class="panel-title"></h3>
-        </div>
+        </div> -->
 
-          <div class="post-form" id="card">
+          <div class="post-form" class="card" style="color:#fff;">
                     <form ng-submit="createTask()" oninput="pos.value = latitude.value +', '+ longitude.value">
                       <!-- <input type="text" ng-model="task.title" class="form-control" placeholder="Task title" required><br>
                       <textarea ng-model="task.description" class="form-control" placeholder="Describe what you need done" required></textarea><br>
@@ -65,11 +64,14 @@
 
                         </fieldset>
                       <div class="upload">
-                        <input type="file" id="helpImg"/>
-                        <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/>
+                        <input type="file"  id="postimg" onchange="angular.element(this).scope().previewImage(this,'post');"/>
+                        <!-- <input type="file" id="helpImg"/> -->
+                        <!-- <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/> -->
                       </div>
+                      <br>
                       <input type="submit" value="Post Now" class="btn btn-primary">
                     </form>
+                      <img id="postPrwImg" style="width: 80px;height: 80px;float: left;" alt=""/>
                   </div>
 
                 </div>

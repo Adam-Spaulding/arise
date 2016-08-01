@@ -154,7 +154,6 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		$scope.map.showInfoWindow('myInfoWindow', this);
 	};
 
-
 	/**/
 
 	function setSelectedTask(task) {
