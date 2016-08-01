@@ -8,8 +8,14 @@
             <h3 class="panel-title"></h3>
         </div> -->
 
+<<<<<<< HEAD
           <div class="post-form" class="card" style="color:#fff;">
                     <form ng-submit="createTask()" oninput="pos.value = latitude.value +', '+ longitude.value">
+=======
+          <div class="post-form" id="card">
+            <!--oninput="pos.value = latitude.value +', '+ longitude.value"-->
+                    <form ng-submit="createTask()" >
+>>>>>>> cb76ccf3265f0513d44b157cda2df541af02b674
                       <!-- <input type="text" ng-model="task.title" class="form-control" placeholder="Task title" required><br>
                       <textarea ng-model="task.description" class="form-control" placeholder="Describe what you need done" required></textarea><br>
                       <input type="number" ng-model="task.total" class="form-control" placeholder="How much will you pay?" ><br> -->
@@ -64,9 +70,14 @@
 
                         </fieldset>
                       <div class="upload">
+<<<<<<< HEAD
                         <input type="file"  id="postimg" onchange="angular.element(this).scope().previewImage(this,'post');"/>
                         <!-- <input type="file" id="helpImg"/> -->
                         <!-- <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/> -->
+=======
+                        <input type="file" id="helpImg" onchange="angular.element(this).scope().previewPostImage();"/>
+                        <img id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/>
+>>>>>>> cb76ccf3265f0513d44b157cda2df541af02b674
                       </div>
                       <br>
                       <input type="submit" value="Post Now" class="btn btn-primary">

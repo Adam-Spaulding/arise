@@ -2,9 +2,19 @@
 	map, div[map] {display:block;}
 </style>
 	<div class="col-sm-8" style="margin:0px!important;padding:0px !important;" id="browse-map">
+<<<<<<< HEAD
 		<ng-map zoom="12" center="current-position">
 
 			<marker ng-repeat="task in tasks | filter: {title: searchTask , status: 'open'}" position="{{task.pos}}"
+=======
+		<!--<div ng-repeat="task in mapPins track by $index ">
+			{{task.status}}
+
+		</div>-->
+		<ng-map zoom="12" center="current-position">
+
+			<marker ng-repeat="task in mapPins track by $index | filter: {status: 'open'}" 			position="{{task.pos}}"
+>>>>>>> cb76ccf3265f0513d44b157cda2df541af02b674
 					title="{{task.name}}"
 					icon="images/pinlogo-small.svg"
 					doCluster=true

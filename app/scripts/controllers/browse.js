@@ -5,6 +5,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.searchTask = '';
 	$scope.mapPins = [];
 	$scope.paths = [];
+	$scope.tasks = [];
 	$scope.polylines = [];
 	if(sessionStorage.latLong){
 		var sessionedLatLong = JSON.parse(sessionStorage.getItem('latLong'));
@@ -14,6 +15,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	var lats = [];
 	var lngs = [];
 	var mapx;
+	var file;
 	$scope.currentUserArr = [];
 	if(sessionStorage.latLong){
 		var sessionedLatLong = JSON.parse(sessionStorage.latLong)
@@ -45,6 +47,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		draggable:false
 	};
 	$scope.polylines.push($scope.mapProperties);
+	/*fb storage*/
+	//var storage = firebase.storage();
 
 	$scope.userProfile = {};
 	$scope.currentUserLocation = {};
@@ -82,14 +86,21 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	Task.all.$loaded(function (tasks) {
 		var taskOpen = [];
 		$scope.tasks = tasks;
-		$scope.dynMarkers = [];
+		tasks.map(function (d, i) {
+			if(d.status == 'open'){
+				$scope.mapPins.push(d)
+			}
+		})
+		//$scope.tasks = tasks;
+		/*$scope.dynMarkers = [];
+
 		NgMap.getMap().then(function(map) {
 			for (var i = 0; i < $scope.tasks.length; i++) {
 				var latLng = new google.maps.LatLng($scope.tasks[i].pos);
 				$scope.dynMarkers.push(new google.maps.Marker({position: latLng}));
 			}
 			$scope.markerClusterer = new MarkerClusterer(map, $scope.dynMarkers, {});
-		})
+		})*/
 	})
 	/* async.waterfall([
 >>>>>>> Stashed changes
@@ -245,18 +256,27 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		};
 		var convoImgElement = document.getElementById('convoImg');
 		if(convoImgElement.files.length>0){
-			handleFileSelect(convoImgElement, function (data) {
-				comment.img = data;
+			var storageRef = firebase.storage().ref().child($scope.user.uid);
+			// Get a reference to store file at photos/<FILENAME>.jpg
+			var photoRef = storageRef.child(file.name);
+			// Upload file to Firebase Storage
+			var uploadTask = photoRef.put(file);
+			uploadTask.on('state_changed', null, null, function(snapshot) {
+				console.log('success')
+				console.log(snapshot)
+				// When the image has successfully uploaded, we get its download URL
+				var downloadUrl = uploadTask.snapshot.downloadURL;
+				comment.img = downloadUrl;
 				Comment.addComment($scope.selectedTask.$id, comment).then(function() {
 					$scope.content = '';
+					document.getElementById('commentPrwImg').src = '';
 				})
-			})
+			});
 		}else{
 			Comment.addComment($scope.selectedTask.$id, comment).then(function() {
 				$scope.content = '';
 			})
 		}
-
 		/*var comment = {
 			content: $scope.content,
 			name: $scope.user.profile.name,
@@ -284,25 +304,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		}
 		console.log('change occured');
 		var imgechge = document.getElementById(imgId);
-		handleFileSelect(imgechge, function (data) {
-			document.getElementById(prwImgId).src = data;
-		})
-	};
-	$scope.previewImagePost = function (that, type) {
-		var imgId = '';
-		var prwImgId = '';
-		if (type == 'offer') {
-			imgId = 'imgupload';
-			prwImgId = 'offerimg';
-		} else if (type == 'post') {
-			imgId = 'helpImg'
-			prwImgId = 'postimg'
-		} else if (type == 'comment') {
-			imgId = 'convoImg'
-			prwImgId = 'commentPrwImg'
-		}
-		console.log('change occured');
-		var imgechge = document.getElementById(imgId);
+		file = imgechge.files[0];
 		handleFileSelect(imgechge, function (data) {
 			document.getElementById(prwImgId).src = data;
 		})
@@ -317,6 +319,33 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		};
 		var imgelement = document.getElementById('imgupload');
 		if(imgelement.files.length>0){
+			var storageRef = firebase.storage().ref().child($scope.user.uid);
+			// Get a reference to store file at photos/<FILENAME>.jpg
+			var photoRef = storageRef.child(file.name);
+			// Upload file to Firebase Storage
+			var uploadTask = photoRef.put(file);
+			uploadTask.on('state_changed', null, null, function(snapshot) {
+				console.log('success')
+				console.log(snapshot)
+				// When the image has successfully uploaded, we get its download URL
+				var downloadUrl = uploadTask.snapshot.downloadURL;
+				offer.img = downloadUrl;
+				Offer.makeOffer($scope.selectedTask.$id, offer).then(function() {
+					toaster.pop('success', 'Your offer has been placed.');
+					document.getElementById('offerimg').src = '';
+
+					// Mark that the current user has offerred for this task.
+					$scope.alreadyOffered = true;
+
+					// Reset offer form
+					$scope.total = true;
+
+					// Disable the "Offer Now" button on the modal
+					$scope.block = true;
+					$('#offModal').modal('hide');
+				});
+			});
+			/*
 			handleFileSelect(imgelement, function (data) {
 				document.getElementById('offerimg').src = data;
 				offer.img = data;
@@ -333,7 +362,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 					$scope.block = true;
 					$('#offModal').modal('hide');
 				});
-			})
+			})*/
 		}else{
 			Offer.makeOffer($scope.selectedTask.$id, offer).then(function() {
 				toaster.pop('success', 'Your offer has been placed.');
