@@ -144,6 +144,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
      console.log($scope.currentUserArr)
  });*/
 
+
+
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
 
@@ -423,5 +425,10 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 			Offer.notifyRunner($scope.selectedTask.$id, runnerId);
 		});
 	};
+
+	//----------------PROFILE-----------------------------------//
+	$scope.addInfoToProfile = function (user) {
+		console.log(user)
+	}
 
 })
