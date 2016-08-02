@@ -3,6 +3,8 @@
 app.controller('TaskController', function($scope, $location, toaster, Task, Auth) {
 
 	var file;
+	$scope.postImgPrw = false;
+	$scope.postImg = '';
 	var handleFileSelect = function(element, cb) {
 		var files = element.files;
 		var file = files[0];
@@ -58,11 +60,13 @@ app.controller('TaskController', function($scope, $location, toaster, Task, Auth
 
 	};
 
-	$scope.previewPostImage = function (that, type) {
+	$scope.previewPostImage = function () {
 		var imgechge = document.getElementById('helpImg');
 		file = imgechge.files[0];
 		handleFileSelect(imgechge, function (data) {
-			document.getElementById('postimg').src = data;
+			$scope.postImgPrw = true;
+			$scope.postImg = data;
+			//document.getElementById('postimg').src = data;
 		})
 	};
 
