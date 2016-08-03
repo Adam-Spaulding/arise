@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, NgMap) {
+app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, NgMap, ProfileService) {
 	//uiGmapLogger.currentLevel = uiGmapLogger.LEVELS.debug;
 	$scope.searchTask = '';
 	$scope.mapPins = [];
@@ -428,7 +428,10 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	//----------------PROFILE-----------------------------------//
 	$scope.addInfoToProfile = function (user) {
-		console.log(user)
+		console.log(user, $routeParams.userId,$scope.user.auth.uid == $routeParams.userId)
+		ProfileService.addUserInfo($routeParams.userId,user).then(function() {
+			toaster.pop('success', 'Your call for help has been updated.');
+		})
 	}
 
 })

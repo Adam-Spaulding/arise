@@ -43,7 +43,7 @@
             </ul>
             <!-- TABS -->
             <div class="tab-content">
-                <div class="tab-pane" ng-class="{ active: activeTab === 'profile' }">
+                <div class="tab-pane" ng-show="user.auth.uid == userId" ng-class="{ active: activeTab === 'profile' }">
                     <form ng-submit="addInfoToProfile(userInfo)">
                   <div class="col-sm-4">
                     Groups
