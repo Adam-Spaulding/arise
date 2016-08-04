@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, NgMap) {
+app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer, NgMap, ProfileService) {
 	//uiGmapLogger.currentLevel = uiGmapLogger.LEVELS.debug;
 	$scope.searchTask = '';
 	$scope.mapPins = [];
@@ -144,6 +144,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
      console.log($scope.currentUserArr)
  });*/
 
+
+
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
 
@@ -218,23 +220,6 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		$scope.offers = Offer.offers(task.$id);
 	};
 
-	/*img to base64*/
-	var handleFileSelect = function(element, cb) {
-		var files = element.files;
-		var file = files[0];
-		if (files && file) {
-			var reader = new FileReader();
-			reader.addEventListener('load', function () {
-				var image = new Image();
-				image.height = 100;
-				image.title = file.name;
-				image.src = this.result;
-				cb(this.result);
-			}, false);
-
-			reader.readAsDataURL(file);
-		}
-	};
 	// --------------- TASK ---------------
 
 	$scope.cancelTask = function(taskId) {
@@ -424,5 +409,14 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		});
 	};
 
+	//----------------PROFILE-----------------------------------//
+	$scope.addInfoToProfile = function (user) {
+		console.log(user, $routeParams.userId,$scope.user.auth.uid == $routeParams.userId)
+		ProfileService.addUserInfo($routeParams.userId,user).then(function() {
+			toaster.pop('success', 'Your call for help has been updated.');
+		})
+	}
+
 })
+
 //# sourceMappingURL=browse.js.map

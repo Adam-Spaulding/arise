@@ -11,15 +11,15 @@
 			</marker>
 
 			<custom-control id="home" position="TOP_RIGHT" index="1" on-click="vm.click()">
-      <div>
-				<a data-toggle="modal" data-target="#posModal" type="radio" name="tabs" for="tab4" style="cursor:pointer"><img src="images/addlogo.svg" /></a>
-      </div>
-    </custom-control>
+	      <div>
+					<a data-toggle="modal" data-target="#posModal" type="radio" name="tabs" for="tab4" style="cursor:pointer"><img src="images/addlogo.svg" /></a>
+	      </div>
+	    </custom-control>
 
 			<info-window id="myInfoWindow">
-				<div ng-non-bindable>
-					<b><p>{{ selectedCity.title }}</p></b>
-					<p id="subheader">Posted by {{ selectedCity.name }} <span am-time-ago="selectedCity.datetime"></span></p>
+				<div ng-non-bindable style="height:120px; width:200px;">
+					<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
+					<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
 					<p>{{selectedCity.help_type}}</p>
 					<a class="btn-sm btn-primary hidden-lg hidden-md hidden-sm" href="#/browsedetails/{{selectedCity.$id}}">View Call For Help</a>
 					<a class="btn-sm btn-info hidden-xs" href="#/_/{{selectedCity.$id}}">View Call For Help</a>

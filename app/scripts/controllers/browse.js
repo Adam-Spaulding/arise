@@ -220,23 +220,6 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		$scope.offers = Offer.offers(task.$id);
 	};
 
-	/*img to base64*/
-	var handleFileSelect = function(element, cb) {
-		var files = element.files;
-		var file = files[0];
-		if (files && file) {
-			var reader = new FileReader();
-			reader.addEventListener('load', function () {
-				var image = new Image();
-				image.height = 100;
-				image.title = file.name;
-				image.src = this.result;
-				cb(this.result);
-			}, false);
-
-			reader.readAsDataURL(file);
-		}
-	};
 	// --------------- TASK ---------------
 
 	$scope.cancelTask = function(taskId) {
