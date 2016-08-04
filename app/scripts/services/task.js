@@ -21,7 +21,7 @@ app.factory('Task', function(FURL, $firebase, Auth) {
 					taskId: newTask.key(),
 					type: true,
 					title: task.title,
-					img: task.img,
+					img: task.img?task.img:'',
 					datetime: task.datetime
 				};
 
