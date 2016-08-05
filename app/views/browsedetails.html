@@ -23,15 +23,15 @@
       {{selectedTask.name}}</a></H3></div>
       <div class="card-header" ng-show="isTaskCreator(selectedTask)"><H3><a ng-href="#/profile/{{selectedTask.poster}}"><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar">
       {{selectedTask.name}}</a></H3></div>
-      <div ng-show="isAssignee(selectedTask) && isCompleted(selectedTask)">
+      <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div>
-      <div ng-show="isTaskCreator(selectedTask) && isCompleted(selectedTask)">
+      <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div>
 
-      <!--<star-rating ng-model="rating2"></star-rating>-->
-      <!--<strong>{{rating}}</strong>-->
+      <!--<star-rating ng-model="rating"></star-rating>
+      <strong>{{rating}}</strong>-->
       <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
       <div class="card-block">
         <h4 class="card-title">{{selectedTask.title}}</h4>

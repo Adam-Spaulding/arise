@@ -419,13 +419,13 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 
 	/*--------------RATING---------------------------------------*/
-	$scope.rating = 0;
+	$scope.rating = 2;
 	$scope.isReadonly = true;
 	$scope.rateFunction = function(rating) {
 		console.log('Rating selected: ' + rating);
 	};
 })
-	.directive('starRating', function starRating() {
+	.directive('starRating', function () {
 		return {
 			restrict: 'EA',
 			template:
