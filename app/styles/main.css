@@ -322,7 +322,7 @@ input.form-group {
 }
 
 .background-login {
-  /*position: fixed;
+  position: fixed;
   z-index: 1000;
   background-color: #f9f9f9;
   right:0;
@@ -335,7 +335,7 @@ input.form-group {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  text-align: center;*/
+  text-align: center;
 }
 
 
