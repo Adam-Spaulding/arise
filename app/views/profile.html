@@ -66,7 +66,8 @@
                     Website:
                   </div>
                   <div class="col-sm-8">
-                      <input ng-model="userInfo.website" class="showInput" type="url"/>
+                      <span class="input-group-addon" style="width: 50px;display: inline;">https://</span>
+                      <input id="url" ng-model="userInfo.website" class="showInput" type="text"/>
                   </div>
                     <div class="col-sm-12 lineBreak"></div>
                   <div class="col-sm-4">
@@ -95,21 +96,22 @@
                     Groups:
                   </div>
                   <div class="col-sm-8">
-                      <strong>{{userProfile.groups}}</strong>
+                      <strong>{{userProfile.groups?userProfile.groups:'Please edit groups'}}</strong>
                   </div>
                   <div class="col-sm-12 lineBreak"></div>
                   <div class="col-sm-4">
                     Website:
                   </div>
                   <div class="col-sm-8">
-                      <strong>{{userProfile.website}}</strong>
+                    <strong><a ng-href="{{userProfile.website?userProfile.website:'#'}}">{{userProfile.website?userProfile.website:'Please edit website'}}</a></strong>
+                      <!--<strong>{{userProfile.website?userProfile.website:'Please edit website'}}</strong>-->
                   </div>
                   <div class="col-sm-12 lineBreak"></div>
                   <div class="col-sm-4">
                     About me:
                   </div>
                   <div class="col-sm-8">
-                      <strong>{{userProfile.aboutMe}}</strong>
+                      <strong>{{userProfile.aboutMe?userProfile.aboutMe:'Please edit about me'}}</strong>
                   </div>
 
                 </div>
