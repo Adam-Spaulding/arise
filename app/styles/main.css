@@ -22,8 +22,8 @@ a, a:hover, a:focus {
 
 .auth-forms {
   max-width:400px;
-  margin:0 auto;
-  padding:1px 25px 25px 25px;
+  margin:200px auto;
+  padding:20px 25px 25px 25px;
 }
 /*
 .card-heading {
@@ -214,7 +214,7 @@ a:hover {
 .auth-forms {
   background-color: #fff;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  margin-top: 5%;
+  margin-top: 10%;
   font-size: 150%;
 }
 
@@ -225,8 +225,8 @@ a:hover {
 }
 
 .auth-forms h2 {
-  font-size: 34px;
-  letter-spacing: 8px;
+  font-size: 14px;
+  letter-spacing: 6px;
   font-weight: 100;
   margin-bottom: 30px;
 }
@@ -308,13 +308,13 @@ input.form-group {
 }
 
 .loginlogo h2 {
-  max-width: 300px;
-  margin: 5% auto 1% auto;
-  color: #fff;
+  max-width: 600px;
+  margin: auto auto 1% auto;
+  color: #363636;
+  letter-spacing: 4px;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 100;
-  padding: 20px;
-  font-size: 64px !important;
+  font-size: 34px !important;
   /*letter-spacing: 30px;*/
   /*text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
   border: 3px solid #363636;
@@ -322,20 +322,20 @@ input.form-group {
 }
 
 .background-login {
-  position: fixed;
+  /*position: fixed;
   z-index: 1000;
-  background-color: #fff;
+  background-color: #f9f9f9;
   right:0;
   bottom: 0;
   top: 0;
   left: 0;
   height:100vh;
-  background-image: url('/images/cover-login.png');
+  background-image: url('/images/cover-login.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  text-align: center;
+  text-align: center;*/
 }
 
 
@@ -691,4 +691,3 @@ bottom:0;
 .star-rating.readonly .star.filled {
   color: #666;
 }
-
