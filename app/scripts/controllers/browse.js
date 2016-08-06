@@ -6,6 +6,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.mapPins = [];
 	$scope.paths = [];
 	$scope.tasks = [];
+	$scope.editOn = false;
 	//document.getElementById('commentPrwImg').style.display = 'none';
 	$scope.polylines = [];
 	if(sessionStorage.latLong){
@@ -23,6 +24,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	var mapx;
 	var file;
 	$scope.currentUserArr = [];
+	$scope.userInfo = {};
 	if(sessionStorage.latLong){
 		var sessionedLatLong = JSON.parse(sessionStorage.latLong)
 	}
@@ -159,7 +161,11 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	if($routeParams.userId) {
 		//console.log($routeParams.userId);
 		 Auth.getProfile($routeParams.userId).$loaded().then(function(x){
-			 $scope.userProfile = (x)
+			 $scope.userProfile = (x);
+			 $scope.userInfo.groups = $scope.userProfile.groups
+			 $scope.userInfo.website = $scope.userProfile.website
+			 $scope.userInfo.aboutMe = $scope.userProfile.aboutMe
+
 		})
 
 	}
@@ -410,22 +416,26 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	};
 
 	//----------------PROFILE-----------------------------------//
+	$scope.groupOptions = [{name: 'Group A',id:0},{name: 'Group B',id:1},{name: 'Group C',id:2},{name: 'Group D',id:3},{name: 'Group E',id:4}];
 	$scope.addInfoToProfile = function (user) {
 		console.log(user, $routeParams.userId,$scope.user.auth.uid == $routeParams.userId)
 		ProfileService.addUserInfo($routeParams.userId,user).then(function() {
 			toaster.pop('success', 'Your call for help has been updated.');
+			$scope.editOn = false;
 		})
 	}
-
+	$scope.editMode = function(){
+		$scope.editOn = true;
+	}
 
 	/*--------------RATING---------------------------------------*/
-	$scope.rating = 0;
+	$scope.rating = 2;
 	$scope.isReadonly = true;
 	$scope.rateFunction = function(rating) {
 		console.log('Rating selected: ' + rating);
 	};
 })
-	.directive('starRating', function starRating() {
+	.directive('starRating', function () {
 		return {
 			restrict: 'EA',
 			template:

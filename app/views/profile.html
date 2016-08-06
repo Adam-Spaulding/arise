@@ -43,12 +43,11 @@
             </ul>
             <!-- TABS -->
             <div class="tab-content">
-                <div class="tab-pane" ng-show="user.auth.uid == userId" ng-class="{ active: activeTab === 'profile' }">
+                <div class="tab-pane" ng-show="user.auth.uid == userId && editOn" ng-class="{ active: activeTab === 'profile' }">
                     <form ng-submit="addInfoToProfile(userInfo)">
                   <div class="col-sm-4">
                     Groups
                     Website
-
                   </div>
                   <div class="col-sm-8">
                     Ratings
@@ -57,7 +56,10 @@
                     Groups:
                   </div>
                   <div class="col-sm-8">
-                      <input ng-model="userInfo.groups" class="showInput" type="text"/>
+                      <select style="width: 30%;" ng-model="userInfo.groups" id="selectbasic" name="selectbasic" class="form-control" required>
+                          <option ng-repeat="option in groupOptions" value="{{option.name}}">{{option.name}}</option>
+                      </select>
+                      <!--<input ng-model="userInfo.groups" class="showInput" type="text"/>-->
                   </div>
                     <div class="col-sm-12 lineBreak"></div>
                   <div class="col-sm-4">
@@ -77,6 +79,39 @@
                         <button type="submit" class="btn btn-primary">Add</button>
                     </div>
                     </form>
+                </div>
+                <div class="tab-pane" ng-show="!editOn" ng-class="{ active: activeTab === 'profile' }">
+                  <div ng-show="user.auth.uid == userId">
+                        <button ng-click="editMode()" class="btn btn-primary">Edit</button>
+                  </div>
+                  <div class="col-sm-4">
+                    Groups
+                    Website
+                  </div>
+                  <div class="col-sm-8">
+                    Ratings
+                  </div>
+                  <div class="col-sm-4">
+                    Groups:
+                  </div>
+                  <div class="col-sm-8">
+                      <strong>{{userProfile.groups}}</strong>
+                  </div>
+                  <div class="col-sm-12 lineBreak"></div>
+                  <div class="col-sm-4">
+                    Website:
+                  </div>
+                  <div class="col-sm-8">
+                      <strong>{{userProfile.website}}</strong>
+                  </div>
+                  <div class="col-sm-12 lineBreak"></div>
+                  <div class="col-sm-4">
+                    About me:
+                  </div>
+                  <div class="col-sm-8">
+                      <strong>{{userProfile.aboutMe}}</strong>
+                  </div>
+
                 </div>
                 <div class="tab-pane" ng-class="{ active: activeTab === 'ratings' }">
                   Ratings tab content.

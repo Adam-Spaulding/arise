@@ -1,4 +1,3 @@
-
 <div class="row" id="browsedetails-map">
   <ng-map center="{{selectedTask.pos}}" zoom="12" disable-default-u-i="true">
     <marker ng-repeat="task in tasks track by $index" position="{{selectedTask.pos}}"
@@ -26,12 +25,12 @@
       <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div>
-      <div ng-show="isTaskCreator(selectedTask)">
+      <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div>
 
-      <!--<star-rating ng-model="rating2"></star-rating>-->
-      <!--<strong>{{rating}}</strong>-->
+      <!--<star-rating ng-model="rating"></star-rating>
+      <strong>{{rating}}</strong>-->
       <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
       <div class="card-block">
         <h4 class="card-title">{{selectedTask.title}}</h4>
