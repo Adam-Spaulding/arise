@@ -311,6 +311,12 @@ label .fa:hover {
     -webkit-border-radius:0 !important;
 }
 
+.nav-tabs li {
+	border-right: 1px solid #F5F5F5;
+	border-left: 1px solid #F5F5F5;
+}
+
 .nav-tabs .active {
-	background-color:#2ecc71;
+	color: #2ecc71 !important;
+	border-bottom: 4px #2ecc71 solid;
 }

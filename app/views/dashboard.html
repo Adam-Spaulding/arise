@@ -22,12 +22,12 @@
 
 					<!-- TABS -->
 							<div class="panel-body" style="padding:0px;">
-									<ul class="nav nav-tabs" ng-init="activeTab = 'calls-placed'" style="background-color:#363636; color:#363636;">
-											<li ng-class="{ active: activeTab === 'calls-placed' }">
-													<a ng-click="activeTab = 'calls-placed'" href=""><i class="fa fa-life-ring" style="color:#fff;"></i> Placed Calls</a>
-											</li>
+									<ul class="nav nav-tabs" ng-init="activeTab = 'picked-up'" style="background-color:#fff; color:#66757f;">
 											<li ng-class="{ active: activeTab === 'picked-up' }">
-													<a ng-click="activeTab = 'picked-up'" href=""><i class="fa fa-hand-paper-o" style="color:#fff;"></i> Picked Up Calls</a>
+													<a ng-click="activeTab = 'picked-up'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-heart"></i> Picked Up Calls</a>
+											</li>
+											<li ng-class="{ active: activeTab === 'calls-placed' }">
+													<a ng-click="activeTab = 'calls-placed'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-life-ring"></i> My Placed Calls</a>
 											</li>
 											<!-- <li ng-class="{ active: activeTab === 'ratings' }">
 													<a ng-click="activeTab = 'ratings'" href="">Ratings</a>
@@ -36,8 +36,8 @@
 									<!-- TABS -->
 									<div class="tab-content">
 											<div class="tab-pane" ng-class="{ active: activeTab === 'calls-placed' }">
-												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!completed' } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}">
-													<div id="card" class="list-item row" style="margin-bottom:0px !important;">
+												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: 'open' } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}" style="color: #66757f !important;">
+													<div id="card" class="list-item row" style="margin-bottom:0px;">
 														<div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
 															<img class="" style="max-width:70px;" ng-src="{{task.gravatar}}">
 														</div>
@@ -48,7 +48,11 @@
 														</div>
 													</div>
 												</a>
+												<!-- <p><div class="title" ng-hide="tasks && tasks.length > 0">
+	                        <span>You have not placed a call for help as of yet.</span>
+	                      </div></p> -->
 											</div>
+
 											<div class="tab-pane" ng-class="{ active: activeTab === 'picked-up' }">
 												<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: '!completed' } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}">
 													<div id="card" class="list-item row" style="margin-bottom:0px !important;">
@@ -62,6 +66,9 @@
 														</div>
 													</div>
 												</a>
+												<!-- <p><div class="title" ng-hide="tasks && tasks.length > 0">
+	                        <span>You have picked up any calls for help. Make an offer today!</span>
+	                      </div></p> -->
 											</div>
 											<!-- <div class="tab-pane" ng-class="{ active: activeTab === 'ratings' }">
 												Ratings tab content.
