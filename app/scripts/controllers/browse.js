@@ -420,7 +420,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	$scope.addInfoToProfile = function (user) {
 		console.log(user, $routeParams.userId,$scope.user.auth.uid == $routeParams.userId)
 		ProfileService.addUserInfo($routeParams.userId,user).then(function() {
-			toaster.pop('success', 'Your call for help has been updated.');
+			toaster.pop('success', 'Your profile has been updated.');
 			$scope.editOn = false;
 		})
 	}

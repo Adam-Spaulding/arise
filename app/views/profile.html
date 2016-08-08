@@ -9,112 +9,79 @@
         height: 10px;
     }
 </style>
-<div class="col-md-2" />
-<div class="col-md-8">
-    <div class="card hovercard">
-        <div class="card-background">
-            <img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/>
-        </div>
-        <div class="useravatar">
-            <img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/>
-        </div>
-        <div class="card-info">
-          <span class="card-title">
-            <h4 style="display: inline;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name"></h4>
-          </span>
-        </div>
+<div class="col-md-1" />
+<div class="col-md-10">
+<div class="col-sm-4">
+  <div class="card hovercard">
+      <div class="card-background">
+          <img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/>
+      </div>
+      <div class="useravatar">
+          <img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/>
+      </div>
+      <div class="card-info">
+        <span class="card-title">
+          <h4 style="display: inline;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name"></h4>
+        </span>
+      </div>
+  </div>
+
+<div class="card" style="background-color:#fff;">
+  <div class="" ng-show="user.auth.uid == userId && editOn" ng-class="{ active: activeTab === 'profile' }">
+  <form ng-submit="addInfoToProfile(userInfo)">
+
+      <p>My Groups:</p>
+      <select style="width: 100%;" ng-model="userInfo.groups" id="selectbasic" name="selectbasic" class="form-control" required>
+          <option ng-repeat="option in groupOptions" value="{{option.name}}">{{option.name}}</option>
+      </select>
+      <!--<input ng-model="userInfo.groups" class="showInput" type="text"/>-->
+
+      <p>My Website:</p>
+        <span class="input-group-addon" style="width: 50px;display: inline;">https://</span>
+        <input id="url" ng-model="userInfo.website" class="showInput" type="text"/>
+
+
+      <p>About me:</p>
+        <textarea  ng-model="userInfo.aboutMe" style="width:100%;" name="" id=""  rows="10"></textarea>
+
+      <p><button type="submit" class="btn btn-info">Save</button></p>
+
+      </form>
+  </div>
+  <div class="tab-pane" ng-show="!editOn" ng-class="{ active: activeTab === 'profile' }">
+    <div ng-show="user.auth.uid == userId">
+          <a ng-click="editMode()" class=""><i class="fa fa-pencil-square-o fa-2x" style="color:#2ecc71; cursor:pointer; float:right;" aria-hidden="true"></i></a>
     </div>
 
+      <p><i class="fa fa-users" aria-hidden="true"></i>  <span>{{userProfile.groups?userProfile.groups:'Not a member of a group'}}</span></p>
+
+      <p><i class="fa fa-link" aria-hidden="true" style="color:#2ecc71;"></i>  <a ng-href="http://{{userProfile.website?userProfile.website:'#'}}" style="color:#2ecc71;">{{userProfile.website?userProfile.website:'No website yet!'}}</a></p>
+      <!--<strong>{{userProfile.website?userProfile.website:'Please edit website'}}</strong>-->
+
+      <p><span>{{userProfile.aboutMe?userProfile.aboutMe:''}}</span></p>
+    </div>
+</div>
+</div>
+<div class="col-sm-8">
+
+
     <!-- TABS -->
-        <div class="panel-body" style="padding:0px;">
-            <ul class="nav nav-tabs" ng-init="activeTab = 'profile'" style="background-color:#fff; color:#66757f;">
-                <li ng-class="{ active: activeTab === 'profile' }">
-                    <a ng-click="activeTab = 'profile'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-user"></i> Profile</a>
-                </li>
-                <li ng-class="{ active: activeTab === 'ratings' }">
-                    <a ng-click="activeTab = 'ratings'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-star"></i> Ratings</a>
-                </li>
-                <li ng-class="{ active: activeTab === 'calls-placed' }">
-                    <a ng-click="activeTab = 'calls-placed'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-life-ring"></i> Placed Calls</a>
-                </li>
+        <div class="panel-body" style="padding:0px;margin-top:20px;">
+
+            <ul class="nav nav-tabs" ng-init="activeTab = 'picked-up'" style="background-color:transparent; color:#66757f;">
                 <li ng-class="{ active: activeTab === 'picked-up' }">
-                    <a ng-click="activeTab = 'picked-up'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-medkit"></i> Picked Up Calls</a>
+                    <a ng-click="activeTab = 'picked-up'" href="" style="color:#66757f !important; font-weight:100; background-color:#fff !important;"><i class="fa fa-medkit"></i> Picked Up Calls</a>
                 </li>
+                <!-- <li ng-class="{ active: activeTab === 'ratings' }">
+                    <a ng-click="activeTab = 'ratings'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-star"></i> Ratings</a>
+                </li> -->
+                <li ng-class="{ active: activeTab === 'calls-placed' }">
+                    <a ng-click="activeTab = 'calls-placed'" href="" style="color:#66757f !important; font-weight:100; background-color:#fff !important;"><i class="fa fa-life-ring"></i> Placed Calls</a>
+                </li>
+
             </ul>
             <!-- TABS -->
             <div class="tab-content">
-                <div class="tab-pane" ng-show="user.auth.uid == userId && editOn" ng-class="{ active: activeTab === 'profile' }">
-                    <form ng-submit="addInfoToProfile(userInfo)">
-                  <div class="col-sm-4">
-                    Groups
-                    Website
-                  </div>
-                  <div class="col-sm-8">
-                    Ratings
-                  </div>
-                  <div class="col-sm-4">
-                    Groups:
-                  </div>
-                  <div class="col-sm-8">
-                      <select style="width: 30%;" ng-model="userInfo.groups" id="selectbasic" name="selectbasic" class="form-control" required>
-                          <option ng-repeat="option in groupOptions" value="{{option.name}}">{{option.name}}</option>
-                      </select>
-                      <!--<input ng-model="userInfo.groups" class="showInput" type="text"/>-->
-                  </div>
-                    <div class="col-sm-12 lineBreak"></div>
-                  <div class="col-sm-4">
-                    Website:
-                  </div>
-                  <div class="col-sm-8">
-                      <span class="input-group-addon" style="width: 50px;display: inline;">https://</span>
-                      <input id="url" ng-model="userInfo.website" class="showInput" type="text"/>
-                  </div>
-                    <div class="col-sm-12 lineBreak"></div>
-                  <div class="col-sm-4">
-                    About me:
-                  </div>
-                  <div class="col-sm-8">
-                      <textarea  ng-model="userInfo.aboutMe" style="resize: none;" name="" id="" cols="60" rows="5"></textarea>
-                  </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                    </form>
-                </div>
-                <div class="tab-pane" ng-show="!editOn" ng-class="{ active: activeTab === 'profile' }">
-                  <div ng-show="user.auth.uid == userId">
-                        <button ng-click="editMode()" class="btn btn-primary">Edit</button>
-                  </div>
-                  <div class="col-sm-4">
-                    Groups
-                    Website
-                  </div>
-                  <div class="col-sm-8">
-                    Ratings
-                  </div>
-                  <div class="col-sm-4">
-                    Groups:
-                  </div>
-                  <div class="col-sm-8">
-                      <strong>{{userProfile.groups?userProfile.groups:'Please edit groups'}}</strong>
-                  </div>
-                  <div class="col-sm-12 lineBreak"></div>
-                  <div class="col-sm-4">
-                    Website:
-                  </div>
-                  <div class="col-sm-8">
-                    <strong><a ng-href="{{userProfile.website?userProfile.website:'#'}}">{{userProfile.website?userProfile.website:'Please edit website'}}</a></strong>
-                      <!--<strong>{{userProfile.website?userProfile.website:'Please edit website'}}</strong>-->
-                  </div>
-                  <div class="col-sm-12 lineBreak"></div>
-                  <div class="col-sm-4">
-                    About me:
-                  </div>
-                  <div class="col-sm-8">
-                      <strong>{{userProfile.aboutMe?userProfile.aboutMe:'Please edit about me'}}</strong>
-                  </div>
-
-                </div>
                 <div class="tab-pane" ng-class="{ active: activeTab === 'ratings' }">
                   Ratings tab content.
                 </div>
@@ -154,4 +121,5 @@
         </div>
 
     </div>
-<div class="col-md-2" />
+  </div>
+<div class="col-md-1" />
