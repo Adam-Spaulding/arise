@@ -21,8 +21,8 @@
 					<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
 					<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
 					<p>{{selectedCity.help_type}}</p>
-					<a class="btn-sm btn-primary hidden-lg hidden-md hidden-sm" href="#/browsedetails/{{selectedCity.$id}}">View Call For Help</a>
-					<a class="btn-sm btn-info hidden-xs" href="#/_/{{selectedCity.$id}}">View Call For Help</a>
+					<a class="btn-sm btn-primary" href="#/browsedetails/{{selectedCity.$id}}">View Call For Help</a>
+					<!-- <a class="btn-sm btn-info hidden-xs" href="#/_/{{selectedCity.$id}}">View Call For Help</a> -->
 				</div>
 			</info-window>
 		</ng-map>

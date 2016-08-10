@@ -100,16 +100,6 @@ var app = angular
           }
         }
       })
-      .when('/chat', {
-        templateUrl: 'views/chat.html',
-        routeKey: 'pickedupcalls',
-        controller: 'BrowseController',
-        resolve: {
-          currentAuth: function(Auth) {
-            return Auth.requireAuth();
-          }
-        }
-      })
       .otherwise({
         redirectTo: '/login'
       });

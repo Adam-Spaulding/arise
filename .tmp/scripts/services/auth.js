@@ -18,8 +18,8 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
         profile.fbuid = user.uid;
       }
 
-      var profileRef = $firebase(ref.child('profile'));
-      return profileRef.$set(uid, profile);
+      var profileRef = $firebase(ref.child('profile').child(uid));
+      return profileRef.$update(profile);
     },
 
     getProfile: function(uid) {

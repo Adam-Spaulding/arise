@@ -18,29 +18,34 @@
 
       <!-- details start-->
     <div class="card" style="background-color:#fff;">
-      <div class="card-header" ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)"><H3><a ng-href="#/profile/{{selectedTask.poster}}"><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar">
-      {{selectedTask.name}}</a></H3></div>
-      <div class="card-header" ng-show="isTaskCreator(selectedTask)"><H3><a ng-href="#/profile/{{selectedTask.poster}}"><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar">
-      {{selectedTask.name}}</a></H3></div>
-      <div>
+      <div class="card-header" ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+      </div>
+      <div class="card-title" ng-show="isTaskCreator(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+      </div>
+      <!-- <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div>
       <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
-      </div>
+      </div> -->
 
       <!--<star-rating ng-model="rating"></star-rating>
       <strong>{{rating}}</strong>-->
       <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
       <div class="card-block">
-        <h4 class="card-title">{{selectedTask.title}}</h4>
-        <p><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
+        <span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
+        <span class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type}}</span>
+        <b><p class="card-title">{{selectedTask.title}} </b><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
         <p class="card-text">{{selectedTask.description}}</p>
         <!-- <a href="#" class="btn btn-primary-sm">Go somewhere</a> -->
       </div>
-      <div class="card-footer text-muted">
-        <div class="col-xs-6"><span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span></div>
-        <div class="col-xs-6"><span class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type | limitTo:9}}{{ task.title.length > 9? "..." : ""}}</span></div>
+      <div class="card-footer text-muted" style="text-align:center;">
+        <div class="col-xs-12">
+          <a style="padding:0px 7px;" href="" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on Facebook" ><i class="fa fa-facebook-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+          <a style="padding:0px 7px;" href="" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on twitter" ><i class="fa fa-twitter-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+          <a style="padding:0px 7px;" href="" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on LinkedIn" ><i class="fa fa-linkedin-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+          <a style="padding:0px 7px;" href="" class="" ng-hide="!isOpen(selectedTask)" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash-o fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+        </div>
       </div>
     </div>
 
@@ -48,18 +53,18 @@
   </div>
   <div class="col-sm-6">
   <!-- OFFERS -->
-  <div class="card" style="background-color:#fff;">
+  <div class="card" style="background-color:#fff;" ng-show="isOpen(selectedTask)">
     <div class="card-header" ><H3>Offers</H3></div>
     <!-- <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;"> -->
     <div class="card-block">
       <div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
-        <button style="width:100%;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#offModal"><i class="fa fa-heart" style="color:#fff;" aria-hidden="true"></i> Offer to Help</button>
+        <button style="width:100%;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#offModal">Offer to Help</button>
       </div>
       <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
-        <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)"><i class="fa fa-check" aria-hidden="true" style="color:#fff;"></i> Complete Call</button>
+        <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
       </div>
       <div ng-show="isTaskCreator(selectedTask) && !isCompleted(selectedTask)">
-        <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)"><i class="fa fa-check" aria-hidden="true" style="color:#fff;"></i> Complete Call</button>
+        <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
       </div>
       <p><div class="title" ng-hide="offers && offers.length > 0">
         <span>No one has offered to pick up this call yet.</span>
@@ -95,64 +100,43 @@
     <div class="card-footer text-muted"></div>
   </div>
   <!-- END OFFERS -->
-        <!-- Comments -->
-            <div class="modal fade" id="chatModal" role="dialog">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">{{selectedTask.title}} </h4>
+  <!-- Comments -->
+    <div class="card" style="background-color:#fff;" ng-show="isAssigned(selectedTask)">
+      <div class="row" ng-hide="">
+          <form ng-submit="addComment()" id="comment-submit">
+            <div class="input-group" id="taskdetails-chat" style="width:100%; background-color:#fff; padding-left:5px;">
+              <!-- <div class="input-group-addon">
+                <img ng-src="{{ user.profile.gravatar }}" class="img-circle comment gravatar">
+              </div> -->
+              <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
+              <div id="chat-submit">
+                  <div class="upload">
+                      <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
                   </div>
-                  <div class="modal-body">
-                    <div class="row" ng-hide="">
-                        <form ng-submit="addComment()" id="comment-submit">
-                          <div class="input-group" id="taskdetails-chat" style="width:100%; background-color:#fff; padding-left:5px;">
-                            <!-- <div class="input-group-addon">
-                              <img ng-src="{{ user.profile.gravatar }}" class="img-circle comment gravatar">
-                            </div> -->
-                            <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
-                            <div id="chat-submit">
-                                <div class="upload">
-                                    <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
-                                </div>
-                                <button style="background-color: #ff5555" type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
-                               <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
-                             </button>
-                                <br/><br/>
-                                <img id="commentPrwImg" style="width: 80px;height: 80px;" alt=""/>
-                           </div>
-                          </div>
-                        </form>
-                    </div>
-                    <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments.slice().reverse() | orderBy: 'datetime':true">
-                      <p><div class="title" ng-hide="comments && comments.length > 0">
-                        <span>Be the first to make a comment.</span>
-                      </div></p>
-                      <hr>
-                        <img ng-src="{{com.gravatar}}" class="img-circle comment gravatar pull-left">
-                        <div class="well-sm cmt" class="pull-right">
-                          <span class="cmt-title">{{com.name}} </span>
-                          <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
-                          <span>{{com.content}}</span>
-                            <img ng-src="{{com.img}}" class="img-circle offer gravatar" style="width: 70px;">
-                        </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                  </div>
-                </div>
-              </div>
+                  <button style="background-color: #ff5555" type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
+                 <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
+               </button>
+                  <br/><br/>
+                  <img id="commentPrwImg" style="width: 80px;height: 80px;" alt=""/>
+             </div>
             </div>
-          <!-- END COMMENTS -->
-          <!-- BUTTONS -->
-          <button style="width:100%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#chatModal"><i class="fa fa-comments" aria-hidden="true" style="color:#fff;"></i> View Comments</button>
-          <div id="{{selectedTask.help_type}}" ng-show="isTaskCreator(selectedTask) && !isClosed(selectedTask)">
-
-            <!-- <a href="" data-toggle="modal" data-target="#ediModal" data-toggle="tooltip" data-placement="bottom" title="Update Call"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a> -->
-            <a style="width:100%;" href="" class="btn btn-danger" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash" aria-hidden="true" style="background-color:transparent ;"></i> Cancel Call</a>
+          </form>
+      </div>
+      <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments.slice().reverse() | orderBy: 'datetime':true">
+        <p><div class="title" ng-hide="comments && comments.length > 0">
+          <span>Be the first to make a comment.</span>
+        </div></p>
+        <hr>
+          <img ng-src="{{com.gravatar}}" class="img-circle comment gravatar pull-left">
+          <div class="well-sm cmt" class="pull-right">
+            <span class="cmt-title">{{com.name}} </span>
+            <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
+            <span>{{com.content}}</span>
+              <img ng-src="{{com.img}}" class="img-circle offer gravatar" style="width: 70px;">
           </div>
-          <!-- END BUTTONS -->
+      </div>
+    </div>
+    <!-- END COMMENTS -->
 				</div>
         <div class="col-sm-1"></div>
       </div>

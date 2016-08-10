@@ -442,6 +442,11 @@ input.form-group {
 
 }
 
+.card .open, #card .open {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
 .logo-custom {
   /*background-color:#ecf0f1;
   border: 5px solid #2ecc71;*/
