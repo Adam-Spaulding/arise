@@ -22,29 +22,27 @@
       </div>
       <div class="card-title" ng-show="isTaskCreator(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
       </div>
+      <H4 class="card-header"><b>{{selectedTask.title}}</b></H4>
       <!-- <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div>
       <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div> -->
-
       <!--<star-rating ng-model="rating"></star-rating>
       <strong>{{rating}}</strong>-->
       <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
       <div class="card-block">
         <span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
         <span class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type}}</span>
-        <b><p class="card-title">{{selectedTask.title}} </b><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
+        <p class="card-title"><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
         <p class="card-text">{{selectedTask.description}}</p>
         <!-- <a href="#" class="btn btn-primary-sm">Go somewhere</a> -->
       </div>
       <div class="card-footer text-muted" style="text-align:center;">
         <div class="col-xs-12">
-          <a style="padding:0px 7px;" href="" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on Facebook" ><i class="fa fa-facebook-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
-          <a style="padding:0px 7px;" href="" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on twitter" ><i class="fa fa-twitter-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
-          <a style="padding:0px 7px;" href="" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on LinkedIn" ><i class="fa fa-linkedin-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
-          <a style="padding:0px 7px;" href="" class="" ng-hide="!isOpen(selectedTask)" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash-o fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+          <a style="padding:0px 7px;" href="https://www.facebook.com/dialog/feed?app_id=980336382079406&picture={{ selectedTask.img }}&name={{selectedTask.title}}&caption=%20&description={{selectedTask.description}}&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F" target="_blank" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on Facebook" ><i class="fa fa-facebook-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+          <a style="padding:0px 7px;" href="" class="" ng-show="isTaskCreator(selectedTask) && !isCompleted(selectedTask)" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash-o fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
@@ -56,43 +54,36 @@
   <div class="card" style="background-color:#fff;" ng-show="isOpen(selectedTask)">
     <div class="card-header" ><H3>Offers</H3></div>
     <!-- <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;"> -->
-    <div class="card-block">
+    <div class="">
       <div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
         <button style="width:100%;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#offModal">Offer to Help</button>
       </div>
-      <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
-        <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
-      </div>
-      <div ng-show="isTaskCreator(selectedTask) && !isCompleted(selectedTask)">
-        <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
-      </div>
+
       <p><div class="title" ng-hide="offers && offers.length > 0">
         <span>No one has offered to pick up this call yet.</span>
       </div></p>
-      <div class="row card" id="offers" ng-repeat="offer in offers">
+      <div class="row" ng-repeat="offer in offers">
         <div id="" style="">
           <div class="col-xs-2 hidden-xs">
             <img ng-src="{{offer.gravatar}}" class="img-circle offer gravatar" style="height:100%;">
           </div>
           <div class="col-xs-8">
             <div class="row">
-              <span><b>{{offer.name}}</b></span>
+              <span><b><a ng-href="#/profile/{{offer.uid}}" style="color:#3498db">{{offer.name}}</a></b></span>
 
               <!-- Posted <span class="cmt-time"><span am-time-ago="offer.datetime"></span></span> -->
             </div>
             <div class="row">
-              <span>{{offer.total}}</span>
-                    <img ng-src="{{offer.img}}" class="img-circle offer gravatar" style="">
+              <span>{{offer.total}}</span><br>
+                    <img ng-src="{{offer.img}}" class="" style="width:100%;">
             </div>
           </div>
-          <div class="col-xs-2" style="border-left:1px solid #eee; text-align:center;">
-            <button ng-show="offer.accepted" class="btn btn-success btn-xs disabled" style="background-color:#fff;"><i class="fa fa-hand-paper-o" aria-hidden="true" style="color:#3498db;"></i></button>
+          <div class="col-xs-2" style="border-left:1px solid #eee; text-align:center; color:red;">
+            <button ng-show="offer.accepted" class="btn-sm btn-success disabled" style="background-color:transparent; color:#3498db;">SELECTED!</button>
 
-            <button ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)" class="btn btn-info btn-xs" ng-click="acceptOffer(offer.$id,offer.uid)">
-              <i class="fa fa-check" aria-hidden="true" style="color:#2ecc71;"></i>
-            </button>
+            <button ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)" class="btn-sm" style="background-color:#fff; color:#2ecc71;" ng-click="acceptOffer(offer.$id,offer.uid)">ACCEPT</button>
 
-            <a ng-show="isOfferMaker(offer) && isOpen(selectedTask)" class="btn btn-xs" ng-click="cancelOffer(offer.$id)"><i class="fa fa-ban" aria-hidden="true"></i></a>
+            <a ng-show="isOfferMaker(offer) && isOpen(selectedTask)" class="btn-sm btn-info" ng-click="cancelOffer(offer.$id)">CANCEL</a>
           </div>
         </div>
       </div>
@@ -100,15 +91,24 @@
     <div class="card-footer text-muted"></div>
   </div>
   <!-- END OFFERS -->
+
   <!-- Comments -->
-    <div class="card" style="background-color:#fff;" ng-show="isAssigned(selectedTask)">
+    <div class="card" style="background-color:#fff;" ng-show="!isOpen(selectedTask)">
+      <div style="text-align:center;">
+        <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
+          <button class="btn btn-primary" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
+        </div>
+        <div ng-show="isTaskCreator(selectedTask) && !isCompleted(selectedTask)">
+          <button class="btn btn-primary" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
+        </div>
+      </div>
       <div class="row" ng-hide="">
           <form ng-submit="addComment()" id="comment-submit">
             <div class="input-group" id="taskdetails-chat" style="width:100%; background-color:#fff; padding-left:5px;">
               <!-- <div class="input-group-addon">
                 <img ng-src="{{ user.profile.gravatar }}" class="img-circle comment gravatar">
               </div> -->
-              <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
+              <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Send Message" required>
               <div id="chat-submit">
                   <div class="upload">
                       <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
@@ -117,7 +117,7 @@
                  <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
                </button>
                   <br/><br/>
-                  <img id="commentPrwImg" style="width: 80px;height: 80px;" alt=""/>
+                  <img id="commentPrwImg" style="" alt=""/>
              </div>
             </div>
           </form>
@@ -132,7 +132,8 @@
             <span class="cmt-title">{{com.name}} </span>
             <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
             <span>{{com.content}}</span>
-              <img ng-src="{{com.img}}" class="img-circle offer gravatar" style="width: 70px;">
+            <br>
+              <img ng-src="{{com.img}}" class="" style="width:100%;">
           </div>
       </div>
     </div>

@@ -5,7 +5,6 @@
 			<marker ng-repeat="task in tasks | filter: {title: searchTask , status: 'open'}" position="{{task.pos}}"
 					title="{{task.name}}"
 					icon="images/pinlogo-small.svg"
-					doCluster=true
 					id="{{$index}}"
 					on-click="handleMapPins(event, task)">
 			</marker>

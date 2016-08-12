@@ -75,9 +75,9 @@
                 <!-- <li ng-class="{ active: activeTab === 'ratings' }">
                     <a ng-click="activeTab = 'ratings'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-star"></i> Ratings</a>
                 </li> -->
-                <li ng-class="{ active: activeTab === 'calls-placed' }">
+                <!-- <li ng-class="{ active: activeTab === 'calls-placed' }">
                     <a ng-click="activeTab = 'calls-placed'" href="" style="color:#66757f !important; font-weight:100; background-color:#fff !important;">Placed Calls</a>
-                </li>
+                </li> -->
 
             </ul>
             <!-- TABS -->
@@ -89,13 +89,13 @@
                   <div>
                   <a ng-repeat="task in tasks | filter: {title: searchTask , poster:userId } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}">
                     <div id="card" class="list-item row" style="margin-bottom:0px !important;">
-                			<div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
+                			<!-- <div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
                 				<img class="" style="max-width:70px;" ng-src="{{task.gravatar}}">
-                			</div>
+                			</div> -->
                 			<div class="col-xs-8">
                 				<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-                				<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-                				<p style="color:#222222;">{{task.title}}: {{task.description | limitTo:100}}{{ task.title.length > 100? "..." : ""}}</p>
+                				<p id="subheader">Posted <span am-time-ago="task.datetime"></span></p>
+                				<p style="color:#222222;">{{task.title}}: {{task.description }}</p>
                 			</div>
                 		</div>
                   </a>
@@ -103,15 +103,15 @@
                 </div>
                 <div class="tab-pane" ng-class="{ active: activeTab === 'picked-up' }">
                   <div>
-                  <a ng-repeat="task in tasks | filter: {title: searchTask , runner:userId } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}">
+                  <a ng-repeat="task in tasks | filter: {title: searchTask , runner:userId } | orderBy: 'datetime':true" ng-href="">
                     <div id="card" class="list-item row" style="margin-bottom:0px !important;">
-                			<div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
+                			<!-- <div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
                 				<img class="" style="max-width:70px;" ng-src="{{task.gravatar}}">
-                			</div>
+                			</div> -->
                 			<div class="col-xs-8">
                 				<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-                				<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-                				<p style="color:#222222;">{{task.title}}: {{task.description | limitTo:100}}{{ task.title.length > 100? "..." : ""}}</p>
+                				<p id="subheader">Posted <span am-time-ago="task.datetime"></span></p>
+                				<p style="color:#222222;"><b>{{task.title}}:</b> {{task.description}}</p>
                 			</div>
                 		</div>
                   </a>

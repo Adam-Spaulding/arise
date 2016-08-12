@@ -517,6 +517,12 @@ input.form-group {
 .btn {
   font-size: 24px;
   font-weight: 300;
+  cursor: pointer;
+}
+
+.btn-sm, .btn-sm:hover {
+  border: 1px solid transparent;
+  cursor: pointer;
 }
 
 .offer-description {

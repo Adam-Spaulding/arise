@@ -407,8 +407,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		Offer.acceptOffer($scope.selectedTask.$id, offerId, runnerId).then(function() {
 			toaster.pop('success', 'Call has been accepted!');
 
-			// Mark that this Task has been assigned
-			// $scope.isAssigned = true;
+			//Mark that this Task has been assigned
+			$scope.isAssigned = true;
 
 			// Notify assignee
 			Offer.notifyRunner($scope.selectedTask.$id, runnerId);
