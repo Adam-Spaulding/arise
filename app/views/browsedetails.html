@@ -18,9 +18,26 @@
 
       <!-- details start-->
     <div class="card" style="background-color:#fff;">
-      <div class="card-header" ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+      <div ng-show="isTaskCreator(selectedTask)">
+        <div class="dropdown pull-right">
+          <button type="" data-toggle="dropdown" style="background-color:#fff; border:1px solid #fff;" ><i class="fa fa-bars fa-lg" aria-hidden="true"></i></button>
+          <ul class="dropdown-menu">
+            <li><a ng-href="#/profile/{{selectedTask.runner}}">View Helpers Profile</a></li>
+            <li ng-show="!isCompleted(selectedTask)"><a ng-click="completeTask(selectedTask.$id)">Complete Call</a></li>
+            <li ng-show="!isCompleted(selectedTask)"><a ng-click="cancelTask(selectedTask.$id)">Delete Call</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-header" ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;">
+
+        <H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+      <h6>You are now assigned to this call for help</h6>
       </div>
       <div class="card-title" ng-show="isTaskCreator(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+
+      <h6 ng-hide="!isOpen(selectedTask)">Your private information will be be displayed until you accept an offer. After that, only the person you accept will see your name, picture, and a link to your profile.</h6>
+      <h6></h6>
       </div>
       <H4 class="card-header"><b>{{selectedTask.title}}</b></H4>
       <!-- <div>
@@ -42,7 +59,7 @@
       <div class="card-footer text-muted" style="text-align:center;">
         <div class="col-xs-12">
           <a style="padding:0px 7px;" href="https://www.facebook.com/dialog/feed?app_id=980336382079406&picture={{ selectedTask.img }}&name={{selectedTask.title}}&caption=%20&description={{selectedTask.description}}&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F" target="_blank" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on Facebook" ><i class="fa fa-facebook-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
-          <a style="padding:0px 7px;" href="" class="" ng-show="isTaskCreator(selectedTask) && !isCompleted(selectedTask)" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash-o fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+
         </div>
       </div>
     </div>
@@ -70,12 +87,10 @@
           <div class="col-xs-8">
             <div class="row">
               <span><b><a ng-href="#/profile/{{offer.uid}}" style="color:#3498db">{{offer.name}}</a></b></span>
-
-              <!-- Posted <span class="cmt-time"><span am-time-ago="offer.datetime"></span></span> -->
             </div>
             <div class="row">
               <span>{{offer.total}}</span><br>
-                    <img ng-src="{{offer.img}}" class="" style="width:100%;">
+                <img ng-src="{{offer.img}}" class="" style="width:100%;">
             </div>
           </div>
           <div class="col-xs-2" style="border-left:1px solid #eee; text-align:center; color:red;">
@@ -98,9 +113,7 @@
         <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
           <button class="btn btn-primary" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
         </div>
-        <div ng-show="isTaskCreator(selectedTask) && !isCompleted(selectedTask)">
-          <button class="btn btn-primary" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
-        </div>
+
       </div>
       <div class="row" ng-hide="">
           <form ng-submit="addComment()" id="comment-submit">
