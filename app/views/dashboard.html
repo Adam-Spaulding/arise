@@ -55,10 +55,16 @@
 											</li> -->
 									</ul>
 
-									<!-- TABS -->
+									<!-- My Calls -->
 									<div class="tab-content" style="padding-top:10px;">
-											<div class="tab-pane" ng-class="{ active: activeTab === 'calls-placed' }">
-												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: 'open' && 'assigned' } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}" style="color: #66757f !important;">
+
+											<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'calls-placed' }">
+												<p><div class="title" ng-hide="tasks && (tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length > 0">
+	                        <h3>Need Help?</h3>
+													<a class="btn btn-primary" ng-href="/#/callforhelp">GET HELP NOW</a>
+	                      </div></p>
+												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!closed' } | orderBy: 'datetime':true | limitTo: limit as results"  ng-href="#/browsedetails/{{task.$id}}" style="color: #66757f !important;">
+
 													<div id="" class="list-item row" style="margin-bottom:0px;">
 														<div class="col-xs-3">
 															<img style="width:100%;" ng-src="{{task.gravatar}}">
@@ -71,14 +77,24 @@
 													</div>
 													<hr>
 												</a>
+												<div ng-hide="tasks && tasks.length < 0" style="text-align:center;">
+													<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
+												</div>
+												<!-- <p><div class="title" ng-show="tasks.length === 0">
+	  												<i class="fa fa-refresh" style="font-size:56px;color:red;"></i>whatup
+	                      </div></p> -->
+
 												<p><div class="title" ng-hide="tasks && tasks.length > 0">
-	                        <p>Hold the phone... we're getting your things together.</p>
-													<a class="btn-sm btn-primary" href="/#/callforhelp" style="cursor:pointer">Place a call for help now.</a>
+	  												<i class="fa fa-refresh fa-spin" style="font-size:56px;color:#ecf0f1;"></i>
 	                      </div></p>
 											</div>
 
-											<div class="tab-pane" ng-class="{ active: activeTab === 'picked-up' }">
-												<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: 'assigned' } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}">
+											<!-- Assigned Calls -->
+											<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'picked-up' }">
+												<p><div class="title" ng-hide="tasks && (tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length > 0">
+	                        <h3>Find a pin, make an offer, and help your neighbor today!</h3>
+	                      </div></p>
+												<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: 'assigned' } | orderBy: 'datetime':true | limitTo: limit as results" ng-href="#/browsedetails/{{task.$id}}">
 													<div id="" class="list-item row" style="margin-bottom:0px !important;">
 														<div class="col-xs-3">
 															<img style="width:100%;" ng-src="{{task.gravatar}}">
@@ -91,8 +107,12 @@
 													</div>
 													<hr>
 												</a>
+												<div ng-show="tasks && tasks.length < 0" style="text-align:center;">
+													<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
+												</div>
+
 												<p><div class="title" ng-hide="tasks && tasks.length > 0">
-	                        <span>Please wait while we get your data!</span>
+	                        <i class="fa fa-refresh fa-spin" style="font-size:56px;color:#ecf0f1;"></i>
 	                      </div></p>
 											</div>
 											<!-- <div class="tab-pane" ng-class="{ active: activeTab === 'ratings' }">
