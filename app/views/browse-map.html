@@ -22,7 +22,7 @@
 		</marker>
 
 		<info-window id="myInfoWindow">
-			<div ng-non-bindable style="min-height:20px; min-width:100px; max-width:500px;">
+			<div ng-non-bindable style="min-height:20px; min-width:100px; max-width:200px;">
 				<img style="width:100%;" src="{{selectedCity.img}}"></img>
 				<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
 				<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
@@ -37,18 +37,17 @@
 					<!-- <span aria-hidden="true" style="width:20px; display:inline;"><i class="fa fa-filter fa-2x" aria-hidden="true"></i></span> -->
 					<!-- <input style=" border:0px solid transparent !important;" type="text" ng-model="searchTask" class="form-control" placeholder="SEARCH"> -->
 					<select id="selectbasic" name="selectbasic" ng-model="searchTask" class="form-control selectpicker" required data-role="tagsinput" style="height:30px;">
-
-						<option value="" disabled selected>SELECT CATEGORY</option>
+						<option value="" selected>ALL CATEGORIES</option>
 						<option value="Abuse">Abuse</option>
 						<option value="Casual">Casual</option>
 						<option value="Hunger">Hunger</option>
 						<option value="Homelessness">Homelessness</option>
-						<option value="Pregnancy &amp; Womens Health">Pregnancy &amp; Women's Health</option>
+						<option value="Pregnancy_Womens_Health">Pregnancy &amp; Women's Health</option>
 						<option value="Substance Abuse">Substance Abuse</option>
 						<option value="Mentorship">Mentorship</option>
 						<option value="Consoling">Counselling</option>
 						<option value="Joblessness">Joblessness</option>
-						<option value="Veterans Affairs">Veterans Affairs</option>
+						<option value="Veterans_Affairs">Veterans Affairs</option>
 						<option value="Other">Other</option>
 					</select>
 			</div>
