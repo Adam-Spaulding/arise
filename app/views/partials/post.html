@@ -1,96 +1,83 @@
-<div class="modal fade" id="posModal" ng-controller="TaskController">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<div class="title">
+      <form id="postform" class="postform" ng-submit="createTask()" oninput="pos.value = latitude.value +', '+ longitude.value">
+          <div class="uploader upload" onclick="$('#helpImg').click()">
+            <input type="file" id="helpImg" name="pic" accept="image/*" onchange="angular.element(this).scope().previewPostImage()">
+            <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
+            <img ng-show="postImgPrw" ng-src="{{postImg}}" id="postimg" />
+          </div>
+          <fieldset>
+          <div class="" id="subject">
+            <input type="text" ng-model="task.title" class="form-control" placeholder="SUBJECT" autofocus />
+          </div>
+          <!-- Select Basic -->
+          <!-- <div class="form-group">
+            <input type="tags" id="tags" ng-model="task.help_type" name="tags" class="form-control selectpicker" required data-role="tagsinput" value="Amsterdam,Washington,Sydney,Beijing,Cairo" />
+          </div>
+          <p id="out"></p> -->
+          <div class="form-group">
+            <select ng-model="task.help_type" id="selectbasic" name="selectbasic" class="form-control selectpicker" required data-role="tagsinput">
 
-      <div class="panel title">
+              <option value="" disabled selected>CATEGORY</option>
+              <option value="Abuse">Abuse</option>
+              <option value="Casual">Casual</option>
+              <option value="Hunger">Hunger</option>
+              <option value="Homelessness">Homelessness</option>
+              <option value="Pregnancy &amp; Womens Health">Pregnancy &amp; Women's Health</option>
+              <option value="Substance Abuse">Substance Abuse</option>
+              <option value="Mentorship">Mentorship</option>
+              <option value="Consoling">Counselling</option>
+              <option value="Joblessness">Joblessness</option>
+              <option value="Veterans Affairs">Veterans Affairs</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
 
-        <div class="panel-heading title" style="background-color:#fff; color:#363636;">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h3 class="panel-title">Get Help Now</h3>
-        </div>
-
-          <div class="card">
-                    <form ng-submit="createTask()" oninput="pos.value = latitude.value +', '+ longitude.value">
-                      <!-- <input type="text" ng-model="task.title" class="form-control" placeholder="Task title" required><br>
-                      <textarea ng-model="task.description" class="form-control" placeholder="Describe what you need done" required></textarea><br>
-                      <input type="number" ng-model="task.total" class="form-control" placeholder="How much will you pay?" ><br> -->
-                        <fieldset>
-                        <div class="form-group">
-                          <input type="text" ng-model="task.title" class="form-control" placeholder="Headline" required />
-                        </div>
-                        <!-- Select Basic -->
-                        <div class="form-group">
-                          <div>
-                            <select ng-model="task.help_type" id="selectbasic" name="selectbasic" class="form-control" required>
-
-                              <option value="" disabled selected>What do you need help with?</option>
-                              <option value="Abuse">Abuse</option>
-                              <option value="Hunger">Hunger</option>
-                              <option value="Homelessness">Homelessness</option>
-                              <option value="Pregnancy_Womens_Health">Pregnancy &amp; Women's Health</option>
-                              <option value="Substance_Abuse">Substance Abuse</option>
-                              <option value="Mentorship">Mentorship</option>
-                              <option value="Consoling">Counselling</option>
-                              <option value="Joblessness">Joblessness</option>
-                              <option value="Veterans_Affairs">Veterans Affairs</option>
-                              <option value="Other">Other</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <!-- <label class="control-label" for="textarea">Describe your situation</label> -->
-                          <div class="">
-                            <textarea ng-wig="content" ng-model="task.description" class="form-control" id="textarea" placeholder="Describe your situation" name="textarea"></textarea>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <input ng-model="task.lat" hidden required name="latitude" type="text" id="latitude"></input>
-                          <input ng-model="task.long" hidden required name="longitude" type="text" id="longitude"></input>
-                          <input ng-model="task.pos" hidden required name="pos" type="text" id=""></input>
-                        </div>
-                        <!-- Multiple Radios -->
-                        <!-- <div class="form-group">
-                          <label class="col-md-4 control-label" for="radios">I agree to the terms and conditions</label>
-                          <div class="col-md-4">
-                          <div class="radio">
-                            <label for="radios-0">
-                              <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
-                              Yes
-                            </label>
-                        	</div>
-                          </div>
-                        </div> -->
-
-                        </fieldset>
-                      <div class="upload">
-                        <input type="file" id="helpImg" onchange="angular.element(this).scope().previewPostImage()"/>
-                      </div>
-                      <input type="submit" value="Post Now" class="btn btn-primary">
-                      <img ng-show="postImgPrw" ng-src="{{postImg}}" id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/>
-                    </form>
-                  </div>
-
-                </div>
-
-              </div>
+          <div class="form-group">
+            <!-- <label class="control-label" for="textarea">Describe your situation</label> -->
+            <div class="">
+              <textarea ng-wig="content" ng-model="task.description" rows="10" cols="50" class="form-control" id="textarea" placeholder="What do you need help with?" name="textarea" style="font-size:20px; padding:0 0 0 5px;"></textarea>
             </div>
           </div>
 
-          <script>
-          var latitude = document.getElementById('latitude'),
-          		longitude = document.getElementById('longitude');
-          		if(navigator.geolocation){
-          			function onSuccess(position){
-          				latitude.value = position.coords.latitude;
-          				longitude.value = position.coords.longitude;
-          			}
-          			function onError(error){
-          				alert("Error: " + error.code + ", Message: " + error.message);
-          			}
-          			navigator.geolocation.getCurrentPosition(onSuccess, onError);
-          		} else {
-          			alert("Your browser does not support geolocation");
-          		}
-          </script>
+          <div class="form-group">
+            <input ng-model="task.lat" hidden required name="latitude" type="text" id="latitude"></input>
+            <input ng-model="task.long" hidden required name="longitude" type="text" id="longitude"></input>
+            <input ng-model="task.pos" hidden required name="pos" type="text" id=""></input>
+          </div>
+
+          </fieldset>
+        <input type="submit" value="Post Now" class="btn btn-primary">
+        <!-- <img ng-show="postImgPrw" ng-src="{{postImg}}" id='postimg' style="width: 80px;height: 80px;float: left;" alt=""/> -->
+      </form>
+</div>
+
+    <script>
+    var imageLoader = document.getElementById('helpImg');
+        imageLoader.addEventListener('change', handleImage, false);
+
+      function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+
+            $('.uploader img').attr('src',event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+      }
+
+    </script>
+    <script>
+    var latitude = document.getElementById('latitude'),
+        longitude = document.getElementById('longitude');
+        if(navigator.geolocation){
+          function onSuccess(position){
+            latitude.value = position.coords.latitude;
+            longitude.value = position.coords.longitude;
+          }
+          function onError(error){
+            alert("Error: " + error.code + ", Message: " + error.message);
+          }
+          navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        } else {
+          alert("Your browser does not support geolocation");
+        }
+    </script>

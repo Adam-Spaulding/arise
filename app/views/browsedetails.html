@@ -1,43 +1,32 @@
-<div class="row" id="browsedetails-map">
-  <ng-map center="{{selectedTask.pos}}" zoom="12" disable-default-u-i="true">
-    <marker ng-repeat="task in tasks track by $index" position="{{selectedTask.pos}}"
-        icon="images/pinlogo-small.svg"
-    </marker>
-  </ng-map>
-</div>
 
-<div class="row">
-
-  <div style="margin-top:250px;">
-  <div class="col-sm-1"></div>
-
-
-	<div class="col-sm-4" id="">
-
-
-
-      <!-- details start-->
-    <div class="card" style="background-color:#fff;">
+  <!-- <div class="row" id="browsedetails-map">
+    <ng-map center="{{selectedTask.pos}}" zoom="15" disable-default-u-i="true">
+      <marker ng-repeat="task in tasks track by $index" position="{{selectedTask.pos}}"
+          icon="images/pinlogo-small.svg"
+      </marker>
+    </ng-map>
+  </div> -->
+	<div class="row">
+  <!-- details start-->
       <div ng-show="isTaskCreator(selectedTask)">
         <div class="dropdown pull-right">
           <button type="" data-toggle="dropdown" style="background-color:#fff; border:1px solid #fff;" ><i class="fa fa-bars fa-lg" aria-hidden="true"></i></button>
           <ul class="dropdown-menu">
-            <li><a ng-href="#/profile/{{selectedTask.runner}}">View Helpers Profile</a></li>
-            <li ng-show="!isCompleted(selectedTask)"><a ng-click="completeTask(selectedTask.$id)">Complete Call</a></li>
-            <li ng-show="!isCompleted(selectedTask)"><a ng-click="cancelTask(selectedTask.$id)">Delete Call</a></li>
+            <li ng-show="!isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.runner}}">View Helpers Profile</a></li>
+            <li ng-show="!isOpen(selectedTask) && !isCompleted(selectedTask)"><a ng-click="completeTask(selectedTask.$id)">Complete Call</a></li>
+            <li ng-show="isOpen(selectedTask)"><a ng-click="cancelTask(selectedTask.$id)">Delete Call</a></li>
           </ul>
         </div>
       </div>
 
       <div class="card-header" ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;">
 
-        <H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+        <H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar" style="padding-top:80px;"> {{selectedTask.name}}</H4></a>
       <h6>You are now assigned to this call for help</h6>
       </div>
       <div class="card-title" ng-show="isTaskCreator(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
 
       <h6 ng-hide="!isOpen(selectedTask)">Your private information will be be displayed until you accept an offer. After that, only the person you accept will see your name, picture, and a link to your profile.</h6>
-      <h6></h6>
       </div>
       <H4 class="card-header"><b>{{selectedTask.title}}</b></H4>
       <!-- <div>
@@ -51,24 +40,24 @@
       <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
       <div class="card-block">
         <span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
-        <span class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type}}</span>
+        <p class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type}}</p>
         <p class="card-title"><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
         <p class="card-text">{{selectedTask.description}}</p>
         <!-- <a href="#" class="btn btn-primary-sm">Go somewhere</a> -->
       </div>
       <div class="card-footer text-muted" style="text-align:center;">
         <div class="col-xs-12">
-          <a style="padding:0px 7px;" href="https://www.facebook.com/dialog/feed?app_id=980336382079406&picture={{ selectedTask.img }}&name={{selectedTask.title}}&caption=%20&description={{selectedTask.description}}&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F" target="_blank" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on Facebook" ><i class="fa fa-facebook-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a>
+          <!-- <a style="padding:0px 7px;" ng-href="https://www.facebook.com/dialog/feed?app_id=980336382079406&picture={{ selectedTask.img }}&name={{selectedTask.title}}&caption=%20&description={{selectedTask.description}}&href=http://areiseagain.com" target="_blank" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on Facebook" ><i class="fa fa-facebook-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a> -->
+          <div facebook data-name='Fb Share' data-url='http://google.com' data-picture-url='http://plnk.co/img/plunker.png' data-caption='Testing Facebook Shae' data-shares='shares'> <a href>Share To facebook<a> <p>Number of Shares: {{shares}}</p> </div>
 
         </div>
       </div>
-    </div>
 
 <!-- details end -->
   </div>
-  <div class="col-sm-6">
+  <div class="row">
   <!-- OFFERS -->
-  <div class="card" style="background-color:#fff;" ng-show="isOpen(selectedTask)">
+  <div class="" ng-show="isOpen(selectedTask)">
     <div class="card-header" ><H3>Offers</H3></div>
     <!-- <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;"> -->
     <div class="">
@@ -108,8 +97,8 @@
   <!-- END OFFERS -->
 
   <!-- Comments -->
-    <div class="card" style="background-color:#fff;" ng-show="!isOpen(selectedTask)">
-      <div style="text-align:center;">
+    <div class="" ng-show="!isOpen(selectedTask)">
+      <div class="" style="text-align:center;">
         <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
           <button class="btn btn-primary" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
         </div>
@@ -135,7 +124,7 @@
             </div>
           </form>
       </div>
-      <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments.slice().reverse() | orderBy: 'datetime':true">
+      <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments | orderBy: 'datetime':true">
         <p><div class="title" ng-hide="comments && comments.length > 0">
           <span>Be the first to make a comment.</span>
         </div></p>
@@ -151,13 +140,7 @@
       </div>
     </div>
     <!-- END COMMENTS -->
-				</div>
-        <div class="col-sm-1"></div>
-      </div>
-
-
-
-</div>
+	</div>
 
 <div ng-include="'views/partials/edit.html'"></div>
 <div ng-include="'views/partials/offer.html'"></div>

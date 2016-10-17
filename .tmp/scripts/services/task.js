@@ -21,7 +21,7 @@ app.factory('Task', function(FURL, $firebase, Auth) {
 					taskId: newTask.key(),
 					type: true,
 					title: task.title,
-					img: task.img?task.img:'',
+					img: task.img?task.img:'help',
 					datetime: task.datetime
 				};
 
@@ -74,6 +74,10 @@ app.factory('Task', function(FURL, $firebase, Auth) {
 		completeTask: function(taskId) {
 			var t = this.getTask(taskId);
 			return t.$update({status: 'completed'});
+		},
+
+		isAssigned: function(task) {
+			return task.status === 'assigned';
 		},
 
 		isCompleted: function(task) {

@@ -1,35 +1,27 @@
-<nav ng-show="signedIn()" class="navbar navbar-info" ng-controller="NavController" navbar-fixed-top>
+<div class="navbar navbar-info" ng-controller="NavController" navbar-fixed-top>
   <div class="container-fluid" style="margin:0px auto;">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="navbar-header pull-left">
       <a class="navbar-brand" href="#/">
-        <span class=""><img style="height:45px;" src="images/pinlogo.svg"></img>arise</span></a>
+        <span class=""><img style="height:45px;" src="images/pinlogo.svg"></img><span class="hidden-xs">neighbo</span></span></a>
     </div>
-    <div class="tab_container">
-      <input id="tab1" type="radio" name="tabs" checked onclick="location.href='#/'">
-      <label data-toggle="tooltip" data-placement="bottom" title="Map" for="tab1"><i class="fa fa-globe fa-2x"></i><!---<span class="hidden-sm hidden-xs">Open Calls</span>---></label>
-
-      <input id="tab2" type="radio" name="tabs" onclick="location.href='#/mycalls'">
-      <label data-toggle="tooltip" data-placement="bottom" title="Active Calls" for="tab2"><i class="fa fa-list-alt fa-2x"></i><!---<span>My Calls</span>---></label>
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="pull-right" id="nav-tools">
-      <div class="dropdown">
-        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
-          <p class="hidden-xs" style="display: inline">Hey {{currentUser.name || currentUser.facebook.cachedUserProfile.name.split(' ')[0]}}!</p>
+    <ul ng-show="signedIn()" class="nav navbar-nav navbar-right pull-right" style="">
+      <li class=""><a ng-href="#/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+      <li class=""><a ng-href="#/"><i class="fa fa-bell" aria-hidden="true"></i></a></li>
+      <li class="hidden-xs"><a href=""><i class="fa fa-comments" aria-hidden="true"></i></a></li>
+      <li class="hidden-sm hidden-md hidden-lg hidden-xl"><a href="#/map"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+      <!-- <li class=""><a ng-href="/#/callforhelp"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li> -->
+      <li class="dropdown">
+        <button class="dropdown-toggle profile-image" type="button" data-toggle="dropdown" >
+          <p class="hidden" style="display: inline">Hey {{currentUser.name || currentUser.facebook.cachedUserProfile.name.split(' ')[0]}}!</p>
           <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
         </button>
-        <ul class="dropdown-menu dropdown-menu-right" style="position:absolute; right:10px;">
+        <ul class="dropdown-menu dropdown-menu-right" style="position:absolute; background-color:#fff; right:10px;">
           <li><a ng-href="#/profile/{{currentUser.uid}}">My Profile</a></li>
-          <li><a href="#">Alerts</a></li>
           <li><a href="#" ng-click="logout()">Logout</a></li>
         </ul>
-      </div>
+      </li>
+    </ul>
+  </div>
+</div>
 
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-
-  <div ng-show="signedIn()" ng-include="'views/partials/changepass.html'"></div>
-  <div ng-show="signedIn()" ng-include="'views/partials/post.html'"></div>
-
-</nav>
+  <!-- <div ng-show="signedIn()" ng-include="'views/partials/changepass.html'"></div> -->

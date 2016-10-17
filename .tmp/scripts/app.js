@@ -47,6 +47,24 @@ var app = angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'BrowseController',
+        resolve: {
+          currentAuth: function(Auth) {
+            return Auth.requireAuth();
+          }
+        }
+      })
+      .when('/callforhelp', {
+        templateUrl: 'views/partials/post.html',
+        controller: 'TaskController',
+        resolve: {
+          currentAuth: function(Auth) {
+            return Auth.requireAuth();
+          }
+        }
+      })
+      .when('/map', {
         templateUrl: 'views/browse-map.html',
         controller: 'BrowseController',
         resolve: {

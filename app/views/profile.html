@@ -1,125 +1,95 @@
-<style>
-    .showInput {
-        clear: none;
-        padding-top: 0px;
-        display: inline;
-    }
-    .lineBreak {
-        width: 100%;
-        height: 10px;
-    }
-</style>
-<div class="col-md-1" />
-<div class="col-md-10">
-<div class="col-sm-4">
-  <div class="card hovercard">
-      <div class="card-background">
-          <img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/>
-      </div>
-      <div class="useravatar">
-          <img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/>
-      </div>
-      <div class="card-info">
-        <span class="card-title">
-          <h4 style="display: inline;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name"></h4>
-        </span>
-      </div>
+<div class="row">
+  <div class="profile">
+    <div class="card hovercard">
+        <div class="card-background">
+            <img ng-src="{{userId?userProfile.gravatar:user.facebook.profileImageURL}}" alt="user.facebook.cachedUserProfile.name"/>
+        </div>
+        <div class="useravatar">
+            <img ng-src="http://graph.facebook.com/{{userId?userProfile.fbuid:user.facebook.profileImageURL}}/picture?type=large" alt="user.facebook.cachedUserProfile.name"/>
+        </div>
+    </div>
   </div>
 
-<div class="card" style="background-color:#fff;">
-  <div class="" ng-show="user.auth.uid == userId && editOn" ng-class="{ active: activeTab === 'profile' }">
-  <form ng-submit="addInfoToProfile(userInfo)">
-
-      <p>My Groups:</p>
-      <select style="width: 100%;" ng-model="userInfo.groups" id="selectbasic" name="selectbasic" class="form-control" required>
-          <option ng-repeat="option in groupOptions" value="{{option.name}}">{{option.name}}</option>
-      </select>
-      <!--<input ng-model="userInfo.groups" class="showInput" type="text"/>-->
-
-      <p>My Website:</p>
-        <span class="input-group-addon" style="width: 50px;display: inline;">https://</span>
-        <input id="url" ng-model="userInfo.website" class="showInput" type="text"/>
-
-
-      <p>About me:</p>
-        <textarea  ng-model="userInfo.aboutMe" style="width:100%;" name="" id=""  rows="10"></textarea>
-
-      <p><button type="submit" class="btn btn-info">Save</button></p>
-
-      </form>
+  <div class="action">
+  	<div class="list-group" id="">
+  		<div class="row">
+  			<div class="col-sm-9">
+          <h4 style="text-align:left; color:#fff; padding:8px; text-transform:uppercase;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name"></h4>
+        </div>
+        <a ng-show="user.auth.uid == userId" ng-click="editMode()" href="" ng-class="{ active: activeTab === 'calls-placed' }">
+  				<div class="col-sm-3">
+  					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+  					<p>EDIT</p>
+  				</div>
+  			</a>
+  			<a ng-hide="user.auth.uid == userId" ng-click="activeTab = 'calls-placed'" href="" ng-class="{ active: activeTab === 'calls-placed' }">
+  				<div class="col-sm-3">
+  					<i class="fa fa-comment" aria-hidden="true"></i>
+  					<p>MESSAGE</p>
+  				</div>
+  			</a>
+  		</div>
+  	</div>
   </div>
-  <div class="tab-pane" ng-show="!editOn" ng-class="{ active: activeTab === 'profile' }">
-    <div ng-show="user.auth.uid == userId">
-          <a ng-click="editMode()" class=""><i class="fa fa-pencil-square-o fa-2x" style="color:#2ecc71; cursor:pointer; float:right;" aria-hidden="true"></i></a>
-    </div>
-
-      <p><i class="fa fa-users" aria-hidden="true"></i>  <span>{{userProfile.groups?userProfile.groups:'Not a member of a group'}}</span></p>
-
-      <p><i class="fa fa-link" aria-hidden="true" style="color:#2ecc71;"></i>  <a ng-href="http://{{userProfile.website?userProfile.website:'#'}}" style="color:#2ecc71;">{{userProfile.website?userProfile.website:'No website yet!'}}</a></p>
-      <!--<strong>{{userProfile.website?userProfile.website:'Please edit website'}}</strong>-->
-
-      <p><span>{{userProfile.aboutMe?userProfile.aboutMe:''}}</span></p>
-    </div>
-</div>
-</div>
-<div class="col-sm-8">
-
 
     <!-- TABS -->
         <div class="panel-body" style="padding:0px;margin-top:20px;">
-
-            <ul class="nav nav-tabs" ng-init="activeTab = 'picked-up'" style="background-color:transparent; color:#66757f;">
-                <li ng-class="{ active: activeTab === 'picked-up' }">
-                    <a ng-click="activeTab = 'picked-up'" href="" style="color:#66757f !important; font-weight:100; background-color:#fff !important;">Picked Up Calls</a>
+            <ul class="nav nav-tabs" ng-init="activeTab = 'bio'" style="background-color:transparent; color:#363636; text-align:center;">
+              <li class="col-sm-6" ng-class="{ active: activeTab === 'bio' }">
+                  <a ng-click="activeTab = 'bio'" href="" style="color:#363636 !important; background-color:#fff !important;">BIO</a>
+              </li>
+                <li class="col-sm-6" ng-class="{ active: activeTab === 'picked-up' }">
+                    <a ng-click="activeTab = 'picked-up'" href="" style="color:#363636 !important; background-color:#fff !important;">HISTORY</a>
                 </li>
-                <!-- <li ng-class="{ active: activeTab === 'ratings' }">
-                    <a ng-click="activeTab = 'ratings'" href="" style="color:#66757f !important; font-weight:100;"><i class="fa fa-star"></i> Ratings</a>
-                </li> -->
-                <!-- <li ng-class="{ active: activeTab === 'calls-placed' }">
-                    <a ng-click="activeTab = 'calls-placed'" href="" style="color:#66757f !important; font-weight:100; background-color:#fff !important;">Placed Calls</a>
-                </li> -->
-
             </ul>
             <!-- TABS -->
             <div class="tab-content">
-                <div class="tab-pane" ng-class="{ active: activeTab === 'ratings' }">
-                  Ratings tab content.
-                </div>
-                <div class="tab-pane" ng-class="{ active: activeTab === 'calls-placed' }">
-                  <div>
-                  <a ng-repeat="task in tasks | filter: {title: searchTask , poster:userId } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}">
-                    <div id="card" class="list-item row" style="margin-bottom:0px !important;">
-                			<!-- <div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
-                				<img class="" style="max-width:70px;" ng-src="{{task.gravatar}}">
-                			</div> -->
-                			<div class="col-xs-8">
-                				<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-                				<p id="subheader">Posted <span am-time-ago="task.datetime"></span></p>
-                				<p style="color:#222222;">{{task.title}}: {{task.description }}</p>
-                			</div>
-                		</div>
-                  </a>
-                </div>
+                <div class="tab-pane" ng-class="{ active: activeTab === 'bio' }">
+                    <div ng-show="user.auth.uid == userId && editOn" ng-class="{ active: activeTab === 'profile' }">
+                    <form ng-submit="addInfoToProfile(userInfo)">
+                      <p style="text-align:right;"><button type="submit" class="btn-sm btn-primary">Save</button></p>
+                        <p>My Groups:</p>
+                        <select style="width: 100%; border:1px solid #363636; border-radius:0px;" ng-model="userInfo.groups" id="selectbasic" name="selectbasic" class="" required>
+                            <option ng-repeat="option in groupOptions" value="{{option.name}}">{{option.name}}</option>
+                        </select>
+                        <!--<input ng-model="userInfo.groups" class="showInput" type="text"/>-->
+
+                        <p>My Website:</p>
+                          <span class="" style="width: 50px;display: inline;">https://</span>
+                          <input style="width:70%; border:1px solid #363636;" id="url" ng-model="userInfo.website" class="showInput" type="text"/>
+
+
+                        <p>About me:</p>
+                          <textarea  ng-model="userInfo.aboutMe" style="width:100%; border:1px solid #363636;" name="" id=""  rows="10"></textarea>
+
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-show="!editOn" ng-class="{ active: activeTab === 'profile' }">
+                        <p><i class="fa fa-users" aria-hidden="true"></i>  <span>{{userProfile.groups?userProfile.groups:'Unaffiliated'}}</span></p>
+
+                        <p><i class="fa fa-link" aria-hidden="true" style="color:#2ecc71;"></i>  <a ng-href="http://{{userProfile.website?userProfile.website:'#'}}" target="_blank" style="color:#2ecc71;">{{userProfile.website?userProfile.website:'No website yet!'}}</a></p>
+                        <!--<strong>{{userProfile.website?userProfile.website:'Please edit website'}}</strong>-->
+                        <p><span>{{userProfile.aboutMe?userProfile.aboutMe:''}}</span></p>
+                      </div>
                 </div>
                 <div class="tab-pane" ng-class="{ active: activeTab === 'picked-up' }">
                   <div>
-                  <a ng-repeat="task in tasks | filter: {title: searchTask , runner:userId } | orderBy: 'datetime':true" ng-href="">
-                    <div id="card" class="list-item row" style="margin-bottom:0px !important;">
-                			<!-- <div class="col-xs-4" style="padding:0px !important; max-width:100px !important;">
-                				<img class="" style="max-width:70px;" ng-src="{{task.gravatar}}">
-                			</div> -->
-                			<div class="col-xs-8">
-                				<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-                				<p id="subheader">Posted <span am-time-ago="task.datetime"></span></p>
-                				<p style="color:#222222;"><b>{{task.title}}:</b> {{task.description}}</p>
-                			</div>
-                		</div>
-                  </a>
+                    <a ng-repeat="task in tasks | filter: {title: searchTask , runner:userId } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}" style="color: #66757f !important;">
+                      <div id="" class="list-item row" style="margin-bottom:0px;">
+                        <div class="col-xs-3">
+                          <img style="width:100%;" ng-src="{{task.gravatar}}">
+                        </div>
+                        <div class="col-xs-9">
+                          <p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
+                          <p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
+                          <p style="color:#363636;">{{task.title}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                    </a>
                 </div>
                 </div>
             </div>
         </div>
-
-    </div>
   </div>
 <div class="col-md-1" />

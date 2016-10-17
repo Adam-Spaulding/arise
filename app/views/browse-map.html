@@ -1,168 +1,49 @@
-<div class="col-sm-8" style="margin:0px!important;padding:0px !important;" id="browse-map">
+<div class="col-sm-9 main" ng-controller="BrowseController" style="margin:0px!important;padding:0px !important;" id="browse-map">
+	<ng-map zoom="14"
+		map-type-control-options="{style:'HORIZONTAL_BAR', position:'TOP_CENTER'}"
+		center="current-position"
+		zoom="12"
+		pan-control="true"
+		pan-control-options="{position:'TOP_RIGHT'}"
+		map-type-control="true"
+		zoom-control="true"
+		zoom-control-options="{style:'LARGE', position:'LEFT_BOTTOM'}"
+		scale-control="true"
+		street-view-control="true"
+		street-view-control-options="{position:'LEFT_BOTTOM'}">
 
-		<ng-map zoom="12" center="current-position">
+		<marker
+				ng-repeat="task in tasks | filter: {title: searchTask , status: 'open' }"
+				position="{{task.pos}}"
+				title="{{task.name}}"
+				icon="images/pinlogo-small.svg"
+				id="{{$index}}"
+				on-click="handleMapPins(event, task)">
+		</marker>
 
-			<marker ng-repeat="task in tasks | filter: {title: searchTask , status: 'open'}" position="{{task.pos}}"
-					title="{{task.name}}"
-					icon="images/pinlogo-small.svg"
-					id="{{$index}}"
-					on-click="handleMapPins(event, task)">
-			</marker>
+		<info-window id="myInfoWindow">
+			<div ng-non-bindable style="height:120px; width:200px;">
+				<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
+				<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
+				<a class="btn-sm btn-primary" href="#/browsedetails/{{selectedCity.$id}}">View Call For Help</a>
+			</div>
+		</info-window>
 
-			<custom-control id="home" position="TOP_RIGHT" index="1" on-click="vm.click()">
-	      <div>
-					<a data-toggle="modal" data-target="#posModal" type="radio" name="tabs" for="tab4" style="cursor:pointer"><img src="images/addlogo.svg" /></a>
-	      </div>
-	    </custom-control>
-
-			<info-window id="myInfoWindow">
-				<div ng-non-bindable style="height:120px; width:200px;">
-					<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
-					<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
-					<p>{{selectedCity.help_type}}</p>
-					<a class="btn-sm btn-primary" href="#/browsedetails/{{selectedCity.$id}}">View Call For Help</a>
-					<!-- <a class="btn-sm btn-info hidden-xs" href="#/_/{{selectedCity.$id}}">View Call For Help</a> -->
-				</div>
-			</info-window>
-		</ng-map>
-	</div>
+	</ng-map>
+</div>
 
 	<!-- Right Col -->
-	<div class="col-sm-4 hidden-xs">
-		<div ng-show="listMode">
-			<div class="card">
-			  <img src="images/browse.jpg" class="img-responsive img-browse card-img-top">
-			  <div class="card-block">
-			    <h4 class="card-title">Join Uber's fight.</h4>
-			    <p class="card-text">Uber has donated $30,000 dollars to fight hunger. You can help. Join Uber today to help feed children in our inner cities.</p>
-			    <a href="#" class="btn-sm btn-primary">Join Uber!</a>
-			  </div>
-			</div>
-		</div>
 
-		<div ng-show="!listMode">
-			<div class="" id="">
-		      <!-- details start-->
-		    <div class="card" style="background-color:#fff;">
-		      <div class="card-header" ><H3><a ng-href="#/profile/{{selectedTask.poster}}"><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar">
-		      {{selectedTask.name}}</a></H3></div>
-		      <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
-		      <div class="card-block">
-		        <h4 class="card-title">{{selectedTask.title}}</h4>
-		        <p><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
-		        <p class="card-text">{{selectedTask.description}}</p>
-		        <!-- <a href="#" class="btn btn-primary-sm">Go somewhere</a> -->
-		      </div>
-		      <div class="card-footer text-muted">
-		        <div class="col-xs-6"><span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span></div>
-		        <div class="col-xs-6"><span class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type | limitTo:9}}{{ task.title.length > 9? "..." : ""}}</span></div>
-		      </div>
-
-			  <!-- OFFERS -->
-			  <div class="" style="background-color:#fff;">
-			    <div class="card-header" ><H3>Offers</H3></div>
-			    <!-- <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;"> -->
-			    <div class="card-block">
-			      <div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
-			        <button style="width:100%; border:0px solid transparent;" class="btn-primary" data-toggle="modal" data-target="#offModal"><i class="fa fa-heart" style="color:#fff;" aria-hidden="true"></i> Offer to Help</button>
-			      </div>
-			      <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
-			        <button class="btn btn-primary btn-sm" ng-click="completeTask(selectedTask.$id)"><i class="fa fa-check" aria-hidden="true" style="color:#fff;"></i> Complete Call</button>
-			      </div>
-			      <p><div class="title" ng-hide="offers && offers.length > 0">
-			        <span>No one has offered to pick up this call yet.</span>
-			      </div></p>
-			      <div class="row card" id="offers" ng-repeat="offer in offers">
-			        <div id="" style="">
-			          <div class="col-xs-2 hidden-xs">
-			            <img ng-src="{{offer.gravatar}}" class="img-circle offer gravatar" style="height:100%;">
-			          </div>
-			          <div class="col-xs-8">
-			            <div class="row">
-			              <span><b>{{offer.name}}</b></span>
-
-			              <!-- Posted <span class="cmt-time"><span am-time-ago="offer.datetime"></span></span> -->
-			            </div>
-			            <div class="row">
-			              <span>{{offer.total}}</span>
-			                    <img ng-src="{{offer.img}}" class="img-circle offer gravatar" style="">
-			            </div>
-			          </div>
-			          <div class="col-xs-2" style="border-left:1px solid #eee; text-align:center;">
-			            <button ng-show="offer.accepted" class="btn btn-success btn-xs disabled" style="background-color:#fff;"><i class="fa fa-hand-paper-o" aria-hidden="true" style="color:#3498db;"></i></button>
-
-			            <button ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)" class="btn btn-info btn-xs" ng-click="acceptOffer(offer.$id,offer.uid)">
-			              <i class="fa fa-check" aria-hidden="true" style="color:#2ecc71;"></i>
-			            </button>
-
-			            <a ng-show="isOfferMaker(offer) && isOpen(selectedTask)" class="btn btn-xs" ng-click="cancelOffer(offer.$id)"><i class="fa fa-ban" aria-hidden="true"></i></a>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			    <div class="card-footer text-muted"></div>
-			  </div>
-			  <!-- END OFFERS -->
-			        <!-- Comments -->
-			            <div class="modal fade" id="chatModal" role="dialog">
-			              <div class="modal-dialog modal-lg">
-			                <div class="modal-content">
-			                  <div class="modal-header">
-			                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-			                    <h4 class="modal-title">Chat with {{selectedTask.name}} </h4>
-			                  </div>
-			                  <div class="modal-body">
-			                    <div class="row" ng-hide="">
-			                        <form ng-submit="addComment()" id="comment-submit">
-			                          <div class="input-group" id="taskdetails-chat" style="width:100%; background-color:#fff; padding-left:5px;">
-			                            <!-- <div class="input-group-addon">
-			                              <img ng-src="{{ user.profile.gravatar }}" class="img-circle comment gravatar">
-			                            </div> -->
-			                            <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Join the conversation" required>
-			                            <div id="chat-submit">
-			                                <div class="upload">
-			                                    <input type="file" id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
-			                                </div>
-			                                <button style="background-color: #ff5555" type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
-			                               <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
-			                             </button>
-			                                <br/><br/>
-			                                <img ng-if="showImg" ng-src="{{commentImgSrc}}" id="commentPrwImg" style="width: 80px;height: 80px;" alt=""/>
-			                           </div>
-			                          </div>
-			                        </form>
-			                    </div>
-			                    <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments.slice().reverse() | orderBy: 'datetime':true">
-			                      <p><div class="title" ng-hide="comments && comments.length > 0">
-			                        <span>Be the first to make a comment.</span>
-			                      </div></p>
-			                      <hr>
-			                        <img ng-src="{{com.gravatar}}" class="img-circle comment gravatar pull-left">
-			                        <div class="well-sm cmt" class="pull-right">
-			                          <span class="cmt-title">{{com.name}} </span>
-			                          <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
-			                          <span>{{com.content}}</span>
-			                            <img ng-src="{{com.img}}" class="img-circle offer gravatar" style="width: 70px;">
-			                        </div>
-			                    </div>
-			                  </div>
-			                  <div class="modal-footer">
-			                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-			                  </div>
-			                </div>
-			              </div>
-			            </div>
-			          <!-- END COMMENTS -->
-			          <!-- BUTTONS -->
-			          <button style="width:100%; border:0px solid transparent;" type="button" class="btn-primary" data-toggle="modal" data-target="#chatModal"><i class="fa fa-comments" aria-hidden="true" style="color:#fff;"></i> View Comments</button>
-			          <div id="{{selectedTask.help_type}}" ng-show="isTaskCreator(selectedTask) && !isClosed(selectedTask)">
-
-			            <!-- <a href="" data-toggle="modal" data-target="#ediModal" data-toggle="tooltip" data-placement="bottom" title="Update Call"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a> -->
-			            <a style="width:100%; border:0px solid transparent;" href="" class="btn-danger" ng-click="cancelTask(selectedTask.$id)" data-toggle="tooltip" data-placement="bottom" title="Delete Call" ><i class="fa fa-trash" aria-hidden="true" style="background-color:transparent ;"></i> Cancel Call</a>
-			          </div>
-			          <!-- END BUTTONS -->
-							</div>
-		</div>
+	<!-- <div ng-show="listMode">
+			<h2>Hey</h2>
 	</div>
+	<div ng-show="!listMode">
+		<div ng-include="'views/browsedetails.html'"></div>
+  </div> -->
+
 	<div ng-include="'views/partials/edit.html'"></div>
 	<div ng-include="'views/partials/offer.html'"></div>
+
+<script>
+
+</script>
