@@ -1,19 +1,19 @@
 <div class="col-sm-9 main" ng-controller="BrowseController" style="margin:0px!important;padding:0px !important;" id="browse-map">
 	<ng-map zoom="15"
-		map-type-control-options="{style:'HORIZONTAL_BAR', position:'TOP_CENTER'}"
+		map-type-control-options="{style:'HORIZONTAL_BAR', position:'BOTTOM_CENTER'}"
 		center="current-position"
 		zoom="12"
 		pan-control="true"
 		pan-control-options="{position:'TOP_RIGHT'}"
 		map-type-control="true"
 		zoom-control="true"
-		zoom-control-options="{style:'LARGE', position:'LEFT_BOTTOM'}"
+		zoom-control-options="{style:'LARGE', position:'RIGHT_BOTTOM'}"
 		scale-control="true"
 		street-view-control="true"
-		street-view-control-options="{position:'LEFT_BOTTOM'}">
+		street-view-control-options="{position:'RIGHT_BOTTOM'}">
 
 		<marker
-				ng-repeat="task in tasks | filter: {title: searchTask , status: 'open' }"
+				ng-repeat="task in tasks | filter: {help_type: searchTask , status: 'open' }"
 				position="{{task.pos}}"
 				title="{{task.name}}"
 				icon="images/pinlogo-small.svg"
@@ -26,12 +26,37 @@
 				<img style="width:100%;" src="{{selectedCity.img}}"></img>
 				<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
 				<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
+				<p id="subheader">Category: {{selectedCity.help_type}}</p>
 				<a ng-show="signedIn()" class="btn-sm btn-primary" href="#/browsedetails/{{selectedCity.$id}}">View Call For Help</a>
 			</div>
 		</info-window>
 
+		<custom-control id="home" position="BOTTOM_CENTER" index="1" on-click="vm.click()">
+			<!-- SEARCH TOOL -->
+			<div class="" id="" style="background-color:#fff;margin-bottom:9px;">
+					<!-- <span aria-hidden="true" style="width:20px; display:inline;"><i class="fa fa-filter fa-2x" aria-hidden="true"></i></span> -->
+					<!-- <input style=" border:0px solid transparent !important;" type="text" ng-model="searchTask" class="form-control" placeholder="SEARCH"> -->
+					<select id="selectbasic" name="selectbasic" ng-model="searchTask" class="form-control selectpicker" required data-role="tagsinput" style="height:30px;">
+
+						<option value="" disabled selected>SELECT CATEGORY</option>
+						<option value="Abuse">Abuse</option>
+						<option value="Casual">Casual</option>
+						<option value="Hunger">Hunger</option>
+						<option value="Homelessness">Homelessness</option>
+						<option value="Pregnancy &amp; Womens Health">Pregnancy &amp; Women's Health</option>
+						<option value="Substance Abuse">Substance Abuse</option>
+						<option value="Mentorship">Mentorship</option>
+						<option value="Consoling">Counselling</option>
+						<option value="Joblessness">Joblessness</option>
+						<option value="Veterans Affairs">Veterans Affairs</option>
+						<option value="Other">Other</option>
+					</select>
+			</div>
+    </custom-control>
+
 	</ng-map>
 </div>
+
 
 	<!-- Right Col -->
 
