@@ -409,6 +409,14 @@ input.form-group {
     display: inline-block;
 }
 
+@media screen and (max-width: 480px) {
+  .nav > li {
+      position: relative;
+      display: inline-block;
+      width: 45px;
+  }
+}
+
 #nav-tools a, #nav-tools {
   color: #363636;
   margin-top: 10px;
