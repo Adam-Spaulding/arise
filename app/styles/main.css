@@ -410,7 +410,7 @@ input.form-group {
 }
 
 @media screen and (max-width: 480px) {
-  .nav > li {
+  .navbar .nav > li {
       position: relative;
       display: inline-block;
       width: 45px;
@@ -784,10 +784,10 @@ ul.share-buttons li{
      -moz-transition-property: right;
        -o-transition-property: right;
           transition-property: right;
-  -webkit-transition-duration: .5s;
-     -moz-transition-duration: .5s;
-       -o-transition-duration: .5s;
-          transition-duration: .5s;
+  -webkit-transition-duration: .25s;
+     -moz-transition-duration: .25s;
+       -o-transition-duration: .25s;
+          transition-duration: .25s;
   -webkit-transition-timing-function: ease-in-out;
      -moz-transition-timing-function: ease-in-out;
        -o-transition-timing-function: ease-in-out;
