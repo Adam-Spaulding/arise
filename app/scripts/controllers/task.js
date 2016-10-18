@@ -42,7 +42,7 @@ app.controller('TaskController', function($scope, $location, toaster, Task, Auth
 				var downloadUrl = uploadTask.snapshot.downloadURL;
 				$scope.task.img = downloadUrl;
 				Task.createTask($scope.task).then(function(ref) {
-					toaster.pop('success', 'Your call for help has been submitted.');
+					toaster.pop('success', 'Call for help has been submitted.');
 					document.getElementById('postimg').src = '';
 					$scope.task = {description: '', title: '', help_type: '', image: '', status: 'open', gravatar: '', name: '', poster: ''};
 					$location.path('/browse' + ref.key());
@@ -51,7 +51,7 @@ app.controller('TaskController', function($scope, $location, toaster, Task, Auth
 			});
 		}else{
 			Task.createTask($scope.task).then(function(ref) {
-				toaster.pop('success', 'Your call for help has been submitted.');
+				toaster.pop('success', 'Call for help has been submitted.');
 				$scope.task = {description: '', title: '', help_type: '', image: '', status: 'open', gravatar: '', name: '', poster: ''};
 				$location.path('/browse' + ref.key());
 				$('#posModal').modal('hide');
@@ -72,7 +72,7 @@ app.controller('TaskController', function($scope, $location, toaster, Task, Auth
 
 	$scope.editTask = function(task) {
 		Task.editTask(task).then(function() {
-			toaster.pop('success', 'Your call for help has been updated.');
+			toaster.pop('success', 'Call for help has been updated.');
 			$('#ediModal').modal('hide');
 		});
 	};

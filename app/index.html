@@ -18,7 +18,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/ripples.css" />
     <script src="https://use.fontawesome.com/e6bdf04f2b.js"></script>
@@ -36,7 +35,7 @@
         right: -15px;
     }
     </style>
-
+    <link rel="stylesheet" href="styles/toaster.css">
     <link rel="stylesheet" href="styles/main.css">
   </head>
   <body ng-app="ariseApp" onLoad="writeLati(locform)">
@@ -49,7 +48,8 @@
 
     <div ng-include="'views/browse-map.html'"></div>
 
-    <div class="col-md-3 col-sm-push-9 top">
+    <div class="top">
+          <a href=""></a>
           <div ng-view=""></div>
     </div>
 

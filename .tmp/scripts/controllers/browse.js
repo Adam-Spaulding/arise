@@ -230,7 +230,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	$scope.cancelTask = function(taskId) {
 		Task.cancelTask(taskId).then(function() {
-			toaster.pop('success', 'This call for help has been cancelled successfully.');
+			toaster.pop('success', 'Call for help deleted successfully.');
 			$location.path('/browse');
 		});
 	};
@@ -239,7 +239,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 	$scope.completeTask = function(taskId) {
 		Task.completeTask(taskId).then(function() {
-			toaster.pop('success', 'Congratulation! You have completed this call for help.');
+			toaster.pop('success', 'Call for help completed. Good work!');
 		});
 	};
 

@@ -13,11 +13,11 @@
   <div class="action">
   	<div class="list-group" id="">
   		<div class="row">
-  			<div class="col-sm-9">
+  			<div class="col-xs-9">
           <h4 style="text-align:left; color:#fff; padding:8px; text-transform:uppercase;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name"></h4>
         </div>
         <a ng-show="user.auth.uid == userId" ng-click="editMode()" href="" ng-class="{ active: activeTab === 'calls-placed' }">
-  				<div class="col-sm-3">
+  				<div class="col-xs-3">
   					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
   					<p>EDIT</p>
   				</div>

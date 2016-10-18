@@ -351,12 +351,13 @@ input.form-group {
 }
 
 .navbar-brand {
-    color: #747474 !important;
-    font-family: 'Roboto Condensed', sans-serif;
-    text-transform: uppercase;
+    color: #363636 !important;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+    font-family: 'Quicksand', sans-serif;
+    text-transform: lowercase;
     /*font-weight: 300 !important;*/
     font-size: 30px;
-    letter-spacing: 3px;
+    letter-spacing: -3px;
     height: 57px;
 }
 
@@ -630,7 +631,7 @@ top: 50%;
 #postform div.upload {
   border:7px dashed #ccc;
   width: 100%;
-  height: 30vh;
+  height: 250px;
   background-size: 25px;
   background-color: #eee;
   /*padding: 25%;*/
@@ -638,7 +639,7 @@ top: 50%;
 
 #postform div.upload input {
   width: 100%;
-  max-height: 35vh;
+  max-height: 400px;
   opacity: 0 !important;
   background-color: #eee;
 }
@@ -756,10 +757,12 @@ ul.share-buttons li{
 
 .top {
   padding: 0px !important;
-  bottom: 0;
   background-color: #fff;
   box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 3px 16px rgba(0,0,0,0.23);
   min-height: 100vh;
+  max-width: 400px;
+  position: absolute;
+  right: 0;
 }
 
 .action .list-group, #subject{

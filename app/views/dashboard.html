@@ -9,9 +9,9 @@
 					<p>GET HELP</p>
 				</div>
 			</a>
-			<a ng-href="#/">
+			<a ng-href="https://www.facebook.com/dialog/feed?app_id=134530986736267&link=https%3A%2F%2Fwww.neighbo.com&picture=http%3A%2F%2Fariseagain.com%2Fimages%2Fneighbo.png&name=Share+share+share%21+Neighbo+will+change+the+way+we+help+our+neighbors.&description=Just+as+Uber+has+revolutionized+the+way+you+get+a+ride%2C+Neighbo+has+changed+the+way+you+get+help.+%0AWhatever+the+need%2C+whatever+the+situation%2C+your+neighbors+are+here+to+help%2C+and+neighbo+is+here+to+connect+you.+This+app+is+available+online%2C+in+the+App+Store%2C+and+on+Google+Play.+&redirect_uri=http://facebook.com/" target="_blank">
 				<div class="col-xs-6">
-					<i class="fa fa-share-alt" aria-hidden="true"></i>
+					<i class="fa fa-facebook" aria-hidden="true"></i>
 					<p>SHARE</p>
 				</div>
 			</a>
@@ -60,7 +60,7 @@
 
 											<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'calls-placed' }">
 												<p><div class="title" ng-hide="tasks && (tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length > 0">
-	                        <h3>Need Help?</h3>
+	                        <p>Need Help?</p>
 													<a class="btn btn-primary" ng-href="/#/callforhelp">GET HELP NOW</a>
 	                      </div></p>
 												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!closed' } | orderBy: 'datetime':true | limitTo: limit as results"  ng-href="#/browsedetails/{{task.$id}}" style="color: #66757f !important;">
@@ -92,7 +92,7 @@
 											<!-- Assigned Calls -->
 											<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'picked-up' }">
 												<p><div class="title" ng-hide="tasks && (tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length > 0">
-	                        <h3>Find a pin, make an offer, and help your neighbor today!</h3>
+	                        <p>Find a pin on the map, make an offer, and help your neighbor today!</p>
 	                      </div></p>
 												<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: 'assigned' } | orderBy: 'datetime':true | limitTo: limit as results" ng-href="#/browsedetails/{{task.$id}}">
 													<div id="" class="list-item row" style="margin-bottom:0px !important;">
