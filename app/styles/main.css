@@ -780,7 +780,27 @@ ul.share-buttons li{
   max-width: 400px;
   position: absolute;
   right: 0;
+  -webkit-transition-property: right;
+     -moz-transition-property: right;
+       -o-transition-property: right;
+          transition-property: right;
+  -webkit-transition-duration: .5s;
+     -moz-transition-duration: .5s;
+       -o-transition-duration: .5s;
+          transition-duration: .5s;
+  -webkit-transition-timing-function: ease-in-out;
+     -moz-transition-timing-function: ease-in-out;
+       -o-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
 }
+
+.top-hide {
+  right: -360px;
+}
+
+/*.top:hover {
+  right:0;
+}*/
 
 .action .list-group, #subject{
   padding-top: 6px;
@@ -847,3 +867,26 @@ ul.share-buttons li{
 .postform {
   margin-top: 70px;
 }*/
+
+.collapsing {
+  position: relative;
+  width: 0;
+  overflow: hidden;
+  -webkit-transition-timing-function: ease-in;
+       -o-transition-timing-function: ease-in;
+          transition-timing-function: ease-in;
+  -webkit-transition-duration: 1.35s;
+       -o-transition-duration: 1.35s;
+          transition-duration: 1.35s;
+  -webkit-transition-property: width;
+       -o-transition-property: width;
+          transition-property: width;
+          /*-webkit-animation: slide 0.5s forwards;
+-webkit-animation-delay: 2s;
+animation: slide-in 0.5s forwards;
+animation-delay: 2s;*/
+}
+
+.top-hide {
+
+}

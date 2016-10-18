@@ -66,12 +66,12 @@ var app = angular
       })
       .when('/map', {
         templateUrl: 'views/browse-map.html',
-        controller: 'BrowseController',
-        resolve: {
-          currentAuth: function(Auth) {
-            return Auth.requireAuth();
-          }
-        }
+        controller: 'BrowseController'
+        // resolve: {
+        //   currentAuth: function(Auth) {
+        //     return Auth.requireAuth();
+        //   }
+        // }
       })
       .when('/_/:taskId?', {
         templateUrl: 'views/browse-map.html',

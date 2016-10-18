@@ -48,10 +48,15 @@
 
     <div ng-include="'views/browse-map.html'"></div>
 
-    <div class="top">
-          <a href=""></a>
-          <div ng-view=""></div>
+    <!-- <a href="" class="btn btn-info"  data-toggle="collapse" data-target="#view">>></a> -->
+
+    <div class="top" ng-class="toggle ? 'top-hide' : ''">
+      <button class="btn btn-info" style="backgroud-color:#eee; position:fixed;margin:60px 0 0 -80px;" ng-model="toggle"  ng-click="toggle=!toggle">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+      <div ng-view=""></div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.js"></script>
