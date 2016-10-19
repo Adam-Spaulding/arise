@@ -14,7 +14,7 @@
   	<div class="list-group" id="">
   		<div class="row">
   			<div class="col-xs-9">
-          <h4 style="text-align:left; color:#fff; padding:8px; text-transform:uppercase;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name"></h4>
+          <h4 style="text-align:left; color:#fff; padding:8px; text-transform:uppercase;" ng-bind="userId?userProfile.name:user.facebook.cachedUserProfile.name">loading</h4>
         </div>
         <a ng-show="user.auth.uid == userId" ng-click="editMode()" href="" ng-class="{ active: activeTab === 'calls-placed' }">
   				<div class="col-xs-3">
@@ -36,15 +36,17 @@
         <div class="panel-body" style="padding:0px;margin-top:20px;">
             <ul class="nav nav-tabs" ng-init="activeTab = 'bio'" style="background-color:transparent; color:#363636; text-align:center;">
               <li class="col-xs-6" ng-class="{ active: activeTab === 'bio' }">
-                  <a ng-click="activeTab = 'bio'" href="" style="color:#363636 !important; background-color:#fff !important;">BIO</a>
+                  <a ng-click="activeTab = 'bio'" href="" style="color:#363636 !important;">BIO</a>
               </li>
                 <li class="col-xs-6" ng-class="{ active: activeTab === 'picked-up' }">
-                    <a ng-click="activeTab = 'picked-up'" href="" style="color:#363636 !important; background-color:#fff !important;">HISTORY</a>
+                    <a ng-click="activeTab = 'picked-up'" href="" style="color:#363636 !important;">HISTORY
+                      <span class="badge">{{(tasks | filter: { runner:user.uid } | orderBy: 'datetime':true).length}}</span>
+                    </a>
                 </li>
             </ul>
             <!-- TABS -->
             <div class="tab-content">
-                <div class="tab-pane" ng-class="{ active: activeTab === 'bio' }">
+                <div class="tab-pane" id="card" ng-class="{ active: activeTab === 'bio' }" style="padding:15px; margin:15px;">
                     <div ng-show="user.auth.uid == userId && editOn" ng-class="{ active: activeTab === 'profile' }">
                     <form ng-submit="addInfoToProfile(userInfo)">
                       <p style="text-align:right;"><button type="submit" class="btn-sm btn-primary">Save</button></p>
@@ -69,24 +71,34 @@
 
                         <p><i class="fa fa-link" aria-hidden="true" style="color:#2ecc71;"></i>  <a ng-href="http://{{userProfile.website?userProfile.website:'#'}}" target="_blank" style="color:#2ecc71;">{{userProfile.website?userProfile.website:'No website yet!'}}</a></p>
                         <!--<strong>{{userProfile.website?userProfile.website:'Please edit website'}}</strong>-->
-                        <p><span>{{userProfile.aboutMe?userProfile.aboutMe:''}}</span></p>
+                        <p>{{userProfile.aboutMe?userProfile.aboutMe:''}}</p>
                       </div>
                 </div>
-                <div class="tab-pane" ng-class="{ active: activeTab === 'picked-up' }">
+                <div class="tab-pane" ng-init="limit = 3" ng-class="{ active: activeTab === 'picked-up' }">
                   <div>
-                    <a ng-repeat="task in tasks | filter: {title: searchTask , runner:userId } | orderBy: 'datetime':true" ng-href="#/browsedetails/{{task.$id}}" style="color: #66757f !important;">
-                      <div id="" class="list-item row" style="margin-bottom:0px;">
-                        <div class="col-xs-3">
-                          <img style="width:100%;" ng-src="{{task.gravatar}}">
+                    <a ng-repeat="task in tasks | filter: {title: searchTask , runner:userId } | orderBy: 'datetime':true | limitTo: limit as results" ng-href="#/call/{{task.$id}}" style="color: #66757f !important;">
+                      <div id="card" class="list-item row" style="margin-bottom:20px !important;">
+                        <div class="row">
+                          <img style="width:100%;" ng-src="{{task.img}}" style="margin:0px !important;">
                         </div>
-                        <div class="col-xs-9">
-                          <p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-                          <p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-                          <p style="color:#363636;">{{task.title}}</p>
+                        <div class="row" style="padding-top:10px;">
+                          <div class="col-xs-3">
+                            <img style="width:100%;" ng-src="{{task.gravatar}}">
+                          </div>
+                          <div class="col-xs-9">
+                            <p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
+                            <p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
+                            <p style="color:#363636;"><b>{{task.title}}</b></p>
+                          </div>
                         </div>
                       </div>
-                      <hr>
                     </a>
+                    <div ng-hide="(tasks | filter: { runner:user.uid }).length < 0" style="text-align:center;">
+                      <button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
+                    </div>
+                    <p><div class="title" ng-hide="tasks && (tasks | filter: {title: searchTask , runner:userId } | orderBy: 'datetime':true).length > 0">
+                      <p>This user has not picked up a call for help yet. Send them a message and encourage them to!</p>
+                    </div></p>
                 </div>
                 </div>
             </div>

@@ -43,12 +43,16 @@
 							</div>
 							<!-- TABS -->
 							<div class="panel-body" style="padding:0px;">
-									<ul class="nav nav-tabs" ng-init="activeTab = 'picked-up'" style="background-color:#fff; color:#66757f; text-align:center;">
+									<ul class="nav nav-tabs" ng-init="activeTab = 'picked-up'" style="background-color:transparent; color:#363636; text-align:center;">
 											<li class="col-xs-6" ng-class="{ active: activeTab === 'picked-up' }">
-													<a ng-click="activeTab = 'picked-up'" href="" style="color:#363636 !important;">ASSIGNED</a>
+													<a ng-click="activeTab = 'picked-up'" href="" style="color:#363636 !important;">ASSIGNED
+														<span class="badge">{{(tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length}}</span>
+													</a>
 											</li>
 											<li class="col-xs-6" ng-class="{ active: activeTab === 'calls-placed' }">
-													<a ng-click="activeTab = 'calls-placed'" href="" style="color:#363636 !important;">MY CALLS</a>
+													<a ng-click="activeTab = 'calls-placed'" href="" style="color:#363636 !important;">MY CALLS
+														<span class="badge">{{(tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length}}</span>
+													</a>
 											</li>
 											<!-- <li ng-class="{ active: activeTab === 'ratings' }">
 													<a ng-click="activeTab = 'ratings'" href="">Ratings</a>
@@ -63,19 +67,22 @@
 	                        <p>Need Help?</p>
 													<a class="btn btn-primary" ng-href="/#/callforhelp">GET HELP NOW</a>
 	                      </div></p>
-												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!closed' } | orderBy: 'datetime':true | limitTo: limit as results"  ng-href="#/browsedetails/{{task.$id}}" style="color: #66757f !important;">
-
-													<div id="" class="list-item row" style="margin-bottom:0px;">
-														<div class="col-xs-3">
-															<img style="width:100%;" ng-src="{{task.gravatar}}">
+												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!closed' } | orderBy: 'datetime':true | limitTo: limit as results"  ng-href="#/call/{{task.$id}}" style="color: #363636 !important;">
+													<div id="card" class="list-item row" style="margin-bottom:20px !important;">
+														<div class="row">
+															<img style="width:100%;" ng-src="{{task.img}}" style="margin:0px !important;">
 														</div>
-														<div class="col-xs-9">
-															<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-															<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-															<p style="color:#363636;">{{task.title}}</p>
+														<div class="row" style="padding-top:10px;">
+															<div class="col-xs-3">
+																<img style="width:100%;" ng-src="{{task.gravatar}}">
+															</div>
+															<div class="col-xs-9">
+																<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
+																<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
+																<p style="color:#363636;"><b>{{task.title}}</b></p>
+															</div>
 														</div>
 													</div>
-													<hr>
 												</a>
 												<div ng-hide="tasks && tasks.length < 0" style="text-align:center;">
 													<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
@@ -94,18 +101,22 @@
 												<p><div class="title" ng-hide="tasks && (tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length > 0">
 	                        <p>Find a pin on the map, make an offer, and help your neighbor today!</p>
 	                      </div></p>
-												<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: 'assigned' } | orderBy: 'datetime':true | limitTo: limit as results" ng-href="#/browsedetails/{{task.$id}}">
-													<div id="" class="list-item row" style="margin-bottom:0px !important;">
-														<div class="col-xs-3">
-															<img style="width:100%;" ng-src="{{task.gravatar}}">
+												<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: 'assigned' } | orderBy: 'datetime':true | limitTo: limit as results" ng-href="#/call/{{task.$id}}">
+													<div id="card" class="list-item row" style="margin-bottom:20px !important;">
+														<div class="row">
+															<img style="width:100%;" ng-src="{{task.img}}" style="margin:0px !important;">
 														</div>
-														<div class="col-xs-9">
-															<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-															<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-															<p style="color:#363636;">{{task.title}}</p>
+														<div class="row" style="padding-top:10px;">
+															<div class="col-xs-3">
+																<img style="width:100%;" ng-src="{{task.gravatar}}">
+															</div>
+															<div class="col-xs-9">
+																<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
+																<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
+																<p style="color:#363636;"><b>{{task.title}}</b></p>
+															</div>
 														</div>
 													</div>
-													<hr>
 												</a>
 												<div ng-show="tasks && tasks.length < 0" style="text-align:center;">
 													<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>

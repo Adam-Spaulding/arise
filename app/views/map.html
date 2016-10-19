@@ -27,7 +27,7 @@
 				<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
 				<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
 				<p id="subheader">Category: {{selectedCity.help_type}}</p>
-				<a ng-show="signedIn()" class="btn-sm btn-primary" href="#/browsedetails/{{selectedCity.$id}}">View Call For Help</a>
+				<a ng-show="signedIn()" class="btn-sm btn-primary" href="#/call/{{selectedCity.$id}}">View Call For Help</a>
 			</div>
 		</info-window>
 
@@ -63,7 +63,7 @@
 			<h2>Hey</h2>
 	</div>
 	<div ng-show="!listMode">
-		<div ng-include="'views/browsedetails.html'"></div>
+		<div ng-include="'views/call.html'"></div>
   </div> -->
 
 	<div ng-include="'views/partials/edit.html'"></div>

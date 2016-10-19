@@ -65,7 +65,7 @@ var app = angular
         }
       })
       .when('/map', {
-        templateUrl: 'views/browse-map.html',
+        templateUrl: 'views/map.html',
         controller: 'BrowseController'
         // resolve: {
         //   currentAuth: function(Auth) {
@@ -74,7 +74,7 @@ var app = angular
         // }
       })
       .when('/_/:taskId?', {
-        templateUrl: 'views/browse-map.html',
+        templateUrl: 'views/map.html',
         controller: 'BrowseController',
         resolve: {
           currentAuth: function(Auth) {
@@ -91,8 +91,8 @@ var app = angular
           }
         }
       })
-      .when('/browsedetails/:taskId?', {
-        templateUrl: 'views/browsedetails.html',
+      .when('/call/:taskId?', {
+        templateUrl: 'views/call.html',
         controller: 'BrowseController',
         resolve: {
           currentAuth: function(Auth) {

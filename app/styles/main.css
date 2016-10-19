@@ -5,7 +5,7 @@
 @import url(https://fonts.googleapis.com/css?family=Fjalla+One);
 
 body {
-  background-color: #fff;
+  background-color: #f5f5f5;
   /*font-family: 'Roboto', sans-serif;*/
   /*padding: 60px 0px;*/
 }
@@ -95,12 +95,8 @@ a.ng-scope:hover {
 
 #card{
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  padding: 10px 0px;
+  padding: 0px;
   background-color: #fff;
-}
-
-#card img {
-  margin-left: 15px;
 }
 
 #card:hover {
@@ -207,7 +203,6 @@ a:hover {
 
 /* login  */
 .auth-forms {
-  background-color: #fff;
   margin-top: 40%;
   font-size: 150%;
 }
@@ -295,6 +290,12 @@ input.form-group {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
+.btn-grey {
+  background-color: #f5f5f5 !important;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
  button.btn-danger{
   color: #e74c3c !important;
   border:1px solid #e74c3c !important;
@@ -352,12 +353,12 @@ input.form-group {
 
 .navbar-brand {
     color: #363636 !important;
-    /*font-family: 'Roboto Condensed', sans-serif;*/
-    font-family: 'Quicksand', sans-serif;
-    text-transform: lowercase;
-    /*font-weight: 300 !important;*/
+    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Quicksand', sans-serif;*/
+    text-transform: uppercase;
+    font-weight: 300 !important;
     font-size: 30px;
-    letter-spacing: -3px;
+    letter-spacing: 3px;
     height: 57px;
 }
 
@@ -721,7 +722,7 @@ ul.share-buttons li{
     background-color: rgba(255, 255, 255, 1);
 }
 .card.hovercard .card-background {
-    height: 30vh;
+    height: 300px;
 }
 .card-background img {
     -webkit-filter: blur(25px);
@@ -770,14 +771,15 @@ ul.share-buttons li{
 .nav-tabs .active {
 	color: #2ecc71 !important;
 	border-bottom: 2px #2ecc71 solid;
+  display:block;
 }
 
 .top {
   padding: 0px !important;
-  background-color: #fff;
+  background-color: #f5f5f5;
   box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 3px 16px rgba(0,0,0,0.23);
   min-height: 100vh;
-  max-width: 400px;
+  max-width: 414px;
   position: absolute;
   right: 0;
   -webkit-transition-property: right;
@@ -795,7 +797,7 @@ ul.share-buttons li{
 }
 
 .top-hide {
-  right: -360px;
+  right: -414px;
 }
 
 /*.top:hover {
@@ -887,6 +889,6 @@ animation: slide-in 0.5s forwards;
 animation-delay: 2s;*/
 }
 
-.top-hide {
-
+.badge {
+  background-color: #2ecc71;
 }
