@@ -1,34 +1,189 @@
-<div style="margin-top:200px;"></div>
-  <!-- <div class="row" id="browsedetails-map">
-    <ng-map center="{{selectedTask.pos}}" zoom="15" disable-default-u-i="true">
-      <marker ng-repeat="task in tasks track by $index" position="{{selectedTask.pos}}"
-          icon="images/pinlogo-small.svg"
-      </marker>
-    </ng-map>
-  </div> -->
+<img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
+<!-- <div class="action">
+	<div class="list-group" id="">
+		<div class="row">
+			<div class="col-xs-6">
+			</div>
+			<div class="col-xs-6">
+				<p class="status {{selectedTask.status}}">{{ selectedTask.status }}</p>
+	      <p class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type }}</p>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div class="action">
+	<div class="list-group" id="">
+		<div class="row">
+			<a ng-href="/#/callforhelp">
+				<div class="col-xs-3">
+					<i class="fa fa-bullhorn" aria-hidden="true"></i>
+					<p>GET HELP</p>
+				</div>
+			</a>
+			<a ng-href="https://www.facebook.com/dialog/feed?app_id=134530986736267&link=https%3A%2F%2Fwww.neighbo.com&picture=http%3A%2F%2Fariseagain.com%2Fimages%2Fneighbo.png&name=Share+share+share%21+Neighbo+will+change+the+way+we+help+our+neighbors.&description=Just+as+Uber+has+revolutionized+the+way+you+get+a+ride%2C+Neighbo+has+changed+the+way+you+get+help.+%0AWhatever+the+need%2C+whatever+the+situation%2C+your+neighbors+are+here+to+help%2C+and+neighbo+is+here+to+connect+you.+This+app+is+available+online%2C+in+the+App+Store%2C+and+on+Google+Play.+&redirect_uri=http://facebook.com/" target="_blank">
+				<div class="col-xs-3">
+					<i class="fa fa-facebook" aria-hidden="true"></i>
+					<p>SHARE</p>
+				</div>
+			</a>
+			<a ng-click="activeTab = 'location'" href="">
+				<div class="col-xs-3">
+					<i class="fa fa-map" aria-hidden="true"></i>
+					<p>LOCATION</p>
+				</div>
+			</a>
+			<!-- Task Creator Options -->
+			<a type="" class="dropdown-toggle" ng-show="isTaskCreator(selectedTask)" data-toggle="dropdown" href="">
+				<div class="col-xs-3">
+					<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+					<p>OPTIONS</p>
+		        <div class="dropdown pull-right">
+		          <ul class="dropdown-menu">
+		            <li ng-show="!isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.runner}}">View Helpers Profile</a></li>
+		            <li ng-show="!isOpen(selectedTask) && !isCompleted(selectedTask)"><a ng-click="completeTask(selectedTask.$id)">Complete Call</a></li>
+		            <li ng-show="isOpen(selectedTask)"><a ng-click="cancelTask(selectedTask.$id)">Delete Call</a></li>
+		          </ul>
+		        </div>
+		      </div>
+				</a>
+		</div>
+	</div>
+</div>
+
+<!-- DETAILS -->
+<div class="col-xs-12" style="margin:15px; padding:15px;">
+	<div class="card-title" ng-show="isTaskCreator(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+	<p ng-hide="!isOpen(selectedTask)">Your private information will be be displayed until you accept an offer. After that, only the person you accept will see your name, picture, and a link to your profile.</p>
+	</div>
+	<div class="card-title" ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
+	<p ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)">You are now assigned to this call for help</p>
+	</div>
+	<H4 class="card-header"><b>{{selectedTask.title}}</b></H4>
+	<p class="status {{selectedTask.status}}">{{ selectedTask.status }}</p>
+	<p class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type }}</p>
+	<p class="card-title"><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
+	<p class="card-text">{{selectedTask.description}}</p>
+</div>
+
+<!-- TABS -->
+<div class="panel-body" style="padding:0px;" id="tabs-body">
+	<ul class="nav nav-tabs" ng-init="activeTab = 'offers'" style="background-color:transparent; color:#363636; text-align:center;">
+			<li class="col-xs-6" ng-class="{ active: activeTab === 'offers' }">
+					<a ng-click="activeTab = 'offers'" href="" style="color:#363636 !important;">OFFERS
+						<span class="badge">{{offers.length}}</span>
+					</a>
+			</li>
+			<li class="col-xs-6" ng-class="{ active: activeTab === 'comments' }">
+					<a ng-click="activeTab = 'comments'" href="" style="color:#363636 !important;">COMMENTS
+						<span class="badge">{{comments.length}}</span>
+					</a>
+			</li>
+			<!-- <li class="col-xs-4" ng-class="{ active: activeTab === 'location' }">
+					<a ng-click="activeTab = 'location'" href="" style="color:#363636 !important;">LOCATION</a>
+			</li> -->
+			<!-- <li ng-class="{ active: activeTab === 'ratings' }">
+					<a ng-click="activeTab = 'ratings'" href="">Ratings</a>
+			</li> -->
+	</ul>
+
+	<div class="tab-content" style="padding-top:10px; min-height:300px;">
+
+			<!-- OFFERS -->
+			<div class="tab-pane" ng-class="{ active: activeTab === 'offers' }" ng-show="isOpen(selectedTask)">
+
+				<div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
+	        <button style="width:100%;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#offModal">Offer to Help</button>
+	      </div>
+
+	      <div class="title" ng-hide="offers && offers.length > 0">
+	        <span>No offers yet.</span>
+	      </div>
+
+	      <div class="row" ng-repeat="offer in offers">
+	        <div id="" style="">
+	          <div class="col-xs-2 hidden-xs">
+	            <img ng-src="{{offer.gravatar}}" class="img-circle offer gravatar" style="height:100%;">
+	          </div>
+	          <div class="col-xs-8">
+	            <div class="row">
+	              <span><b><a ng-href="#/profile/{{offer.uid}}" style="color:#3498db">{{offer.name}}</a></b></span>
+	            </div>
+	            <div class="row">
+	              <span>{{offer.total}}</span><br>
+	                <img ng-src="{{offer.img}}" class="" style="width:100%;">
+	            </div>
+	          </div>
+	          <div class="col-xs-2" style="border-left:1px solid #eee; text-align:center; color:red;">
+	            <button ng-show="offer.accepted" class="btn-sm btn-success disabled" style="background-color:transparent; color:#3498db;">SELECTED!</button>
+	            <button ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)" class="btn-sm" style="background-color:#fff; color:#2ecc71;" ng-click="acceptOffer(offer.$id,offer.uid)">ACCEPT</button>
+	            <a ng-show="isOfferMaker(offer) && isOpen(selectedTask)" class="btn-sm btn-info" ng-click="cancelOffer(offer.$id)">CANCEL</a>
+	          </div>
+	        </div>
+	      </div>
+			</div>
+
+			<!-- COMMENTS -->
+			<div class="tab-pane" ng-class="{ active: activeTab === 'comments' }">
+				<!-- <div class="" ng-show="!isOpen(selectedTask)"> -->
+		      <div class="" style="text-align:center;">
+		        <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
+		          <button class="btn btn-primary" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
+		        </div>
+
+		      </div>
+
+		      <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments | orderBy: 'datetime':false">
+		        <p><div class="title" ng-hide="comments && comments.length > 0">
+		          <span>Be the first to make a comment.</span>
+		        </div></p>
+		        <hr>
+		          <img ng-src="{{com.gravatar}}" class="img-circle comment gravatar pull-left">
+		          <div class="well-sm cmt" class="pull-right">
+		            <span class="cmt-title">{{com.name}} </span>
+		            <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
+		            <span>{{com.content}}</span>
+		            <!-- <br>
+		              <img ng-src="{{com.img}}" class="" style="width:100%;"> -->
+		          </div>
+		      </div>
+					<div class="row" ng-hide="">
+		          <form ng-submit="addComment()" id="comment-submit">
+		            <div class="input-group" id="taskdetails-chat" style="width:100%; background-color:#fff;">
+		              <input style="height:40px; margin:5px 0px 10px 0px; width:85%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="ADD A COMMENT" required>
+		              <div id="">
+		                  <!-- <div class="upload">
+		                      <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
+		                  </div> -->
+		              <button type="submit" class="btn-sm btn-primary pull-right" style="height:40px; margin:5px 5px; 0 0">
+		                 <i class="fa fa-paper-plane" aria-hidden="true" style="color:#fff;"></i>
+		               </button>
+		             </div>
+		            </div>
+		          </form>
+		      </div>
+		    <!-- </div> -->
+			</div>
+
+			<!-- LOCATION -->
+			<div class="tab-pane" ng-class="{ active: activeTab === 'location' }">
+				<div class="row" id="">
+					<ng-map center="{{selectedTask.pos}}" zoom="15" disable-default-u-i="true">
+						<marker ng-repeat="task in tasks track by $index" position="{{selectedTask.pos}}"
+								icon="images/pinlogo-small.svg"
+						</marker>
+					</ng-map>
+				</div>
+			</div>
+	</div>
+</div>
+
+
+<!-- ====== STUFF ======== -->
+
 	<div class="row">
   <!-- details start-->
-      <div ng-show="isTaskCreator(selectedTask)">
-        <div class="dropdown pull-right">
-          <button type="" data-toggle="dropdown" style="background-color:#fff; border:1px solid #fff;" ><i class="fa fa-bars fa-lg" aria-hidden="true"></i></button>
-          <ul class="dropdown-menu">
-            <li ng-show="!isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.runner}}">View Helpers Profile</a></li>
-            <li ng-show="!isOpen(selectedTask) && !isCompleted(selectedTask)"><a ng-click="completeTask(selectedTask.$id)">Complete Call</a></li>
-            <li ng-show="isOpen(selectedTask)"><a ng-click="cancelTask(selectedTask.$id)">Delete Call</a></li>
-          </ul>
-        </div>
-      </div>
 
-      <div class="card-header" ng-show="isAssignee(selectedTask) && !isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;">
-
-        <H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar" style="padding-top:80px;"> {{selectedTask.name}}</H4></a>
-      <h6>You are now assigned to this call for help</h6>
-      </div>
-      <div class="card-title" ng-show="isTaskCreator(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
-
-      <h6 ng-hide="!isOpen(selectedTask)">Your private information will be be displayed until you accept an offer. After that, only the person you accept will see your name, picture, and a link to your profile.</h6>
-      </div>
-      <H4 class="card-header"><b>{{selectedTask.title}}</b></H4>
       <!-- <div>
         <div>Rate your expereince - <star-rating ng-model="rating"></star-rating></div>
       </div>
@@ -37,110 +192,26 @@
       </div> -->
       <!--<star-rating ng-model="rating"></star-rating>
       <strong>{{rating}}</strong>-->
-      <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;">
+
       <div class="card-block">
-        <span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
+        <!-- <span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
         <p class="label status" id="{{selectedTask.help_type}}">Category: {{ selectedTask.help_type}}</p>
-        <p class="card-title"><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
-        <p class="card-text">{{selectedTask.description}}</p>
+				<H4 class="card-header"><b>{{selectedTask.title}}</b></H4>
+				<p class="card-title"><span class="cmt-time"><span am-time-ago="selectedTask.datetime"></span></span></p>
+        <p class="card-text">{{selectedTask.description}}</p>-->
+
         <!-- <a href="#" class="btn btn-primary-sm">Go somewhere</a> -->
       </div>
       <div class="card-footer text-muted" style="text-align:center;">
         <div class="col-xs-12">
           <!-- <a style="padding:0px 7px;" ng-href="https://www.facebook.com/dialog/feed?app_id=980336382079406&picture={{ selectedTask.img }}&name={{selectedTask.title}}&caption=%20&description={{selectedTask.description}}&href=http://areiseagain.com" target="_blank" class="" ng-click="" data-toggle="tooltip" data-placement="bottom" title="Share on Facebook" ><i class="fa fa-facebook-square fa-2x" style="color:#66757f;" aria-hidden="true"></i></a> -->
-          <div facebook data-name='Fb Share' data-url='http://google.com' data-picture-url='http://plnk.co/img/plunker.png' data-caption='Testing Facebook Shae' data-shares='shares'> <a href>Share To facebook<a> <p>Number of Shares: {{shares}}</p> </div>
+          <!-- <div facebook data-name='Fb Share' data-url='http://google.com' data-picture-url='http://plnk.co/img/plunker.png' data-caption='Testing Facebook Shae' data-shares='shares'> <a href>Share To facebook<a> <p>Number of Shares: {{shares}}</p> </div> -->
 
         </div>
       </div>
 
 <!-- details end -->
   </div>
-  <div class="row">
-  <!-- OFFERS -->
-  <div class="" ng-show="isOpen(selectedTask)">
-    <div class="card-header" ><H3>Offers</H3></div>
-    <!-- <img class="card-img-top" ng-src="{{ selectedTask.img }}" style="width:100%;"> -->
-    <div class="">
-      <div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
-        <button style="width:100%;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#offModal">Offer to Help</button>
-      </div>
-
-      <p><div class="title" ng-hide="offers && offers.length > 0">
-        <span>No one has offered to pick up this call yet.</span>
-      </div></p>
-      <div class="row" ng-repeat="offer in offers">
-        <div id="" style="">
-          <div class="col-xs-2 hidden-xs">
-            <img ng-src="{{offer.gravatar}}" class="img-circle offer gravatar" style="height:100%;">
-          </div>
-          <div class="col-xs-8">
-            <div class="row">
-              <span><b><a ng-href="#/profile/{{offer.uid}}" style="color:#3498db">{{offer.name}}</a></b></span>
-            </div>
-            <div class="row">
-              <span>{{offer.total}}</span><br>
-                <img ng-src="{{offer.img}}" class="" style="width:100%;">
-            </div>
-          </div>
-          <div class="col-xs-2" style="border-left:1px solid #eee; text-align:center; color:red;">
-            <button ng-show="offer.accepted" class="btn-sm btn-success disabled" style="background-color:transparent; color:#3498db;">SELECTED!</button>
-
-            <button ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)" class="btn-sm" style="background-color:#fff; color:#2ecc71;" ng-click="acceptOffer(offer.$id,offer.uid)">ACCEPT</button>
-
-            <a ng-show="isOfferMaker(offer) && isOpen(selectedTask)" class="btn-sm btn-info" ng-click="cancelOffer(offer.$id)">CANCEL</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer text-muted"></div>
-  </div>
-  <!-- END OFFERS -->
-
-  <!-- Comments -->
-    <div class="" ng-show="!isOpen(selectedTask)">
-      <div class="" style="text-align:center;">
-        <div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
-          <button class="btn btn-primary" ng-click="completeTask(selectedTask.$id)">Complete Call</button>
-        </div>
-
-      </div>
-      <div class="row" ng-hide="">
-          <form ng-submit="addComment()" id="comment-submit">
-            <div class="input-group" id="taskdetails-chat" style="width:100%; background-color:#fff; padding-left:5px;">
-              <!-- <div class="input-group-addon">
-                <img ng-src="{{ user.profile.gravatar }}" class="img-circle comment gravatar">
-              </div> -->
-              <input style="height:40px; margin:5px 0px 10px 0px;margin-left:0px; width:70%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="Send Message" required>
-              <div id="chat-submit">
-                  <div class="upload">
-                      <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
-                  </div>
-                  <button style="background-color: #ff5555" type="submit" class="pull-right" value="" id="{{selectedTask.help_type}}">
-                 <i class="fa fa-paper-plane fa-2x" aria-hidden="true" style=""></i>
-               </button>
-                  <br/><br/>
-                  <img id="commentPrwImg" style="" alt=""/>
-             </div>
-            </div>
-          </form>
-      </div>
-      <div class="row" style="width:100%;margin:0px;" ng-repeat="com in comments | orderBy: 'datetime':true">
-        <p><div class="title" ng-hide="comments && comments.length > 0">
-          <span>Be the first to make a comment.</span>
-        </div></p>
-        <hr>
-          <img ng-src="{{com.gravatar}}" class="img-circle comment gravatar pull-left">
-          <div class="well-sm cmt" class="pull-right">
-            <span class="cmt-title">{{com.name}} </span>
-            <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
-            <span>{{com.content}}</span>
-            <br>
-              <img ng-src="{{com.img}}" class="" style="width:100%;">
-          </div>
-      </div>
-    </div>
-    <!-- END COMMENTS -->
-	</div>
 
 <div ng-include="'views/partials/edit.html'"></div>
 <div ng-include="'views/partials/offer.html'"></div>
