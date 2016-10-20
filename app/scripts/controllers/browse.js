@@ -360,7 +360,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 					// Mark that the current user has offerred for this task.
 					$scope.alreadyOffered = true;
-
+			
 					// Reset offer form
 					$scope.total = true;
 

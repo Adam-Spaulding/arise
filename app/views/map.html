@@ -23,7 +23,7 @@
 
 		<info-window id="myInfoWindow">
 			<div ng-non-bindable style="min-height:20px; min-width:100px; max-width:200px;">
-				<img style="width:100%;" src="{{selectedCity.img}}"></img>
+				<!-- <img style="width:100%;" src="{{selectedCity.img}}"></img> -->
 				<b><p>{{ selectedCity.title | limitTo:39}}{{ selectedCity.title.length > 39? "..." : ""}}</p></b>
 				<p id="subheader">Posted <span am-time-ago="selectedCity.datetime"></span></p>
 				<p id="subheader">Category: {{selectedCity.help_type}}</p>

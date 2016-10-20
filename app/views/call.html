@@ -14,13 +14,25 @@
 
 <div class="action">
 	<div class="list-group" id="">
-		<div class="row">
-			<a ng-href="/#/callforhelp">
-				<div class="col-xs-3">
-					<i class="fa fa-bullhorn" aria-hidden="true"></i>
-					<p>GET HELP</p>
+		<div class="row" style="padding:auto 0px;">
+			<!-- <a ng-show="isOpen(selectedTask)" href="">
+				<div class="col-xs-3" id="{{selectedTask.status}}">
+					<i class="fa fa-star-o" aria-hidden="true" style="color:#2ecc71;"></i>
+					<p style="text-transform:uppercase; color:#2ecc71;">{{selectedTask.status}}</p>
 				</div>
 			</a>
+			<a ng-show="isAssigned(selectedTask)" href="" id="{{selectedTask.status}}">
+				<div class="col-xs-3">
+					<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+					<p>{{selectedTask.status}}</p>
+				</div>
+			</a>
+			<a ng-show="isCompleted(selectedTask)" href="" id="{{selectedTask.status}}">
+				<div class="col-xs-3">
+					<i class="fa fa-check-circle" aria-hidden="true"></i>
+					<p>{{selectedTask.status}}</p>
+				</div>
+			</a> -->
 			<a ng-href="https://www.facebook.com/dialog/feed?app_id=134530986736267&link=https%3A%2F%2Fwww.neighbo.com&picture=http%3A%2F%2Fariseagain.com%2Fimages%2Fneighbo.png&name=Share+share+share%21+Neighbo+will+change+the+way+we+help+our+neighbors.&description=Just+as+Uber+has+revolutionized+the+way+you+get+a+ride%2C+Neighbo+has+changed+the+way+you+get+help.+%0AWhatever+the+need%2C+whatever+the+situation%2C+your+neighbors+are+here+to+help%2C+and+neighbo+is+here+to+connect+you.+This+app+is+available+online%2C+in+the+App+Store%2C+and+on+Google+Play.+&redirect_uri=http://facebook.com/" target="_blank">
 				<div class="col-xs-3">
 					<i class="fa fa-facebook" aria-hidden="true"></i>
@@ -34,19 +46,35 @@
 				</div>
 			</a>
 			<!-- Task Creator Options -->
-			<a type="" class="dropdown-toggle" ng-show="isTaskCreator(selectedTask)" data-toggle="dropdown" href="">
-				<div class="col-xs-3">
-					<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-					<p>OPTIONS</p>
-		        <div class="dropdown pull-right">
-		          <ul class="dropdown-menu">
-		            <li ng-show="!isOpen(selectedTask)"><a ng-href="#/profile/{{selectedTask.runner}}">View Helpers Profile</a></li>
-		            <li ng-show="!isOpen(selectedTask) && !isCompleted(selectedTask)"><a ng-click="completeTask(selectedTask.$id)">Complete Call</a></li>
-		            <li ng-show="isOpen(selectedTask)"><a ng-click="cancelTask(selectedTask.$id)">Delete Call</a></li>
-		          </ul>
-		        </div>
-		      </div>
+			<span  ng-show="isTaskCreator(selectedTask)">
+				<a href="" ng-show="isAssigned(selectedTask)" ng-click="completeTask(selectedTask.$id)">
+					<div class="col-xs-3">
+						<i class="fa fa-check" aria-hidden="true"></i>
+						<p>COMPLETE CALL</p>
+					</div>
 				</a>
+				<a href="" ng-show="!isCompleted(selectedTask)" ng-click="cancelTask(selectedTask.$id)">
+					<div class="col-xs-3">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+						<p>DELETE CALL</p>
+					</div>
+				</a>
+			</span>
+			<!-- Task Assignee Options -->
+			<span  ng-show="isAssignee(selectedTask)">
+				<a href="" ng-show="isAssigned(selectedTask)" ng-click="completeTask(selectedTask.$id)">
+					<div class="col-xs-3">
+						<i class="fa fa-check" aria-hidden="true"></i>
+						<p>COMPLETE CALL</p>
+					</div>
+				</a>
+				<a href="" ng-show="!isCompleted(selectedTask)" ng-click="cancelTask(selectedTask.$id)">
+					<div class="col-xs-3">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+						<p>DELETE CALL</p>
+					</div>
+				</a>
+			</span>
 		</div>
 	</div>
 </div>

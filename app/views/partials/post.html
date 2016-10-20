@@ -3,7 +3,7 @@
           <div class="uploader upload" onclick="$('#helpImg').click()">
             <input type="file" id="helpImg" name="pic" accept="image/*" onchange="angular.element(this).scope().previewPostImage()">
             <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
-            <img ng-show="postImgPrw" ng-src="{{postImg}}" id="postimg" />
+            <img ng-src="{{postImg}}" id="postimg" style="" />
           </div>
           <fieldset>
           <div class="" id="subject">
@@ -52,18 +52,15 @@
 </div>
 
     <script>
-    var imageLoader = document.getElementById('helpImg');
-        imageLoader.addEventListener('change', handleImage, false);
-
-      function handleImage(e) {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-
-            $('.uploader img').attr('src',event.target.result);
+      var imageLoader = document.getElementById('helpImg');
+          imageLoader.addEventListener('change', handleImage, false);
+        function handleImage(e) {
+          var reader = new FileReader();
+          reader.onload = function (event) {
+              $('.uploader img').attr('src',event.target.result);
+          }
+          reader.readAsDataURL(e.target.files[0]);
         }
-        reader.readAsDataURL(e.target.files[0]);
-      }
-
     </script>
     <script>
     var latitude = document.getElementById('latitude'),
