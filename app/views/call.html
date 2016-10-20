@@ -97,7 +97,7 @@
 	      </div>
 
 	      <div class="title" ng-hide="offers && offers.length > 0">
-	        <span>No offers yet.</span>
+	        <p>No offers yet.</p>
 	      </div>
 
 	      <div class="row" ng-repeat="offer in offers">
@@ -143,21 +143,21 @@
 		            <span class="cmt-title">{{com.name}} </span>
 		            <span class="cmt-time"><span am-time-ago="com.datetime"></span></span><br>
 		            <span>{{com.content}}</span>
-		            <!-- <br>
-		              <img ng-src="{{com.img}}" class="" style="width:100%;"> -->
+		            <br>
+		              <img ng-src="{{com.img}}" class="" style="width:100%;">
 		          </div>
 		      </div>
 					<div class="row" ng-hide="">
 		          <form ng-submit="addComment()" id="comment-submit">
 		            <div class="input-group" id="taskdetails-chat" style="width:100%; background-color:#fff;">
-		              <input style="height:40px; margin:5px 0px 10px 0px; width:85%;" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="ADD A COMMENT" required>
+		              <input style="height:40px; font-size: 15px; margin:5px 0px 10px 0px; width:85%; border:1px solid transparent; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);" type="text" ng-model="content" cols="10" rows="3" class="form-control" placeholder="ADD A COMMENT" required>
 		              <div id="">
-		                  <!-- <div class="upload">
-		                      <input type="file"  id="convoImg" onchange="angular.element(this).scope().previewImage(this,'comment');"/>
-		                  </div> -->
-		              <button type="submit" class="btn-sm btn-primary pull-right" style="height:40px; margin:5px 5px; 0 0">
-		                 <i class="fa fa-paper-plane" aria-hidden="true" style="color:#fff;"></i>
-		               </button>
+	                  <div class="upload" hidden>
+	                    <input type="file"  id="convoImg"  onchange="angular.element(this).scope().previewImage(this,'comment');"></image>
+	                  </div>
+			              <button type="submit" class="btn-sm btn-primary pull-right" name="pic" style="height:40px; width:40px; margin:5px 5px; 0 0">
+			                <i class="fa fa-paper-plane" aria-hidden="true" style="color:#fff;"></i>
+			              </button>
 		             </div>
 		            </div>
 		          </form>

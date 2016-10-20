@@ -51,8 +51,8 @@
     <!-- <a href="" class="btn btn-info"  data-toggle="collapse" data-target="#view">>></a> -->
 
     <div class="top" ng-class="toggle ? 'top-hide' : ''">
-      <button class="btn-sm btn-grey hidden-xs" style="backgroud-color:#eee; position:fixed;margin:60px 0 0 -30px;" ng-model="toggle"  ng-click="toggle=!toggle">
-        <i class="fa fa-bars" aria-hidden="true" style="color:#363636;"></i>
+      <button class="btn-sm btn-grey hidden-xs toggle" ng-model="toggle"  ng-click="toggle=!toggle">
+        <i class="fa fa-caret-right fa-2x" ng-class="toggle ? 'fa-flip-horizontal' : ''" aria-hidden="true" style="color:#363636;"></i>
       </button>
       <div ng-view=""></div>
     </div>
