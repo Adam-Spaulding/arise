@@ -15,7 +15,7 @@
 		<marker
 				ng-repeat="task in tasks | filter: {help_type: searchTask , status: 'open' }"
 				position="{{task.pos}}"
-				title="{{task.name}}"
+				name="{{task.help_type}}"
 				icon="images/pinlogo-small.svg"
 				id="{{$index}}"
 				on-click="handleMapPins(event, task)">

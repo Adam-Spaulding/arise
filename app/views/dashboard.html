@@ -1,143 +1,145 @@
-<img src="images/browse.jpg" style="width:100%;" />
+<div class="whitebg">
 
-<div class="action">
-	<div class="list-group" id="">
-		<div class="row">
-			<a ng-href="/#/callforhelp">
-				<div class="col-xs-6">
-					<i class="fa fa-bullhorn" aria-hidden="true"></i>
-					<p>GET HELP</p>
-				</div>
-			</a>
-			<a ng-href="https://www.facebook.com/dialog/feed?app_id=134530986736267&link=https%3A%2F%2Fwww.neighbo.com&picture=http%3A%2F%2Fariseagain.com%2Fimages%2Fneighbo.png&name=Share+share+share%21+Neighbo+will+change+the+way+we+help+our+neighbors.&description=Just+as+Uber+has+revolutionized+the+way+you+get+a+ride%2C+Neighbo+has+changed+the+way+you+get+help.+%0AWhatever+the+need%2C+whatever+the+situation%2C+your+neighbors+are+here+to+help%2C+and+neighbo+is+here+to+connect+you.+This+app+is+available+online%2C+in+the+App+Store%2C+and+on+Google+Play.+&redirect_uri=http://facebook.com/" target="_blank">
-				<div class="col-xs-6">
-					<i class="fa fa-facebook" aria-hidden="true"></i>
-					<p>SHARE</p>
-				</div>
-			</a>
-			<!-- <a ng-click="activeTab = 'picked-up'" href="">
-				<div class="col-xs-3">
-					<i class="fa fa-paper-plane" aria-hidden="true"></i>
-					<p>SEND</p>
-				</div>
-			</a>
-			<a ng-click="activeTab = 'calls-placed'" href="" ng-class="{ active: activeTab === 'calls-placed' }">
-				<div class="col-xs-3">
-					<i class="fa fa-bullhorn" aria-hidden="true"></i>
-					<p>PLACED</p>
-				</div>
-			</a> -->
+	<img src="images/browse.jpg" style="width:100%;" />
+
+	<div class="action">
+		<div class="list-group" id="">
+			<div class="row">
+				<a ng-href="/#/callforhelp">
+					<div class="col-xs-6">
+						<i class="fa fa-bullhorn" aria-hidden="true"></i>
+						<p>GET HELP</p>
+					</div>
+				</a>
+				<a ng-href="https://www.facebook.com/dialog/feed?app_id=134530986736267&link=https%3A%2F%2Fwww.neighbo.com&picture=http%3A%2F%2Fariseagain.com%2Fimages%2Fneighbo.png&name=Share+share+share%21+Neighbo+will+change+the+way+we+help+our+neighbors.&description=Just+as+Uber+has+revolutionized+the+way+you+get+a+ride%2C+Neighbo+has+changed+the+way+you+get+help.+%0AWhatever+the+need%2C+whatever+the+situation%2C+your+neighbors+are+here+to+help%2C+and+neighbo+is+here+to+connect+you.+This+app+is+available+online%2C+in+the+App+Store%2C+and+on+Google+Play.+&redirect_uri=http://facebook.com/" target="_blank">
+					<div class="col-xs-6">
+						<i class="fa fa-facebook" aria-hidden="true"></i>
+						<p>SHARE</p>
+					</div>
+				</a>
+				<!-- <a ng-click="activeTab = 'picked-up'" href="">
+					<div class="col-xs-3">
+						<i class="fa fa-paper-plane" aria-hidden="true"></i>
+						<p>SEND</p>
+					</div>
+				</a>
+				<a ng-click="activeTab = 'calls-placed'" href="" ng-class="{ active: activeTab === 'calls-placed' }">
+					<div class="col-xs-3">
+						<i class="fa fa-bullhorn" aria-hidden="true"></i>
+						<p>PLACED</p>
+					</div>
+				</a> -->
+			</div>
 		</div>
 	</div>
-</div>
 
-<div id="content1" class="tab-content">
-							<!-- SEARCH TOOL -->
-							<div class="form-group" id="card" style="background-color:#fff;">
-								<div class="input-group">
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+	<div id="content1" class="tab-content">
+								<!-- SEARCH TOOL -->
+								<div class="form-group" id="card" style="background-color:#fff;">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										</div>
+										<input style=" border:0px solid transparent !important;" type="text" ng-model="searchTask" class="form-control" placeholder="SEARCH">
 									</div>
-									<input style=" border:0px solid transparent !important;" type="text" ng-model="searchTask" class="form-control" placeholder="SEARCH">
 								</div>
-							</div>
-							<!-- TABS -->
-							<div class="panel-body" style="padding:0px;">
-									<ul class="nav nav-tabs" ng-init="activeTab = 'picked-up'" style="background-color:transparent; color:#363636; text-align:center;">
-											<li class="col-xs-6" ng-class="{ active: activeTab === 'picked-up' }">
-													<a ng-click="activeTab = 'picked-up'" href="" style="color:#363636 !important;">ASSIGNED
-														<span class="badge">{{(tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length}}</span>
+								<!-- TABS -->
+								<div class="panel-body" style="padding:0px;">
+										<ul class="nav nav-tabs" ng-init="activeTab = 'picked-up'" style="background-color:transparent; color:#363636; text-align:center;">
+												<li class="col-xs-6" ng-class="{ active: activeTab === 'picked-up' }">
+														<a ng-click="activeTab = 'picked-up'" href="" style="color:#363636 !important;">ASSIGNED
+															<span class="badge">{{(tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length}}</span>
+														</a>
+												</li>
+												<li class="col-xs-6" ng-class="{ active: activeTab === 'calls-placed' }">
+														<a ng-click="activeTab = 'calls-placed'" href="" style="color:#363636 !important;">MY CALLS
+															<span class="badge">{{(tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length}}</span>
+														</a>
+												</li>
+												<!-- <li ng-class="{ active: activeTab === 'ratings' }">
+														<a ng-click="activeTab = 'ratings'" href="">Ratings</a>
+												</li> -->
+										</ul>
+
+										<!-- My Calls -->
+										<div class="tab-content" style="padding-top:10px;">
+
+												<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'calls-placed' }">
+													<p><div class="title" ng-hide="tasks && (tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length > 0">
+		                        <p>Need Help?</p>
+														<a class="btn btn-primary" ng-href="/#/callforhelp">GET HELP NOW</a>
+		                      </div></p>
+													<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!closed' } | orderBy: 'datetime':true | limitTo: limit as results"  ng-href="#/call/{{task.$id}}" style="color: #363636 !important;">
+														<div id="card" class="list-item row" style="margin-bottom:20px !important;">
+															<div class="row">
+																<img style="width:100%;" ng-src="{{task.img}}" style="margin:0px !important;">
+															</div>
+															<div class="row" style="padding-top:10px;">
+																<div class="col-xs-3">
+																	<img style="width:100%;" ng-src="{{task.gravatar}}">
+																</div>
+																<div class="col-xs-9">
+																	<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
+																	<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
+																	<p style="color:#363636;"><b>{{task.title}}</b></p>
+																</div>
+															</div>
+														</div>
 													</a>
-											</li>
-											<li class="col-xs-6" ng-class="{ active: activeTab === 'calls-placed' }">
-													<a ng-click="activeTab = 'calls-placed'" href="" style="color:#363636 !important;">MY CALLS
-														<span class="badge">{{(tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length}}</span>
-													</a>
-											</li>
-											<!-- <li ng-class="{ active: activeTab === 'ratings' }">
-													<a ng-click="activeTab = 'ratings'" href="">Ratings</a>
-											</li> -->
-									</ul>
-
-									<!-- My Calls -->
-									<div class="tab-content" style="padding-top:10px;">
-
-											<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'calls-placed' }">
-												<p><div class="title" ng-hide="tasks && (tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length > 0">
-	                        <p>Need Help?</p>
-													<a class="btn btn-primary" ng-href="/#/callforhelp">GET HELP NOW</a>
-	                      </div></p>
-												<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!closed' } | orderBy: 'datetime':true | limitTo: limit as results"  ng-href="#/call/{{task.$id}}" style="color: #363636 !important;">
-													<div id="card" class="list-item row" style="margin-bottom:20px !important;">
-														<div class="row">
-															<img style="width:100%;" ng-src="{{task.img}}" style="margin:0px !important;">
-														</div>
-														<div class="row" style="padding-top:10px;">
-															<div class="col-xs-3">
-																<img style="width:100%;" ng-src="{{task.gravatar}}">
-															</div>
-															<div class="col-xs-9">
-																<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-																<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-																<p style="color:#363636;"><b>{{task.title}}</b></p>
-															</div>
-														</div>
+													<div ng-hide="tasks && tasks.length < 0" style="text-align:center;">
+														<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
 													</div>
-												</a>
-												<div ng-hide="tasks && tasks.length < 0" style="text-align:center;">
-													<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
-												</div>
-												<!-- <p><div class="title" ng-show="tasks.length === 0">
-	  												<i class="fa fa-refresh" style="font-size:56px;color:red;"></i>whatup
-	                      </div></p> -->
+													<!-- <p><div class="title" ng-show="tasks.length === 0">
+		  												<i class="fa fa-refresh" style="font-size:56px;color:red;"></i>whatup
+		                      </div></p> -->
 
-												<p><div class="title" ng-hide="tasks && tasks.length > 0">
-	  												<i class="fa fa-refresh fa-spin" style="font-size:56px;color:#ecf0f1;"></i>
-	                      </div></p>
-											</div>
-
-											<!-- Assigned Calls -->
-											<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'picked-up' }">
-												<p><div class="title" ng-hide="tasks && (tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length > 0">
-	                        <p>Find a pin on the map, make an offer, and help your neighbor today!</p>
-	                      </div></p>
-												<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: 'assigned' } | orderBy: 'datetime':true | limitTo: limit as results" ng-href="#/call/{{task.$id}}">
-													<div id="card" class="list-item row" style="margin-bottom:20px !important;">
-														<div class="row">
-															<img style="width:100%;" ng-src="{{task.img}}" style="margin:0px !important;">
-														</div>
-														<div class="row" style="padding-top:10px;">
-															<div class="col-xs-3">
-																<img style="width:100%;" ng-src="{{task.gravatar}}">
-															</div>
-															<div class="col-xs-9">
-																<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
-																<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
-																<p style="color:#363636;"><b>{{task.title}}</b></p>
-															</div>
-														</div>
-													</div>
-												</a>
-												<div ng-show="tasks && tasks.length < 0" style="text-align:center;">
-													<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
+													<p><div class="title" ng-hide="tasks && tasks.length > 0">
+		  												<i class="fa fa-refresh fa-spin" style="font-size:56px;color:#ecf0f1;"></i>
+		                      </div></p>
 												</div>
 
-												<p><div class="title" ng-hide="tasks && tasks.length > 0">
-	                        <i class="fa fa-refresh fa-spin" style="font-size:56px;color:#ecf0f1;"></i>
-	                      </div></p>
-											</div>
-											<!-- <div class="tab-pane" ng-class="{ active: activeTab === 'ratings' }">
-												Ratings tab content.
-											</div> -->
-									</div>
+												<!-- Assigned Calls -->
+												<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'picked-up' }">
+													<p><div class="title" ng-hide="tasks && (tasks | filter: { runner:user.uid , status: 'assigned' } | orderBy: 'datetime':true).length > 0">
+		                        <p>Find a pin on the map, make an offer, and help your neighbor today!</p>
+		                      </div></p>
+													<a ng-repeat="task in tasks | filter: {title: searchTask , runner:user.uid  , status: 'assigned' } | orderBy: 'datetime':true | limitTo: limit as results" ng-href="#/call/{{task.$id}}">
+														<div id="card" class="list-item row" style="margin-bottom:20px !important;">
+															<div class="row">
+																<img style="width:100%;" ng-src="{{task.img}}" style="margin:0px !important;">
+															</div>
+															<div class="row" style="padding-top:10px;">
+																<div class="col-xs-3">
+																	<img style="width:100%;" ng-src="{{task.gravatar}}">
+																</div>
+																<div class="col-xs-9">
+																	<p id="subheader">Posted by {{task.name}} <span am-time-ago="task.datetime"></span></p>
+																	<p id="subheader"><span class="label status {{task.status}}">{{task.status}}</span> Category: {{task.help_type}}</p>
+																	<p style="color:#363636;"><b>{{task.title}}</b></p>
+																</div>
+															</div>
+														</div>
+													</a>
+													<div ng-show="tasks && tasks.length < 0" style="text-align:center;">
+														<button class="btn btn-info" ng-hide="results.length === tasks.length" ng-click="limit = limit +3">LOAD MORE</button>
+													</div>
 
-			</div>
+													<p><div class="title" ng-hide="tasks && tasks.length > 0">
+		                        <i class="fa fa-refresh fa-spin" style="font-size:56px;color:#ecf0f1;"></i>
+		                      </div></p>
+												</div>
+												<!-- <div class="tab-pane" ng-class="{ active: activeTab === 'ratings' }">
+													Ratings tab content.
+												</div> -->
+										</div>
 
+				</div>
+
+		</div>
+
+		<div class="col-sm-0"></div>
+
+		</div>
+		<div ng-include="'views/partials/edit.html'"></div>
+		<div ng-include="'views/partials/offer.html'"></div>
 	</div>
-
-	<div class="col-sm-0"></div>
-
-	</div>
-	<div ng-include="'views/partials/edit.html'"></div>
-	<div ng-include="'views/partials/offer.html'"></div>
-</div>

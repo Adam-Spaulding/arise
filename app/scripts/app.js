@@ -8,17 +8,19 @@ var app = angular
     'firebase',
     'toaster',
     'angularMoment',
+    'ngAnimate',
     'ngMap'
     //'uiGmapgoogle-maps'
   ])
-  .constant('FURL', 'https://arisedev.firebaseio.com')
+  .constant('FURL', 'https://incandescent-torch-3403.firebaseio.com')
     .config(function() {
       // Initialize Firebase
       var config = {
-        apiKey: 'AIzaSyCKHDnn77sduHGIexjHiK9Fn2pFabgjPGM',
-        authDomain: 'arise.firebaseapp.com',
-        databaseURL: 'https://arise.firebaseio.com',
-        storageBucket: 'project-1206758082254347282.appspot.com',
+        apiKey: "AIzaSyA6Trl9aaibXQPAWdQ3VSLWt2bEJL1fFO0",
+        authDomain: "incandescent-torch-3403.firebaseapp.com",
+        databaseURL: "https://incandescent-torch-3403.firebaseio.com",
+        storageBucket: "incandescent-torch-3403.appspot.com",
+        messagingSenderId: "479569875105"
       };
       firebase.initializeApp(config);
     })
@@ -122,3 +124,9 @@ var app = angular
         redirectTo: '/login'
       });
   });
+
+  app.controller('ctrl', function($scope, $rootScope){
+  $rootScope.$on('$routeChangeStart', function(event, currRoute, prevRoute){
+  $rootScope.animation = currRoute.animation;
+  });
+});
