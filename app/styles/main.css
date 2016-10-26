@@ -795,8 +795,8 @@ ul.share-buttons li{
 .top {
   padding: 0px !important;
   background-color: #fff;
-  box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 3px 16px rgba(0,0,0,0.23);
-  min-height: 100vh;
+  /*box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 3px 16px rgba(0,0,0,0.23);*/
+  height: 100vh;
   width: 414px;
   position: absolute;
   right: 0;
@@ -925,4 +925,6 @@ animation-delay: 2s;*/
 
 .whitebg {
   background-color: #fff;
+  min-height: 100vh;
+  /*box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 3px 16px rgba(0,0,0,0.23);*/
 }

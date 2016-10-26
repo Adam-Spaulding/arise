@@ -82,7 +82,7 @@
 </div>
 
 <!-- DETAILS -->
-<div class="col-xs-12" style="margin:15px; padding:15px;">
+<div class="col-xs-12" style="">
 	<div class="card-title" ng-show="isTaskCreator(selectedTask)"><a ng-href="#/profile/{{selectedTask.poster}}" style="color:#3498db; cursor:pointer;"><H4><img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar"> {{selectedTask.name}}</H4></a>
 	<p ng-hide="!isOpen(selectedTask)">Your private information will be be displayed until you accept an offer. After that, only the person you accept will see your name, picture, and a link to your profile.</p>
 	</div>
