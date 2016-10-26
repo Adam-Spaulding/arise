@@ -2,8 +2,8 @@
   /*transition-delay: 0.5s;*/
   width: 100%;
   position: absolute;
-  transition: left 0.75s, opacity 0.75s ease-in;
-  transition-delay: left 0.75s, opacity 0.75s ease-in;
+  transition: left 0.75s, opacity 0.5s ease-in;
+  transition-delay: left 0.75s, opacity 0.05s ease-in;
 }
 
 
