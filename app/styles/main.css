@@ -928,3 +928,7 @@ animation-delay: 2s;*/
   min-height: 100vh;
   /*box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 3px 16px rgba(0,0,0,0.23);*/
 }
+
+.view {
+  box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 3px 16px rgba(0,0,0,0.23);
+}
