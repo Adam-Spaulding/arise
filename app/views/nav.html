@@ -17,9 +17,13 @@
           <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
         </button>
         <ul class="dropdown-menu dropdown-menu-right" style="position:absolute; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); background-color:#fff; right:10px;">
-          <!-- <li disabled><a disabled style="font-style:italic;font-weight:bold;" ng-href="">Hi {{currentUser.name || currentUser.facebook.cachedUserProfile.name.split(' ')[0]}}!</a></li> -->
-          <li><a ng-href="#/profile/{{currentUser.uid}}">My Profile</a></li>
-          <li><a href="#" ng-click="logout()">Logout</a></li>
+          <a disabled style="font-style:italic;font-weight:bold;" ng-href="">
+            <li disabled>Hi {{currentUser.name || currentUser.facebook.cachedUserProfile.name.split(' ')[0]}}!</li>
+          </a>
+          <a ng-href="#/profile/{{currentUser.uid}}">
+            <li>My Profile</li>
+          </a>
+          <a href="#" ng-click="logout()"><li>Logout</li></a>
         </ul>
       </li>
     </ul>

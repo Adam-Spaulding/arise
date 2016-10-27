@@ -413,7 +413,6 @@ input.form-group {
 
 @media screen and (max-width: 480px) {
   .navbar .nav > li {
-      position: relative;
       display: inline-block;
       width: 45px;
   }
@@ -423,7 +422,7 @@ input.form-group {
 @media screen and (max-width: 767px) {
 
   .top {
-    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
@@ -536,9 +535,10 @@ input.form-group {
 }
 
 .dropdown-menu li {
-  height:50px;
+
+  height:55px;
   display: block;
-  padding:5px 10px;
+  padding:20px;
 }
 
 .dropdown-menu a {

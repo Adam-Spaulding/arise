@@ -2,17 +2,16 @@
   /*transition-delay: 0.5s;*/
   width: 100%;
   position: absolute;
-  transition: left 0.75s, opacity 0.5s ease-in;
-  transition-delay: left 0.75s, opacity 0.05s ease-in;
+  transition: opacity 0.75s, opacity 0.5s ease-in;
+  transition-delay: 0s;
 }
 
-
 .top .view.ng-enter{
-  left: 100%;
+  opacity: 0;
 }
 
 .top .view.ng-enter.ng-enter-active{
-  left: 0%;
+  opacity: 1;
 }
 
 .top .view.ng-leave{
@@ -23,8 +22,10 @@
   opacity: 0;
 }
 
+@media screen and (max-width: 767px) {
 
- /*Third animation*/
-/*.top .view.ng-enter{
-  opacity: 0;
-}*/
+  .hidden-sm {
+    display: none;
+  }
+
+}
