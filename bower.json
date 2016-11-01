@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
-    "modernizr": "~2.8.1"
+    "modernizr": "~2.8.1",
+    "ng-cordova-oauth": "^0.2.10"
   },
   "overrides": {
     "bootstrap-sass": {

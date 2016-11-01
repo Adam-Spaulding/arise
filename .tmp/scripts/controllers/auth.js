@@ -1,5 +1,5 @@
-app.controller('AuthController', function($scope, $location, toaster, Auth) {
-
+app.controller('AuthController', function($scope, $location, toaster, Auth, $cordovaOauth) {
+var fbAppId = "980336382079406";
   if(Auth.signedIn()) {
     $location.path('/');
   }
@@ -41,13 +41,25 @@ app.controller('AuthController', function($scope, $location, toaster, Auth) {
   };
 
     $scope.fbSignup = function(){
-        Auth.fbAuth(function() {
-            toaster.pop('success', 'Logged in successfully');
-            $location.path('/');
-        }, function(err) {
-            errMessage(err);
-        })
-        console.log('kaka')
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && screen.width <= 480){
+            $cordovaOauth.facebook(fbAppId, ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
+                //$localStorage.accessToken = result.access_token;
+                //$location.path("/profile");
+                console.log(result)
+                alert(result)
+            }, function(error) {
+                alert("There was a problem signing in!  See the console for logs");
+                console.log(error);
+            });
+        }else{
+            Auth.fbAuth(function() {
+                toaster.pop('success', 'Logged in successfully');
+                $location.path('/');
+            }, function(err) {
+                errMessage(err);
+            })
+            console.log('kaka')
+        }
     }
 	function errMessage(err) {
 
