@@ -9,7 +9,8 @@ var app = angular
     'toaster',
     'angularMoment',
     'ngAnimate',
-    'ngMap'
+    'ngMap',
+    'ngCordovaOauth'
     //'uiGmapgoogle-maps'
   ])
   .constant('FURL', 'https://incandescent-torch-3403.firebaseio.com')
