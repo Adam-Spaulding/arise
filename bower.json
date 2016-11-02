@@ -2,9 +2,13 @@
   "name": "proj",
   "private": true,
   "dependencies": {
+    "angular-simple-logger": "0.1.7",
+    "angular-google-maps": "2.3.3",
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.1",
-    "ng-cordova-oauth": "^0.2.10"
+    "ng-cordova-oauth": "^0.2.10",
+    "lodash": "^4.13.1",
+    "ngCordova": "^0.1.27-alpha"
   },
   "overrides": {
     "bootstrap-sass": {

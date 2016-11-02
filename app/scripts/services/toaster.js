@@ -93,7 +93,7 @@ function ($compile, $rootScope, $interval, $sce, toasterConfig, toaster) {
             };
 
             scope.configureTimer = function configureTimer(toast) {
-                var timeout = typeof (toast.timeout) == "number" ? toast.timeout : mergedConfig['time-out'];
+                var timeout = typeof (toast.timeout) == 'number' ? toast.timeout : mergedConfig['time-out'];
                 if (timeout > 0)
                     setTimeout(toast, timeout);
             };
@@ -181,7 +181,7 @@ function ($compile, $rootScope, $interval, $sce, toasterConfig, toaster) {
                             removeToast = $scope.$parent.$eval(toaster.clickHandler)(toaster, isCloseButton);
                         }
                         else {
-                            console.log("TOAST-NOTE: Your click handler is not inside a parent scope of toaster-container.");
+                            console.log('TOAST-NOTE: Your click handler is not inside a parent scope of toaster-container.');
                         }
                     }
                     if (removeToast) {

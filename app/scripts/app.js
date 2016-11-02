@@ -5,6 +5,7 @@ var app = angular
     'ngAnimate',
     'ngResource',
     'ngRoute',
+        'ngCordova',
     'firebase',
     'toaster',
     'angularMoment',
@@ -17,11 +18,11 @@ var app = angular
     .config(function() {
       // Initialize Firebase
       var config = {
-        apiKey: "AIzaSyA6Trl9aaibXQPAWdQ3VSLWt2bEJL1fFO0",
-        authDomain: "incandescent-torch-3403.firebaseapp.com",
-        databaseURL: "https://incandescent-torch-3403.firebaseio.com",
-        storageBucket: "incandescent-torch-3403.appspot.com",
-        messagingSenderId: "479569875105"
+        apiKey: 'AIzaSyA6Trl9aaibXQPAWdQ3VSLWt2bEJL1fFO0',
+        authDomain: 'incandescent-torch-3403.firebaseapp.com',
+        databaseURL: 'https://incandescent-torch-3403.firebaseio.com',
+        storageBucket: 'incandescent-torch-3403.appspot.com',
+        messagingSenderId: '479569875105'
       };
       firebase.initializeApp(config);
     })
