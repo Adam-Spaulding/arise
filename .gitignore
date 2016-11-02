@@ -1,4 +1,4 @@
-.temp
-.idea
-bower_components
-node_modules
+.tmp/
+.idea/
+bower_components/
+node_modules/

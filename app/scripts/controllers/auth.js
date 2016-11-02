@@ -1,5 +1,5 @@
 app.controller('AuthController', function($scope, $location, toaster, Auth, $cordovaOauth) {
-var fbAppId = "980336382079406";
+var fbAppId = '980336382079406';
   if(Auth.signedIn()) {
     $location.path('/');
   }
@@ -7,7 +7,7 @@ var fbAppId = "980336382079406";
 	$scope.register = function(user) {
     Auth.register(user)
       .then(function() {
-        toaster.pop('success', "Registered successfully");
+        toaster.pop('success', 'Registered successfully');
         $location.path('/');
       }, function(err) {
         errMessage(err);
@@ -18,7 +18,7 @@ var fbAppId = "980336382079406";
      Auth.login(user)
       .then(function() {
              console.log(data)
-        toaster.pop('success', "Logged in successfully");
+        toaster.pop('success', 'Logged in successfully');
         $location.path('/');
       }, function(err) {
         errMessage(err);
@@ -34,7 +34,7 @@ var fbAppId = "980336382079406";
         $scope.oldPass = '';
         $scope.newPass = '';
 
-        toaster.pop('success', "Password changed successfully");
+        toaster.pop('success', 'Password changed successfully');
       }, function(err) {
         errMessage(err);
       });
@@ -42,13 +42,13 @@ var fbAppId = "980336382079406";
 
     $scope.fbSignup = function(){
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && screen.width <= 480){
-            $cordovaOauth.facebook(fbAppId, ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
+            $cordovaOauth.facebook(fbAppId, ['email', 'read_stream', 'user_website', 'user_location', 'user_relationships']).then(function(result) {
                 //$localStorage.accessToken = result.access_token;
                 //$location.path("/profile");
                 console.log(result)
                 alert(result)
             }, function(error) {
-                alert("There was a problem signing in!  See the console for logs");
+                alert('There was a problem signing in!  See the console for logs');
                 console.log(error);
             });
         }else{
@@ -63,20 +63,20 @@ var fbAppId = "980336382079406";
     }
 	function errMessage(err) {
 
-    var msg = "Unknown Error...";
+    var msg = 'Unknown Error...';
 
     if(err && err.code) {
       switch (err.code) {
-        case "EMAIL_TAKEN":
-          msg = "This email has been taken"; break;
-        case "INVALID_EMAIL":
-          msg = "Invalid email"; break;
-        case "NETWORK_ERROR":
-          msg = "Network error"; break;
-        case "INVALID_PASSWORD":
-          msg = "Invalid password"; break;
-        case "INVALID_USER":
-          msg = "Invalid user"; break;
+        case 'EMAIL_TAKEN':
+          msg = 'This email has been taken'; break;
+        case 'INVALID_EMAIL':
+          msg = 'Invalid email'; break;
+        case 'NETWORK_ERROR':
+          msg = 'Network error'; break;
+        case 'INVALID_PASSWORD':
+          msg = 'Invalid password'; break;
+        case 'INVALID_USER':
+          msg = 'Invalid user'; break;
       }
     }
 

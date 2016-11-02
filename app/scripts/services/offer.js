@@ -24,7 +24,7 @@ app.factory('Offer', function(FURL, $firebase, $q, Auth, Task) {
 			if(user && user.provider) {
 				var d = $q.defer();
 
-				$firebase(ref.child('offers').child(taskId).orderByChild("uid")
+				$firebase(ref.child('offers').child(taskId).orderByChild('uid')
 					.equalTo(user.uid))
 					.$asArray()
 					.$loaded().then(function(data) {
@@ -60,7 +60,7 @@ app.factory('Offer', function(FURL, $firebase, $q, Auth, Task) {
 
 					// Step 2: Update Task with status = "assigned" and runnerId
 					var t = Task.getTask(taskId);
-					return t.$update({status: "assigned", runner: runnerId});
+					return t.$update({status: 'assigned', runner: runnerId});
 				})
 				.then(function() {
 

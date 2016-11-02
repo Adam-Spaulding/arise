@@ -46,7 +46,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
 
     logout: function() {
       auth.$unauth();
-			window.location.href = "/";
+			window.location.href = '/';
     },
 
 		changePassword: function(user) {
@@ -62,7 +62,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
     },
     fbAuth: function(success) {
       var fbUser = {}
-      return ref.authWithOAuthPopup("facebook", function(error, authData) {
+      return ref.authWithOAuthPopup('facebook', function(error, authData) {
         console.log(error,authData)
         if(authData){
           fbUser.name = authData.facebook.cachedUserProfile.name;
@@ -75,8 +75,8 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
           console.log(error)
         }
       }, {
-        remember: "sessionOnly",
-        scope: "email"
+        remember: 'sessionOnly',
+        scope: 'email'
       })
     }
 
