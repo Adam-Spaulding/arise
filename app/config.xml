@@ -63,7 +63,7 @@
     <plugin name="cordova-plugin-network-information" />
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-vibration" />
-    <plugin name="com.oauthio.plugins.oauthio" />
+    <!-- <plugin name="com.oauthio.plugins.oauthio" /> -->
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
