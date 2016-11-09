@@ -1,5 +1,25 @@
 app.controller('AuthController', function($scope, $location, toaster, Auth, $cordovaOauth) {
 var fbAppId = '980336382079406';
+    var isMobile = {
+        Android: function() {
+            return navigator.userAgent.match(/Android/i);
+        },
+        BlackBerry: function() {
+            return navigator.userAgent.match(/BlackBerry/i);
+        },
+        iOS: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        },
+        Opera: function() {
+            return navigator.userAgent.match(/Opera Mini/i);
+        },
+        Windows: function() {
+            return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+        },
+        any: function() {
+            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+        }
+    };
   if(Auth.signedIn()) {
     $location.path('/');
   }
@@ -41,7 +61,7 @@ var fbAppId = '980336382079406';
   };
 
     $scope.fbSignup = function(){
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && screen.width <= 480){
+        if(isMobile.any() || isMobile.iOS() ){
             $cordovaOauth.facebook(fbAppId, ['email', 'read_stream', 'user_website', 'user_location', 'user_relationships']).then(function(result) {
                 //$localStorage.accessToken = result.access_token;
                 //$location.path("/profile");
