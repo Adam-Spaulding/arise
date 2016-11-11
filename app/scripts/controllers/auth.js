@@ -62,11 +62,10 @@ var fbAppId = '980336382079406';
 
     $scope.fbSignup = function(){
         if(isMobile.any() || isMobile.iOS() ){
-            $cordovaOauth.facebook(fbAppId, ['email', 'read_stream', 'user_website', 'user_location', 'user_relationships']).then(function(result) {
-                //$localStorage.accessToken = result.access_token;
-                //$location.path("/profile");
-                console.log(result)
-                alert(result)
+            $cordovaOauth.facebook(fbAppId, ['email']).then(function(result) {
+                console.log(result);
+                alert('it worked with fb token'+result);
+                //alert(result);
             }, function(error) {
                 alert('There was a problem signing in!  See the console for logs');
                 console.log(error);
@@ -80,7 +79,7 @@ var fbAppId = '980336382079406';
             })
             console.log('kaka')
         }
-    }
+    };
 	function errMessage(err) {
 
     var msg = 'Unknown Error...';
@@ -102,7 +101,7 @@ var fbAppId = '980336382079406';
 
     toaster.pop('error', msg);
   };
-      function thirdPartyLogin(provider) {
+    function thirdPartyLogin(provider) {
         var deferred = $.Deferred();
         rootRef.authWithOAuthPopup(provider, function (err, user) {
             if (err) {
