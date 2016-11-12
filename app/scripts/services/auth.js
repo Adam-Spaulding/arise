@@ -49,7 +49,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
 			window.location.href = '/';
     },
 
-		changePassword: function(user) {
+	changePassword: function(user) {
 			return auth.$changePassword({email: user.email, oldPassword: user.oldPass, newPassword: user.newPass});
 		},
 
@@ -60,17 +60,21 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
     requireAuth: function() {
       return auth.$requireAuth();
     },
+      authWithMobile: function (success) {
+        auth.$authWithOAuthPopup('facebook')
+            .then(function(authData) {
+              if(authData){
+                addLoggedinUserToFirebase(authData, success)
+              }
+            },function(err) {
+              console.log(err);
+            });
+      },
     fbAuth: function(success) {
-      var fbUser = {}
       return ref.authWithOAuthPopup('facebook', function(error, authData) {
         console.log(error,authData)
         if(authData){
-          fbUser.name = authData.facebook.cachedUserProfile.name;
-          fbUser.email = authData.facebook.email;
-          fbUser.img = authData.facebook.profileImageURL;
-          fbUser.uid = authData.facebook.cachedUserProfile.id;
-          Auth.createProfile(authData.auth.uid, fbUser,'facebookAuth');
-          success(authData)
+          addLoggedinUserToFirebase(authData, success)
         }else{
           console.log(error)
         }
@@ -94,6 +98,16 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
       angular.copy({}, Auth.user);
 		}
 	});
+
+  function addLoggedinUserToFirebase(authData, success){
+    var fbUser = {};
+    fbUser.name = authData.facebook.cachedUserProfile.name;
+    fbUser.email = authData.facebook.email;
+    fbUser.img = authData.facebook.profileImageURL;
+    fbUser.uid = authData.facebook.cachedUserProfile.id;
+    Auth.createProfile(authData.auth.uid, fbUser,'facebookAuth');
+    success()
+  }
 
 	function get_gravatar(email, size) {
 

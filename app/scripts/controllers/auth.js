@@ -61,15 +61,11 @@ var fbAppId = '980336382079406';
   };
 
     $scope.fbSignup = function(){
-        if(isMobile.any() || isMobile.iOS() ){
-            $cordovaOauth.facebook(fbAppId, ['email']).then(function(result) {
-                console.log(result);
-                alert('it worked with fb token'+result);
-                //alert(result);
-            }, function(error) {
-                alert('There was a problem signing in!  See the console for logs');
-                console.log(error);
-            });
+        if(isMobile.any() || isMobile.iOS() || true ){
+            Auth.authWithMobile(function () {
+                toaster.pop('success', 'Logged in successfully');
+                $location.path('/');
+            })
         }else{
             Auth.fbAuth(function() {
                 toaster.pop('success', 'Logged in successfully');
