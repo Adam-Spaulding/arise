@@ -5,7 +5,7 @@
 	<div class="action">
 		<div class="list-group" id="">
 			<div class="row">
-				<a ng-href="/#/callforhelp">
+				<a ng-href="#/callforhelp">
 					<div class="col-xs-6">
 						<i class="fa fa-bullhorn" aria-hidden="true"></i>
 						<p>GET HELP</p>
@@ -67,7 +67,7 @@
 												<div class="tab-pane" ng-init="limit = 5" ng-class="{ active: activeTab === 'calls-placed' }">
 													<p><div class="title" ng-hide="tasks && (tasks | filter: { poster:user.uid , status: '!closed' } | orderBy: 'datetime':true).length > 0">
 		                        <p>Need Help?</p>
-														<a class="btn btn-primary" ng-href="/#/callforhelp">GET HELP NOW</a>
+														<a class="btn btn-primary" ng-href="#/callforhelp">GET HELP NOW</a>
 		                      </div></p>
 													<a ng-repeat="task in tasks | filter: {title: searchTask , poster:user.uid , status: '!closed' } | orderBy: 'datetime':true | limitTo: limit as results"  ng-href="#/call/{{task.$id}}" style="color: #363636 !important;">
 														<div id="card" class="list-item row" style="margin-bottom:20px !important;">
